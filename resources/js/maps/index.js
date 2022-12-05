@@ -11,10 +11,11 @@ import render_live_map from './live_map';
 import render_route_map from './route_map';
 import render_base_map from './base_map';
 
-require('leaflet.geodesic');
-require('leaflet-rotatedmarker');
+import 'leaflet.geodesic';
+import 'leaflet-rotatedmarker';
 
-window.L = require('leaflet');
+import L from 'leaflet';
+window.L = L;
 
 export {
   render_airspace_map,

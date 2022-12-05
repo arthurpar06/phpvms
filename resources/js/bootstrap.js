@@ -13,7 +13,8 @@ import Storage from './storage';
 import config from './config';
 import request from './request';
 
-window.axios = require('axios');
+import axios from 'axios';
+window.axios = axios;
 
 /**
  * Container for phpVMS specific functions
@@ -24,4 +25,4 @@ window.phpvms = {
   Storage,
 };
 
-require('./common');
+import './common';

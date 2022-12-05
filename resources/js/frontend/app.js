@@ -8,7 +8,7 @@
 // Import the bids functionality
 import { addBid, removeBid } from './bids';
 
-require('./../bootstrap');
+import './../bootstrap';
 
 window.phpvms.bids = {
   addBid,
@@ -16,4 +16,5 @@ window.phpvms.bids = {
 };
 
 // Import the mapping function
-window.phpvms.map = require('../maps/index');
+import phpvms.map from '../maps/index';
+window.phpvms.map = phpvms.map;
