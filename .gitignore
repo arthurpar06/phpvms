@@ -88,3 +88,5 @@ sync.sh
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+/public/build
