@@ -12,10 +12,11 @@
 import airport_lookup from './airport_lookup';
 import calculate_distance from './calculate_distance';
 
-require('./../bootstrap');
+import './../bootstrap';
 
 window.phpvms.airport_lookup = airport_lookup;
 window.phpvms.calculate_distance = calculate_distance;
 
 // Import the mapping function
-window.phpvms.map = require('../maps/index');
+import phpvms.map from '../maps/index';
+window.phpvms.map = phpvms.map;

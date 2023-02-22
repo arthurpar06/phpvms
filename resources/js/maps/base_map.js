@@ -7,7 +7,7 @@
  */
 
 const leaflet = require('leaflet');
-require('leaflet-providers');
+import 'leaflet-providers';
 
 export default (_opts) => {
   const opts = Object.assign({
