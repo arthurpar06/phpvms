@@ -6,7 +6,7 @@ use App\Models\Airline;
 use App\Models\Journal;
 use App\Services\AirlineService;
 
-class AirlineTest extends TestCase
+final class AirlineTest extends TestCase
 {
     /** @var AirlineService */
     protected $airlineSvc;

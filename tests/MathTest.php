@@ -5,7 +5,7 @@ namespace Tests;
 use App\Support\Math;
 use App\Support\Units\Distance;
 
-class MathTest extends TestCase
+final class MathTest extends TestCase
 {
     /**
      * Test adding/subtracting a percentage

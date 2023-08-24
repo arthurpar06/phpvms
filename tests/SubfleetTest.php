@@ -5,7 +5,7 @@ namespace Tests;
 use App\Models\Fare;
 use App\Services\FareService;
 
-class SubfleetTest extends TestCase
+final class SubfleetTest extends TestCase
 {
     protected $ac_svc;
     protected $ICAO = 'B777';

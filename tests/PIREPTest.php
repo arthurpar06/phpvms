@@ -26,7 +26,7 @@ use App\Support\Units\Fuel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 
-class PIREPTest extends TestCase
+final class PIREPTest extends TestCase
 {
     /** @var PirepService */
     protected $pirepSvc;

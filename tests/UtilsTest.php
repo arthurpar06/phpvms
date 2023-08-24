@@ -9,7 +9,7 @@ use App\Support\Units\Time;
 use App\Support\Utils;
 use Carbon\Carbon;
 
-class UtilsTest extends TestCase
+final class UtilsTest extends TestCase
 {
     public function testDates(): void
     {
