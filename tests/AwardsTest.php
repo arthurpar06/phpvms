@@ -30,7 +30,7 @@ class AwardsTest extends TestCase
     /**
      * Make sure the awards classes are returned
      */
-    public function testGetAwardsClasses()
+    public function testGetAwardsClasses(): void
     {
         $classes = $this->awardSvc->findAllAwardClasses();
         $this->assertGreaterThanOrEqual(2, $classes);
@@ -39,7 +39,7 @@ class AwardsTest extends TestCase
     /**
      * Test to make sure that the award is actually given out
      */
-    public function testAwardsGiven()
+    public function testAwardsGiven(): void
     {
         // Create one award that's given out with one flight
         $award = Award::factory()->create([
@@ -74,7 +74,7 @@ class AwardsTest extends TestCase
     /**
      * Test the flight route
      */
-    public function testFlightRouteAward()
+    public function testFlightRouteAward(): void
     {
         /** @var \App\Models\User $user */
         $user = User::factory()->create([

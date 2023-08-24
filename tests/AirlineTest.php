@@ -19,7 +19,7 @@ class AirlineTest extends TestCase
         $this->airlineSvc = app(AirlineService::class);
     }
 
-    public function testAddAirline()
+    public function testAddAirline(): void
     {
         $attrs = \App\Models\Airline::factory()->make([
             'iata' => '',
@@ -47,7 +47,7 @@ class AirlineTest extends TestCase
     /**
      * Try deleting an airline which has flights/other assets that exist
      */
-    public function testDeleteAirlineWithFlight()
+    public function testDeleteAirlineWithFlight(): void
     {
         $airline = \App\Models\Airline::factory()->create();
         \App\Models\Flight::factory()->create([
@@ -60,7 +60,7 @@ class AirlineTest extends TestCase
     /**
      * Try deleting an airline with existing PIREPs
      */
-    public function testDeleteAirlineWithPirep()
+    public function testDeleteAirlineWithPirep(): void
     {
         $airline = \App\Models\Airline::factory()->create();
         \App\Models\Pirep::factory()->create([

@@ -87,7 +87,7 @@ class AcarsTest extends TestCase
     /**
      * Test some prefile error conditions
      */
-    public function testPrefileErrors()
+    public function testPrefileErrors(): void
     {
         $this->user = User::factory()->create();
 
@@ -114,7 +114,7 @@ class AcarsTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testPrefileAircraftNotAtAirport()
+    public function testPrefileAircraftNotAtAirport(): void
     {
         $this->settingsRepo->store('pilots.only_flights_from_current', false);
         $this->settingsRepo->store('pireps.restrict_aircraft_to_rank', false);
@@ -158,7 +158,7 @@ class AcarsTest extends TestCase
         );
     }
 
-    public function testBlankAirport()
+    public function testBlankAirport(): void
     {
         $this->user = User::factory()->create();
 
@@ -278,7 +278,7 @@ class AcarsTest extends TestCase
     /**
      * Post a PIREP into a PREFILE state and post ACARS
      */
-    public function testPrefileAndUpdates()
+    public function testPrefileAndUpdates(): void
     {
         $subfleet = $this->createSubfleetWithAircraft(2);
         $rank = $this->createRank(10, [$subfleet['subfleet']->id]);
@@ -395,7 +395,7 @@ class AcarsTest extends TestCase
         $this->assertEquals($body['state'], PirepState::CANCELLED);
     }
 
-    public function testPrefileAndInvalidUpdates()
+    public function testPrefileAndInvalidUpdates(): void
     {
         $subfleet = $this->createSubfleetWithAircraft(2);
         $rank = $this->createRank(10, [$subfleet['subfleet']->id]);
@@ -446,7 +446,7 @@ class AcarsTest extends TestCase
      *
      * @throws \Exception
      */
-    public function testAcarsUpdates()
+    public function testAcarsUpdates(): void
     {
         $subfleet = $this->createSubfleetWithAircraft(2);
         $rank = $this->createRank(10, [$subfleet['subfleet']->id]);
@@ -689,7 +689,7 @@ class AcarsTest extends TestCase
     /**
      * Test aircraft is allowed
      */
-    public function testAircraftAllowed()
+    public function testAircraftAllowed(): void
     {
         $this->settingsRepo->store('pireps.restrict_aircraft_to_rank', true);
 
@@ -735,7 +735,7 @@ class AcarsTest extends TestCase
     /**
      * Test aircraft permissions being ignored
      */
-    public function testIgnoreAircraftAllowed()
+    public function testIgnoreAircraftAllowed(): void
     {
         $this->settingsRepo->store('pireps.restrict_aircraft_to_rank', false);
 
@@ -778,7 +778,7 @@ class AcarsTest extends TestCase
      *
      * @throws Exception
      */
-    public function testMultipleAcarsPositionUpdates()
+    public function testMultipleAcarsPositionUpdates(): void
     {
         $pirep = $this->createPirep()->toArray();
 
@@ -811,7 +811,7 @@ class AcarsTest extends TestCase
         $response->assertStatus(200)->assertJsonCount($acars_count, 'data');
     }
 
-    public function testNonExistentPirepGet()
+    public function testNonExistentPirepGet(): void
     {
         $this->user = User::factory()->create();
 
@@ -820,7 +820,7 @@ class AcarsTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testNonExistentPirepStore()
+    public function testNonExistentPirepStore(): void
     {
         $this->user = User::factory()->create();
 
@@ -830,7 +830,7 @@ class AcarsTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testAcarsIsoDate()
+    public function testAcarsIsoDate(): void
     {
         $pirep = $this->createPirep()->toArray();
 
@@ -852,7 +852,7 @@ class AcarsTest extends TestCase
     /**
      * Test the validation
      */
-    public function testAcarsInvalidRoutePost()
+    public function testAcarsInvalidRoutePost(): void
     {
         $pirep = $this->createPirep()->toArray();
 
@@ -881,7 +881,7 @@ class AcarsTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testAcarsLogPost()
+    public function testAcarsLogPost(): void
     {
         $pirep = $this->createPirep()->toArray();
 
@@ -918,7 +918,7 @@ class AcarsTest extends TestCase
         $this->assertEquals(1, $body['count']);
     }
 
-    public function testAcarsRoutePost()
+    public function testAcarsRoutePost(): void
     {
         $pirep = $this->createPirep()->toArray();
 
@@ -976,7 +976,7 @@ class AcarsTest extends TestCase
     /**
      * Try to refile the same PIREP
      */
-    public function testDuplicatePirep()
+    public function testDuplicatePirep(): void
     {
         $pirep = $this->createPirep()->toArray();
 

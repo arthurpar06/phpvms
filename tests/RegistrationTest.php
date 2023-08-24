@@ -18,7 +18,7 @@ class RegistrationTest extends TestCase
      *
      * @return void
      */
-    public function testRegistration()
+    public function testRegistration(): void
     {
         $admin = $this->createAdminUser(['name' => 'testRegistration Admin']);
 

@@ -24,7 +24,7 @@ class NewsTest extends TestCase
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function testNewsNotifications()
+    public function testNewsNotifications(): void
     {
         /** @var User[] $users */
         $users_opt_in = User::factory()->count(5)->create(['opt_in' => true]);

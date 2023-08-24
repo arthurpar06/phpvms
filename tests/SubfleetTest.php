@@ -16,7 +16,7 @@ class SubfleetTest extends TestCase
         $this->addData('base');
     }
 
-    public function testSubfleetFaresNoOverride()
+    public function testSubfleetFaresNoOverride(): void
     {
         /** @var FareService $fare_svc */
         $fare_svc = app(FareService::class);
