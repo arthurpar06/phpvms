@@ -1,7 +1,11 @@
 {
     "name": "phpvms/phpvms",
     "description": "phpVMS - Virtual Airline Administration",
-    "keywords": ["phpvms", "virtual", "airlines"],
+    "keywords": [
+        "phpvms",
+        "virtual",
+        "airlines"
+    ],
     "license": "BSD-3-Clause",
     "type": "project",
     "minimum-stability": "dev",
@@ -9,10 +13,10 @@
     "homepage": "http://www.phpvms.net",
     "repositories": [
         {
-          "type": "vcs",
-          "url": "https://github.com/arthurpar06/laravel-theme"
+            "type": "vcs",
+            "url": "https://github.com/arthurpar06/laravel-theme"
         }
-      ],
+    ],
     "require": {
         "php": ">=8.1",
         "ext-json": "*",
@@ -88,7 +92,7 @@
         "friendsofphp/php-cs-fixer": "^3.17.0",
         "mockery/mockery": "^1.5.0",
         "nunomaduro/collision": "^v6.1.0",
-        "phpunit/phpunit": "~9.5.14",
+        "phpunit/phpunit": "^10.0",
         "sempro/phpunit-pretty-print": "^1.4.0",
         "laravel/sail": "^1.23"
     },
@@ -109,13 +113,17 @@
             "Tests\\": "tests/"
         }
     },
-     "extra": {
-         "installer-types": ["phpvms-module"],
-         "installer-paths": {
-             "modules/{$name}/": ["type:phpvms-module"]
-         },
-         "module-dir": "modules",
-         "symfony": {
+    "extra": {
+        "installer-types": [
+            "phpvms-module"
+        ],
+        "installer-paths": {
+            "modules/{$name}/": [
+                "type:phpvms-module"
+            ]
+        },
+        "module-dir": "modules",
+        "symfony": {
             "require": "^6.0"
         }
     },
