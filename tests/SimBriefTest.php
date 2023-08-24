@@ -15,7 +15,7 @@ use App\Services\SimBriefService;
 use App\Support\Utils;
 use Carbon\Carbon;
 
-class SimBriefTest extends TestCase
+final class SimBriefTest extends TestCase
 {
     private static $simbrief_flight_id = 'simbriefflightid';
 
@@ -97,7 +97,7 @@ class SimBriefTest extends TestCase
     /**
      * Read from the SimBrief URL
      */
-    public function testReadSimbrief()
+    public function testReadSimbrief(): void
     {
         $userinfo = $this->createUserData();
         $this->user = $userinfo['user'];
@@ -137,7 +137,7 @@ class SimBriefTest extends TestCase
     /**
      * Check that the API calls are working (simbrief in the response, can retrieve the briefing)
      */
-    public function testApiCalls()
+    public function testApiCalls(): void
     {
         $userinfo = $this->createUserData();
         $this->user = $userinfo['user'];
@@ -182,7 +182,7 @@ class SimBriefTest extends TestCase
     /**
      * Make sure the user's bids have the Simbrief data show up
      */
-    public function testUserBidSimbrief()
+    public function testUserBidSimbrief(): void
     {
         $fares = [
             [
@@ -229,7 +229,7 @@ class SimBriefTest extends TestCase
      *
      * @throws \Exception
      */
-    public function testUserBidSimbriefDoesntLeak()
+    public function testUserBidSimbriefDoesntLeak(): void
     {
         $this->updateSetting('bids.disable_flight_on_bid', false);
         $fares = [
@@ -279,7 +279,7 @@ class SimBriefTest extends TestCase
         $this->assertEquals($fares[0]['count'], $subfleet['fares'][0]['count']);
     }
 
-    public function testAttachToPirep()
+    public function testAttachToPirep(): void
     {
         $userinfo = $this->createUserData();
         $this->user = $userinfo['user'];
@@ -327,7 +327,7 @@ class SimBriefTest extends TestCase
     /**
      * Test clearing expired briefs
      */
-    public function testClearExpiredBriefs()
+    public function testClearExpiredBriefs(): void
     {
         $userinfo = $this->createUserData();
         $user = $userinfo['user'];

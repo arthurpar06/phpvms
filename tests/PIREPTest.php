@@ -26,7 +26,7 @@ use App\Support\Units\Fuel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 
-class PIREPTest extends TestCase
+final class PIREPTest extends TestCase
 {
     /** @var PirepService */
     protected $pirepSvc;
@@ -34,7 +34,7 @@ class PIREPTest extends TestCase
     /** @var SettingRepository */
     protected $settingsRepo;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->addData('base');
@@ -72,7 +72,7 @@ class PIREPTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testAddPirep()
+    public function testAddPirep(): void
     {
         $user = User::factory()->create();
 
@@ -163,7 +163,7 @@ class PIREPTest extends TestCase
     /**
      * Make sure the unit conversions look to be proper
      */
-    public function testUnitFields()
+    public function testUnitFields(): void
     {
         /** @var Pirep $pirep */
         $pirep = $this->createPirep();
@@ -231,7 +231,7 @@ class PIREPTest extends TestCase
         );
     }
 
-    public function testGetUserPireps()
+    public function testGetUserPireps(): void
     {
         $this->user = User::factory()->create();
         $pirep_done = Pirep::factory()->create([
@@ -275,7 +275,7 @@ class PIREPTest extends TestCase
      *
      * @throws \Exception
      */
-    public function testPirepNotifications()
+    public function testPirepNotifications(): void
     {
         /** @var User $user */
         $user = User::factory()->create([
@@ -303,7 +303,7 @@ class PIREPTest extends TestCase
     /**
      * check the stats/ranks, etc have incremented properly
      */
-    public function testPilotStatsIncr()
+    public function testPilotStatsIncr(): void
     {
         $this->updateSetting('pilots.count_transfer_hours', false);
 
@@ -379,7 +379,7 @@ class PIREPTest extends TestCase
      *
      * @throws \Exception
      */
-    public function testPilotDontChangeRank()
+    public function testPilotDontChangeRank(): void
     {
         /** @var Rank $rank */
         $rank = Rank::factory()->create([
@@ -416,7 +416,7 @@ class PIREPTest extends TestCase
     /**
      * check the stats/ranks, etc have incremented properly
      */
-    public function testPilotStatsIncrWithTransferHours()
+    public function testPilotStatsIncrWithTransferHours(): void
     {
         $this->updateSetting('pilots.count_transfer_hours', true);
 
@@ -469,7 +469,7 @@ class PIREPTest extends TestCase
      * When a PIREP is filed by a user on leave, make sure they flip from leave to active
      * It doesn't matter if the PIREP is accepted or rejected
      */
-    public function testPilotStatusChange()
+    public function testPilotStatusChange(): void
     {
         /** @var \App\Models\User $user */
         $user = User::factory()->create([
@@ -495,7 +495,7 @@ class PIREPTest extends TestCase
     /**
      * Find and check for any duplicate PIREPs by a user
      */
-    public function testDuplicatePireps()
+    public function testDuplicatePireps(): void
     {
         $user = User::factory()->create();
         $pirep = Pirep::factory()->create([
@@ -520,7 +520,7 @@ class PIREPTest extends TestCase
         $this->assertFalse($dupe_pirep);
     }
 
-    public function testCancelViaAPI()
+    public function testCancelViaAPI(): void
     {
         $pirep = $this->createPirep()->toArray();
 
@@ -552,7 +552,7 @@ class PIREPTest extends TestCase
     /**
      * When a PIREP is accepted, ensure that the bid is removed
      */
-    public function testPirepBidRemoved()
+    public function testPirepBidRemoved(): void
     {
         $bidSvc = app(BidService::class);
         $flightSvc = app(FlightService::class);
@@ -586,7 +586,7 @@ class PIREPTest extends TestCase
         $this->assertNull($user_bid);
     }
 
-    public function testPirepProgressPercent()
+    public function testPirepProgressPercent(): void
     {
         $this->updateSetting('units.distance', 'km');
 
@@ -617,7 +617,7 @@ class PIREPTest extends TestCase
     /**
      * See that the notifications are properly formatted
      */
-    public function testNotificationFormatting()
+    public function testNotificationFormatting(): void
     {
         $this->updateSetting('units.distance', 'km');
 

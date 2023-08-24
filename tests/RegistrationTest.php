@@ -9,7 +9,7 @@ use App\Services\UserService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
-class RegistrationTest extends TestCase
+final class RegistrationTest extends TestCase
 {
     /**
      * A basic test example.
@@ -18,7 +18,7 @@ class RegistrationTest extends TestCase
      *
      * @return void
      */
-    public function testRegistration()
+    public function testRegistration(): void
     {
         $admin = $this->createAdminUser(['name' => 'testRegistration Admin']);
 

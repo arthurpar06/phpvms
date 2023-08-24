@@ -25,13 +25,13 @@ use App\Services\ImportService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
-class ImporterTest extends TestCase
+final class ImporterTest extends TestCase
 {
     private $importBaseClass;
     private $importSvc;
     private $fareSvc;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->importBaseClass = new ImportExport();

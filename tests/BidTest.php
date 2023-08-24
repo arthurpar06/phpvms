@@ -15,7 +15,7 @@ use App\Services\BidService;
 use App\Services\FareService;
 use App\Services\FlightService;
 
-class BidTest extends TestCase
+final class BidTest extends TestCase
 {
     /** @var BidService */
     protected $bidSvc;
@@ -26,7 +26,7 @@ class BidTest extends TestCase
     /** @var SettingRepository */
     protected $settingsRepo;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->addData('base');
@@ -59,7 +59,7 @@ class BidTest extends TestCase
      *
      * @throws Exception|\Exception
      */
-    public function testBids()
+    public function testBids(): void
     {
         $this->settingsRepo->store('bids.allow_multiple_bids', true);
         $this->settingsRepo->store('bids.disable_flight_on_bid', false);
@@ -161,7 +161,7 @@ class BidTest extends TestCase
         $this->assertCount(0, $body);
     }
 
-    public function testMultipleBidsSingleFlight()
+    public function testMultipleBidsSingleFlight(): void
     {
         $this->settingsRepo->store('bids.disable_flight_on_bid', true);
 
@@ -183,7 +183,7 @@ class BidTest extends TestCase
     /**
      * Add a flight bid VIA the API
      */
-    public function testAddBidApi()
+    public function testAddBidApi(): void
     {
         $this->user = User::factory()->create();
         $user2 = User::factory()->create();
@@ -221,7 +221,7 @@ class BidTest extends TestCase
     /**
      * Delete a flight and make sure all the bids are gone
      */
-    public function testDeleteFlightWithBids()
+    public function testDeleteFlightWithBids(): void
     {
         $user = User::factory()->create();
         $headers = $this->headers($user);
@@ -261,7 +261,7 @@ class BidTest extends TestCase
     /**
      * Create a bid with an aircraft and check the aircraft booking
      */
-    public function testBidWithAircraft()
+    public function testBidWithAircraft(): void
     {
         $this->settingsRepo->store('bids.allow_multiple_bids', true);
         $this->settingsRepo->store('bids.block_aircraft', true);

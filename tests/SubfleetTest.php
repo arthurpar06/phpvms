@@ -5,18 +5,18 @@ namespace Tests;
 use App\Models\Fare;
 use App\Services\FareService;
 
-class SubfleetTest extends TestCase
+final class SubfleetTest extends TestCase
 {
     protected $ac_svc;
     protected $ICAO = 'B777';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->addData('base');
     }
 
-    public function testSubfleetFaresNoOverride()
+    public function testSubfleetFaresNoOverride(): void
     {
         /** @var FareService $fare_svc */
         $fare_svc = app(FareService::class);

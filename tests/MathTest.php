@@ -5,12 +5,12 @@ namespace Tests;
 use App\Support\Math;
 use App\Support\Units\Distance;
 
-class MathTest extends TestCase
+final class MathTest extends TestCase
 {
     /**
      * Test adding/subtracting a percentage
      */
-    public function testAddPercent()
+    public function testAddPercent(): void
     {
         $tests = [
             ['expected' => 112, 'fn' => Math::getPercent(100, 112)],
@@ -30,7 +30,7 @@ class MathTest extends TestCase
         }
     }
 
-    public function testDistanceMeasurement()
+    public function testDistanceMeasurement(): void
     {
         $dist = new Distance(1, 'mi');
         $this->assertEqualsWithDelta(1609.34, $dist['m'], 0.1);
