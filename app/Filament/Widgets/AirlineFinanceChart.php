@@ -11,8 +11,6 @@ use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\On;
 
 class AirlineFinanceChart extends ChartWidget
 {

@@ -9,9 +9,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Pages\Dashboard\Concerns\HasFiltersForm;
-use Filament\Pages\Page;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Url;
 
 class Finances extends BaseDashboard
 {
@@ -45,7 +43,7 @@ class Finances extends BaseDashboard
                 Forms\Components\DatePicker::make('start_date')->native(false)->maxDate(fn (Get $get) => $get('end_date')),
                 Forms\Components\DatePicker::make('end_date')->native(false)->minDate(fn (Get $get) => $get('start_date'))->maxDate(now()),
                 Forms\Components\Select::make('airline_id')->label('Airline')->options(app(AirlineRepository::class)->selectBoxList()),
-            ])->columns(3)
+            ])->columns(3),
         ]);
     }
 
