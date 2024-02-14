@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\AircraftResource\Pages;
 
-use App\Filament\Actions\ExportAction;
-use App\Filament\Actions\ImportAction;
+use App\Filament\Exports\AircraftExporter;
+use App\Filament\Imports\AircraftImporter;
 use App\Filament\Resources\AircraftResource;
-use App\Models\Enums\ImportExportType;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ImportAction;
 
 class ListAircraft extends ListRecords
 {
@@ -16,8 +17,16 @@ class ListAircraft extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            ExportAction::make('export')->arguments(['resourceTitle' => 'aircraft', 'exportType' => ImportExportType::AIRCRAFT]),
-            ImportAction::make('import')->arguments(['resourceTitle' => 'aircraft', 'importType' => ImportExportType::AIRCRAFT]),
+            ExportAction::make()
+                ->exporter(AircraftExporter::class)
+                ->icon('heroicon-o-document-arrow-down')
+                ->color('primary')
+                ->label('Export to CSV'),
+            ImportAction::make()
+                ->importer(AircraftImporter::class)
+                ->icon('heroicon-o-document-arrow-up')
+                ->color('primary')
+                ->label('Import from CSV'),
             Actions\CreateAction::make()->label('Add Aircraft')->icon('heroicon-o-plus-circle'),
         ];
     }
