@@ -72,6 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentSpatieLaravelBackupPlugin::make()
                     ->usingPage(Backups::class),
             ])
+            ->databaseNotifications()
             ->brandName('phpVMS')
             ->favicon(public_asset('assets/img/favicon.png'))
             ->spa();
