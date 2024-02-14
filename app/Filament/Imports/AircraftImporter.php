@@ -16,6 +16,7 @@ class AircraftImporter extends Importer
         return [
             ImportColumn::make('subfleet')
                 ->relationship(resolveUsing: 'type')
+                ->rules(['required'])
                 ->requiredMapping(),
 
             ImportColumn::make('iata'),
@@ -23,9 +24,11 @@ class AircraftImporter extends Importer
             ImportColumn::make('hub_id'),
             ImportColumn::make('airport_id'),
             ImportColumn::make('name')
+                ->rules(['required'])
                 ->requiredMapping(),
 
             ImportColumn::make('registration')
+                ->rules(['required'])
                 ->requiredMapping(),
 
             ImportColumn::make('fin'),
