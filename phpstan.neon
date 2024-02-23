@@ -1,8 +1,19 @@
-parameters:
-  autoload_files:
-    #- %currentWorkingDirectory%/_ide_helper.php
-  ignoreErrors:
-    - '#PHPDoc tag(.*)#'
-    - '#Access to an undefined property App\\Models(.*)#'
 includes:
-  - vendor/weebly/phpstan-laravel/extension.neon
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app/
+
+    # Level 9 is the highest level
+    level: 0
+
+    ignoreErrors:
+        # Some Facades errors with nwidart laravel modules
+        - '#Static call to instance method Nwidart\\Modules\\Facades\\Module::[a-zA-Z]+\(\)#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
+#
+#    checkMissingIterableValueType: false

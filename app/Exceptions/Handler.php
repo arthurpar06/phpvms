@@ -122,16 +122,4 @@ class Handler extends ExceptionHandler
 
         return redirect()->guest('login');
     }
-
-    /**
-     * Ignition error page integration
-     */
-    protected function whoopsHandler()
-    {
-        try {
-            return app(HandlerInterface::class);
-        } catch (BindingResolutionException $e) {
-            return parent::whoopsHandler();
-        }
-    }
 }

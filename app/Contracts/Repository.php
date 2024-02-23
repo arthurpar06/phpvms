@@ -3,7 +3,7 @@
 namespace App\Contracts;
 
 use Exception;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Exceptions\RepositoryException;
 

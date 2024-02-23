@@ -107,7 +107,7 @@ class AircraftController extends Controller
         return view('admin.aircraft.create', [
             'airports'    => [],
             'hubs'        => [],
-            'subfleets'   => Subfleet::all()->pluck('name', 'id'),
+            'subfleets'   => Subfleet::pluck('name', 'id'),
             'statuses'    => AircraftStatus::select(false),
             'subfleet_id' => $request->query('subfleet'),
         ]);
@@ -184,7 +184,7 @@ class AircraftController extends Controller
             'aircraft'  => $aircraft,
             'airports'  => $airports,
             'hubs'      => $airports,
-            'subfleets' => Subfleet::all()->pluck('name', 'id'),
+            'subfleets' => Subfleet::pluck('name', 'id'),
             'statuses'  => AircraftStatus::select(false),
         ]);
     }

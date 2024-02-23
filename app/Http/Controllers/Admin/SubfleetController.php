@@ -117,7 +117,7 @@ class SubfleetController extends Controller
     public function create(): View
     {
         return view('admin.subfleets.create', [
-            'airlines'   => Airline::all()->pluck('name', 'id'),
+            'airlines'   => Airline::pluck('name', 'id'),
             'airports'   => [],
             'hubs'       => Airport::where('hub', 1)->pluck('name', 'id'),
             'fuel_types' => FuelType::labels(),
@@ -199,7 +199,7 @@ class SubfleetController extends Controller
         }
 
         return view('admin.subfleets.edit', [
-            'airlines'      => Airline::all()->pluck('name', 'id'),
+            'airlines'      => Airline::pluck('name', 'id'),
             'airports'      => $airports,
             'fuel_types'    => FuelType::labels(),
             'avail_fares'   => $avail_fares,

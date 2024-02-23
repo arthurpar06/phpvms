@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contracts\Service;
 use App\Models\File;
+use App\Support\Utils;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -32,7 +33,7 @@ class FileService extends Service
             'disk'         => config('filesystems.public_files'),
         ], $attrs);
 
-        $id = File::createNewHashId();
+        $id = Utils::generateNewId();
         $path_info = pathinfo($file->getClientOriginalName());
 
         // Create the file, add the ID to the front of the file to account

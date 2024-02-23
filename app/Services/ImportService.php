@@ -61,7 +61,7 @@ class ImportService extends Service
      *
      * @throws ValidationException
      *
-     * @return Reader
+     * @return ?Reader
      */
     public function openCsv($csv_file)
     {

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\App;
  */
 class CreateConfigs extends Command
 {
-    protected $signature = 'phpvms:config {db_host} {db_name} {db_user} {db_pass}';
+    protected $signature = 'phpvms:config {name} {db_host} {db_name} {db_user} {db_pass}';
     protected $description = 'Create the config files';
 
     public function __construct(

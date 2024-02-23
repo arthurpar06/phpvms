@@ -50,6 +50,8 @@ class ExpenseRepository extends Repository implements CacheableInterface
             if ($ref_model_id) {
                 $where['ref_model_id'] = $ref_model_id;
             }
+        } else {
+            $ref_model_type = null;
         }
 
         $expenses = $this->findWhere($where);

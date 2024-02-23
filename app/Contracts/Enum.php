@@ -21,7 +21,7 @@ abstract class Enum
      *
      * @param $val
      */
-    public function __construct($val)
+    final public function __construct($val)
     {
         $this->value = $val;
     }

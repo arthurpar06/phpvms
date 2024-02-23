@@ -91,7 +91,7 @@ class UserController extends Controller
             'country'   => new ISO3166(),
             'countries' => $countries,
             'airports'  => [],
-            'ranks'     => Rank::all()->pluck('name', 'id'),
+            'ranks'     => Rank::pluck('name', 'id'),
             'roles'     => $roles,
         ]);
     }
@@ -180,7 +180,7 @@ class UserController extends Controller
             'timezones'     => Timezonelist::toArray(),
             'airports'      => $airports,
             'airlines'      => $airlines,
-            'ranks'         => Rank::all()->pluck('name', 'id'),
+            'ranks'         => Rank::pluck('name', 'id'),
             'roles'         => $roles,
             'avail_ratings' => $avail_ratings,
         ]);

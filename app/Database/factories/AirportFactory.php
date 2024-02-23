@@ -33,7 +33,7 @@ class AirportFactory extends Factory
         for ($i = 0; $i < 5; $i++) {
             try {
                 $string .= $characters[random_int(0, $max)];
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
             }
         }
 
