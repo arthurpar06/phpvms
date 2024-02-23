@@ -27,51 +27,51 @@ use Kleemans\AttributeEvents;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * @property string      id
- * @property string      ident
- * @property string      flight_number
- * @property string      route_code
- * @property string      route_leg
- * @property string      flight_type
- * @property int         airline_id
- * @property int         user_id
- * @property int         aircraft_id
- * @property int         event_id
- * @property Aircraft    aircraft
- * @property Airline     airline
- * @property Airport     arr_airport
- * @property string      arr_airport_id
- * @property Airport     dpt_airport
- * @property string      dpt_airport_id
- * @property Airport     alt_airport
- * @property string      alt_airport_id
- * @property Carbon      block_off_time
- * @property Carbon      block_on_time
- * @property int         block_time
- * @property int         flight_time    In minutes
- * @property int         planned_flight_time
- * @property Fuel        block_fuel
- * @property Fuel        fuel_used
- * @property Distance    distance
- * @property Distance    planned_distance
- * @property float       progress_percent
- * @property int         level
- * @property string      route
- * @property int         score
- * @property User        user
- * @property Flight|null flight
+ * @property string      $id
+ * @property string      $ident
+ * @property string      $flight_number
+ * @property string      $route_code
+ * @property string      $route_leg
+ * @property string      $flight_type
+ * @property int         $airline_id
+ * @property int         $user_id
+ * @property int         $aircraft_id
+ * @property int         $event_id
+ * @property Aircraft    $aircraft
+ * @property Airline     $airline
+ * @property Airport     $arr_airport
+ * @property string      $arr_airport_id
+ * @property Airport     $dpt_airport
+ * @property string      $dpt_airport_id
+ * @property Airport     $alt_airport
+ * @property string      $alt_airport_id
+ * @property Carbon      $block_off_time
+ * @property Carbon      $block_on_time
+ * @property int         $block_time
+ * @property int         $flight_time    In minutes
+ * @property int         $planned_flight_time
+ * @property Fuel        $block_fuel
+ * @property Fuel        $fuel_used
+ * @property Distance    $distance
+ * @property Distance    $planned_distance
+ * @property float       $progress_percent
+ * @property int         $level
+ * @property string      $route
+ * @property int         $score
+ * @property User        $user
+ * @property Flight|null $flight
  * @property Collection  $fields
- * @property string      status
- * @property int         state
- * @property int         source
- * @property string      source_name
- * @property Carbon      submitted_at
- * @property Carbon      created_at
- * @property Carbon      updated_at
+ * @property string      $status
+ * @property int         $state
+ * @property int         $source
+ * @property string      $source_name
+ * @property Carbon      $submitted_at
+ * @property Carbon      $created_at
+ * @property Carbon      $updated_at
  * @property bool        $read_only
- * @property Acars       position
- * @property Acars[]     acars
- * @property mixed       cancelled
+ * @property Acars       $position
+ * @property Acars[]     $acars
+ * @property mixed       $cancelled
  * @property PirepFare[] $fares
  * @property SimBrief    $simbrief
  */
@@ -156,7 +156,7 @@ class Pirep extends Model
         'submitted_at'        => CarbonCast::class,
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'airline_id'     => 'required|exists:airlines,id',
         'aircraft_id'    => 'required|exists:aircraft,id',
         'event_id'       => 'nullable|numeric',

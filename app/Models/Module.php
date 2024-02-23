@@ -6,10 +6,10 @@ use App\Contracts\Model;
 use Carbon\Carbon;
 
 /**
- * @property string name
- * @property bool   enabled
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property string $name
+ * @property bool   $enabled
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Module extends Model
 {
@@ -26,7 +26,7 @@ class Module extends Model
         'enabled' => 'boolean',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name' => 'required',
     ];
 }

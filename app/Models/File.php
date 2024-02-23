@@ -45,7 +45,7 @@ class File extends Model
         'public' => 'boolean',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name' => 'required',
     ];
 

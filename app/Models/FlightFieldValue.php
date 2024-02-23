@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class FlightFieldValue
  *
- * @property string   flight_id
- * @property string   name
- * @property string   value
+ * @property string $flight_id
+ * @property string $name
+ * @property string $value
  */
 class FlightFieldValue extends Model
 {
@@ -24,7 +24,7 @@ class FlightFieldValue extends Model
         'value',
     ];
 
-    public static $rules = [];
+    public static array $rules = [];
 
     /**
      * When setting the name attribute, also set the slug

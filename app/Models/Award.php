@@ -10,13 +10,13 @@ use Kyslik\ColumnSortable\Sortable;
 /**
  * The Award model
  *
- * @property mixed      id
- * @property string     name
- * @property string     description
- * @property string     title
- * @property string     image
- * @property mixed      ref_model
- * @property mixed|null ref_model_params
+ * @property mixed      $id
+ * @property string     $name
+ * @property string     $description
+ * @property string     $title
+ * @property string     $image
+ * @property mixed      $ref_model
+ * @property mixed|null $ref_model_params
  */
 class Award extends Model
 {
@@ -35,7 +35,7 @@ class Award extends Model
         'active',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name'             => 'required',
         'description'      => 'nullable',
         'image_url'        => 'nullable',

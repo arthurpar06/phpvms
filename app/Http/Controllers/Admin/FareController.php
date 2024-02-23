@@ -175,7 +175,7 @@ class FareController extends Controller
      *
      * @param int $id
      *
-     * @return mixed
+     * @return RedirectResponse
      */
     public function destroy(int $id): RedirectResponse
     {

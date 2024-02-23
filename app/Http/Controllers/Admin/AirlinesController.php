@@ -75,7 +75,7 @@ class AirlinesController extends Controller
      *
      * @param int $id
      *
-     * @return mixed
+     * @return View
      */
     public function show(int $id): View
     {

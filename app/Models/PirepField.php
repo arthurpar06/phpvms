@@ -6,8 +6,8 @@ use App\Contracts\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
- * @property string name
- * @property string slug
+ * @property string $name
+ * @property string $slug
  */
 class PirepField extends Model
 {
@@ -26,7 +26,7 @@ class PirepField extends Model
         'required' => 'boolean',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name'        => 'required',
         'description' => 'nullable',
     ];

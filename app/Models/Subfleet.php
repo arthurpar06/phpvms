@@ -16,19 +16,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * @property int        id
- * @property string     type
- * @property string     simbrief_type
- * @property string     name
- * @property int        airline_id
- * @property int        hub_id
- * @property string     ground_handling_multiplier
- * @property Fare[]     fares
- * @property float      cost_block_hour
- * @property float      cost_delay_minute
- * @property Airline    airline
- * @property Airport    home
- * @property int        fuel_type
+ * @property int        $id
+ * @property string     $type
+ * @property string     $simbrief_type
+ * @property string     $name
+ * @property int        $airline_id
+ * @property int        $hub_id
+ * @property string     $ground_handling_multiplier
+ * @property Fare[]     $fares
+ * @property float      $cost_block_hour
+ * @property float      $cost_delay_minute
+ * @property Airline    $airline
+ * @property Airport    $home
+ * @property int        $fuel_type
  * @property Aircraft[] $aircraft
  */
 class Subfleet extends Model
@@ -68,7 +68,7 @@ class Subfleet extends Model
         'gross_weight'               => 'float',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'type'                       => 'required',
         'name'                       => 'required',
         'hub_id'                     => 'nullable',

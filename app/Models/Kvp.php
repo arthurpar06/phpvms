@@ -5,8 +5,8 @@ namespace App\Models;
 use App\Contracts\Model;
 
 /**
- * @property string key
- * @property string value
+ * @property string $key
+ * @property string $value
  */
 class Kvp extends Model
 {

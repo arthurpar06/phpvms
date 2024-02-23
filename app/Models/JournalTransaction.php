@@ -12,16 +12,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string  id  UUID type
- * @property string  currency
- * @property string  memo
- * @property string  transaction_group
- * @property string  post_date
- * @property int credit
- * @property int debit
- * @property string  ref_model
- * @property int ref_model_id
- * @property Journal journal
+ * @property string  $id  UUID type
+ * @property string  $currency
+ * @property string  $memo
+ * @property string  $transaction_group
+ * @property string  $post_date
+ * @property int     $credit
+ * @property int     $debit
+ * @property string  $ref_model
+ * @property int     $ref_model_id
+ * @property Journal $journal
  */
 class JournalTransaction extends Model
 {

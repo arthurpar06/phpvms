@@ -35,6 +35,7 @@ class FinanceController extends Controller
         $month = $request->query('month', date('Y-m'));
         $transaction_groups = $this->financeSvc->getAllAirlineTransactionsBetween($month);
 
+        /** @var Journal */
         $first_journal = Journal::select(['created_at'])
             ->where(['type' => JournalType::AIRLINE])
             ->orderBy('created_at', 'asc')

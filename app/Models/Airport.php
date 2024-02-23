@@ -14,25 +14,25 @@ use Kyslik\ColumnSortable\Sortable;
 /**
  * Class Airport
  *
- * @property string id
- * @property string iata
- * @property string icao
- * @property string name
- * @property string full_name
- * @property string description
- * @property string location
- * @property string region
- * @property string country
- * @property string timezone
- * @property string notes
- * @property float  ground_handling_cost
- * @property float  fuel_100ll_cost
- * @property float  fuel_jeta_cost
- * @property float  fuel_mogas_cost
- * @property float  lat
- * @property float  lon
- * @property int    elevation
- * @property bool   hub
+ * @property string $id
+ * @property string $iata
+ * @property string $icao
+ * @property string $name
+ * @property string $full_name
+ * @property string $description
+ * @property string $location
+ * @property string $region
+ * @property string $country
+ * @property string $timezone
+ * @property string $notes
+ * @property float  $ground_handling_cost
+ * @property float  $fuel_100ll_cost
+ * @property float  $fuel_jeta_cost
+ * @property float  $fuel_mogas_cost
+ * @property float  $lat
+ * @property float  $lon
+ * @property int    $elevation
+ * @property bool   $hub
  */
 class Airport extends Model
 {
@@ -84,7 +84,7 @@ class Airport extends Model
     /**
      * Validation rules
      */
-    public static $rules = [
+    public static array $rules = [
         'icao'                 => 'required',
         'iata'                 => 'sometimes|nullable',
         'name'                 => 'required',

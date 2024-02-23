@@ -49,9 +49,9 @@ class FlightService extends Service
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return Flight
      */
-    public function createFlight($fields)
+    public function createFlight($fields): Flight
     {
         $fields['dpt_airport_id'] = strtoupper($fields['dpt_airport_id']);
         $fields['arr_airport_id'] = strtoupper($fields['arr_airport_id']);

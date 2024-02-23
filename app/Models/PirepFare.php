@@ -46,7 +46,7 @@ class PirepFare extends Model
         'type'     => 'integer',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'count' => 'required',
     ];
 

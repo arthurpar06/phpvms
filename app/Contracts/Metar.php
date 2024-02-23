@@ -17,7 +17,7 @@ abstract class Metar
      *
      * @param $icao
      *
-     * @return mixed
+     * @return string
      */
     abstract protected function get_metar($icao): string;
 
@@ -27,7 +27,7 @@ abstract class Metar
      *
      * @param $icao
      *
-     * @return mixed
+     * @return string
      */
     abstract protected function get_taf($icao): string;
 

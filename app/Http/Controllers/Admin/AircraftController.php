@@ -311,7 +311,7 @@ class AircraftController extends Controller
      * @param int     $id
      * @param Request $request
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return View
      */

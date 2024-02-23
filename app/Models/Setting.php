@@ -6,15 +6,15 @@ use App\Contracts\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
- * @property string id
- * @property string name
- * @property string key
- * @property string value
- * @property string group
- * @property string type
- * @property string options
- * @property int    order
- * @property string description
+ * @property string $id
+ * @property string $name
+ * @property string $key
+ * @property string $value
+ * @property string $group
+ * @property string $type
+ * @property string $options
+ * @property int    $order
+ * @property string $description
  */
 class Setting extends Model
 {
@@ -33,7 +33,7 @@ class Setting extends Model
         'description',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name'  => 'required',
         'key'   => 'required',
         'group' => 'required',

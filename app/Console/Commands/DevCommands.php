@@ -299,6 +299,7 @@ class DevCommands extends Command
     protected function newUserEmail()
     {
         $user_id = $this->argument('param');
+        /** @var User */
         $user = User::find($user_id);
         $user->notify(new UserRegistered($user));
     }

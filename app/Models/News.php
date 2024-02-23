@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * @property int       id
- * @property int|mixed user_id
- * @property string    subject
- * @property string    body
- * @property User      user
+ * @property int    $id
+ * @property int    $user_id
+ * @property string $subject
+ * @property string $body
+ * @property User   $user
  */
 class News extends Model
 {
@@ -29,7 +29,7 @@ class News extends Model
         'body',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'subject' => 'required',
         'body'    => 'required',
     ];

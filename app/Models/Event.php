@@ -18,7 +18,7 @@ class Event extends Model
     ];
 
     // Validation
-    public static $rules = [
+    public static array $rules = [
         'type'        => 'required|numeric',
         'name'        => 'required|max:250',
         'description' => 'nullable',

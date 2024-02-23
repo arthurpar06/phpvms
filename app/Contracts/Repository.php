@@ -36,7 +36,8 @@ abstract class Repository extends BaseRepository
      */
     public function validate($values)
     {
-        $validator = Validator::make($values, $this->model()->rules);
+        /** @var \App\Contracts\Model $this->model */
+        $validator = Validator::make($values, $this->model->rules);
         if ($validator->fails()) {
             return $validator->messages();
         }

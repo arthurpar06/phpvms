@@ -10,18 +10,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string id
- * @property string pirep_id
- * @property int    type
- * @property string name
- * @property float  lat
- * @property float  lon
- * @property float  altitude
- * @property int    gs
- * @property int    ias
- * @property int    heading
- * @property int    order
- * @property int    nav_type
+ * @property string $id
+ * @property string $pirep_id
+ * @property int    $type
+ * @property string $name
+ * @property float  $lat
+ * @property float  $lon
+ * @property float  $altitude
+ * @property int    $gs
+ * @property int    $ias
+ * @property int    $heading
+ * @property int    $order
+ * @property int    $nav_type
  */
 class Acars extends Model
 {
@@ -76,7 +76,7 @@ class Acars extends Model
         'fuel_flow'   => 'float',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'pirep_id' => 'required',
     ];
 

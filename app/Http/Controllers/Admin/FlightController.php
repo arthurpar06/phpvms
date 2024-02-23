@@ -96,6 +96,7 @@ class FlightController extends Controller
 
         $flight->refresh();
         $all_aircraft = $this->subfleetRepo->all();
+        /** @var \Illuminate\Database\Eloquent\Collection $flight->subfleets */
         $avail_fleets = $all_aircraft->except($flight->subfleets->modelKeys());
 
         foreach ($avail_fleets as $ac) {
@@ -375,6 +376,7 @@ class FlightController extends Controller
             $field->save();
         } elseif ($request->isMethod('put')) {
             Log::info('Updating flight field, flight: '.$flight_id, $request->input());
+            /** @var */
             $field = FlightFieldValue::where([
                 'name'      => $request->input('name'),
                 'flight_id' => $flight_id,

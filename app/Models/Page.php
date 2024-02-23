@@ -8,16 +8,16 @@ use App\Models\Enums\PageType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
- * @property int    id
- * @property string name
- * @property string slug
- * @property string icon
- * @property int    type
- * @property bool   public
- * @property bool   enabled
- * @property bool   new_window
- * @property string body
- * @property string link
+ * @property int    $id
+ * @property string $name
+ * @property string $slug
+ * @property string $icon
+ * @property int    $type
+ * @property bool   $public
+ * @property bool   $enabled
+ * @property bool   $new_window
+ * @property string $body
+ * @property string $link
  */
 class Page extends Model
 {
@@ -42,7 +42,7 @@ class Page extends Model
         'new_window' => 'boolean',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name' => 'required|unique:pages,name',
         'body' => 'nullable',
         'type' => 'required',

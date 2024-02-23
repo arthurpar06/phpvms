@@ -30,6 +30,7 @@ class RemoveExpiredLiveFlights extends Listener
         }
 
         $date = Carbon::now('UTC')->subHours(setting('acars.live_time'));
+        /** @var Pirep[] $pireps */
         $pireps = Pirep::where('updated_at', '<', $date)
             ->where('state', PirepState::IN_PROGRESS)
             ->where('status', '<>', PirepStatus::PAUSED)

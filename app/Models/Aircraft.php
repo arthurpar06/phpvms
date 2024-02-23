@@ -19,32 +19,34 @@ use Znck\Eloquent\Relations\BelongsToThrough as ZnckBelongsToThrough;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
 /**
- * @property int      id
- * @property mixed    subfleet_id
- * @property string   airport_id   The apt where the aircraft is
- * @property string   hub_id       The apt where the aircraft is based
- * @property string   ident
- * @property string   name
- * @property string   icao
- * @property string   registration
- * @property string   fin
- * @property int      flight_time
- * @property float    dow
- * @property float    mlw
- * @property float    mtow
- * @property float    zfw
- * @property string   hex_code
- * @property string   selcal
- * @property Airport  airport
- * @property Airport  hub
- * @property Airport  home
- * @property Subfleet subfleet
- * @property int      status
- * @property int      state
- * @property string   simbrief_type
- * @property Carbon   landing_time
- * @property float    fuel_onboard
- * @property Bid      bid
+ * @property int      $id
+ * @property mixed    $subfleet_id
+ * @property string   $airport_id   The apt where the aircraft is
+ * @property string   $hub_id       The apt where the aircraft is based
+ * @property string   $ident
+ * @property string   $name
+ * @property string   $icao
+ * @property string   $registration
+ * @property string   $fin
+ * @property int      $flight_time
+ * @property float    $dow
+ * @property float    $mlw
+ * @property float    $mtow
+ * @property float    $zfw
+ * @property string   $hex_code
+ * @property string   $selcal
+ * @property Airport  $airport
+ * @property Airport  $hub
+ * @property Airport  $home
+ * @property Subfleet $subfleet
+ * @property int      $status
+ * @property int      $state
+ * @property string   $simbrief_type
+ * @property Carbon   $landing_time
+ * @property float    $fuel_onboard
+ * @property Bid      $bid
+ * @property File[]   $files
+ * 
  */
 class Aircraft extends Model
 {
@@ -97,7 +99,7 @@ class Aircraft extends Model
     /**
      * Validation rules
      */
-    public static $rules = [
+    public static array $rules = [
         'name'          => 'required',
         'registration'  => 'required',
         'fin'           => 'nullable',

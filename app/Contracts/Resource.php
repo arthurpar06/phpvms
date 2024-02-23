@@ -49,6 +49,7 @@ class Resource extends JsonResource
     {
         return tap(new CustomAnonymousResourceCollection($resource, static::class), function ($collection) {
             if (property_exists(static::class, 'preserveKeys')) {
+                // @phpstan-ignore-next-line
                 $collection->preserveKeys = (new static([]))->preserveKeys === true;
             }
         });

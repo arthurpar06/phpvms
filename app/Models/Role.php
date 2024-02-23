@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laratrust\Models\Role as LaratrustRole;
 
 /**
- * @property int id
- * @property string name
- * @property string display_name
- * @property bool read_only
- * @property bool disable_activity_checks
+ * @property int    $id
+ * @property string $name
+ * @property string $display_name
+ * @property bool   $read_only
+ * @property bool   $disable_activity_checks
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -36,7 +36,7 @@ class Role extends LaratrustRole
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'display_name' => 'required',
     ];
 }

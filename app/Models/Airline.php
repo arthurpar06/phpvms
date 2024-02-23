@@ -14,17 +14,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Kyslik\ColumnSortable\Sortable;
 
-//TODO: PHPStan note: $ is required in front of the property name
-
 /**
- * @property mixed   id
- * @property string  code
- * @property string  icao
- * @property string  iata
- * @property string  name
- * @property string  callsign
- * @property string  logo
- * @property string  country
+ * @property mixed   $id
+ * @property string  $code
+ * @property string  $icao
+ * @property string  $iata
+ * @property string  $name
+ * @property string  $callsign
+ * @property string  $logo
+ * @property string  $country
  * @property Journal $journal
  */
 class Airline extends Model
@@ -70,7 +68,7 @@ class Airline extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'callsign' => 'nullable',
         'country'  => 'nullable',
         'iata'     => 'nullable|max:5',

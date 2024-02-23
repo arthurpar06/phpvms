@@ -165,9 +165,7 @@ class AcarsReplay extends Command
      */
     protected function updatesFromFile(array $files)
     {
-        /**
-         * @var $flights Collection
-         */
+        /** @var Collection $flights */
         $flights = collect($files)->transform(function ($f) {
             $file = $f;
             if (file_exists($file)) {
@@ -192,6 +190,7 @@ class AcarsReplay extends Command
          * File the initial pirep to get a "preflight" status
          */
         $flights->each(function ($updates, $idx) {
+            /** @var \App\Models\Flight */
             $update = $updates->first();
             $pirep_id = $this->startPirep($update);
             $this->pirepList[$update->callsign] = $pirep_id;
@@ -207,7 +206,7 @@ class AcarsReplay extends Command
          * Continue until we have no more flights and updates left
          */
         while ($flights->count() > 0) {
-            $flights = $flights->each(function ($updates, $idx) {
+            $flights = $flights->each(function (Collection $updates, $idx) {
                 $update = $updates->shift();
                 $pirep_id = $this->pirepList[$update->callsign];
 
@@ -236,7 +235,7 @@ class AcarsReplay extends Command
      *
      * @throws \RuntimeException
      *
-     * @return mixed
+     * @return void
      */
     public function handle(): void
     {

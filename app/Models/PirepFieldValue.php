@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string pirep_id
- * @property string name
- * @property string slug
- * @property string value
- * @property string source
- * @property Pirep  pirep
+ * @property string $pirep_id
+ * @property string $name
+ * @property string $slug
+ * @property string $value
+ * @property string $source
+ * @property Pirep  $pirep
  *
  * @method static updateOrCreate(array $array, array $array1)
  */
@@ -29,7 +29,7 @@ class PirepFieldValue extends Model
         'source',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name' => 'required',
     ];
 

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 /**
  * Class FlightField
  *
- * @property string name
- * @property string slug
- * @property bool   required
+ * @property string $name
+ * @property string $slug
+ * @property bool   $required
  */
 class FlightField extends Model
 {
@@ -27,7 +27,7 @@ class FlightField extends Model
         'required' => 'boolean',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name' => 'required',
     ];
 

@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * @property string name
- * @property int    hours
- * @property float  manual_base_pay_rate
- * @property float  acars_base_pay_rate
- * @property bool   auto_promote
- * @property bool   auto_approve_acars
- * @property bool   auto_approve_manual
+ * @property string $name
+ * @property int    $hours
+ * @property float  $manual_base_pay_rate
+ * @property float  $acars_base_pay_rate
+ * @property bool   $auto_promote
+ * @property bool   $auto_approve_acars
+ * @property bool   $auto_approve_manual
  */
 class Rank extends Model
 {
@@ -45,7 +45,7 @@ class Rank extends Model
         'auto_promote'        => 'bool',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'name'                 => 'required',
         'hours'                => 'required|integer',
         'acars_base_pay_rate'  => 'nullable|numeric',

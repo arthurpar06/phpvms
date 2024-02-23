@@ -37,7 +37,7 @@ class PageLinksComposer extends Composer
                 $w['public'] = true;
             }
 
-            $pages = $this->pageRepo->findWhere($w, static::$fields);
+            $pages = $this->pageRepo->findWhere($w, self::$fields);
         } catch (Exception $e) {
             $pages = [];
         }

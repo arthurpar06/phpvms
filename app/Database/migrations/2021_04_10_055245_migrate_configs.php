@@ -9,7 +9,6 @@ use App\Services\Installer\ConfigService;
 return new class() extends Migration {
     public function up()
     {
-        /** @var ConfigService $configSvc */
         //$configSvc = app(ConfigService::class);
         //$configSvc->rewriteConfigFiles();
     }
