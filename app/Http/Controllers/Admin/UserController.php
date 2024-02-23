@@ -63,6 +63,7 @@ class UserController extends Controller
         try {
             $users = $this->userRepo->searchCriteria($request, false)->sortable(['created_at' => 'desc'])->paginate();
         } catch (RepositoryException $e) {
+            $users = collect();
         }
 
         return view('admin.users.index', [
@@ -150,7 +151,7 @@ class UserController extends Controller
             ->with(['awards', 'fields', 'rank', 'typeratings', 'home_airport', 'location'])
             ->findWithoutFail($id);
 
-        if (empty($user)) {
+        if (is_null($user)) {
             Flash::error('User not found');
             return redirect(route('admin.users.index'));
         }
@@ -292,8 +293,8 @@ class UserController extends Controller
      */
     public function destroy_user_award(int $id, int $award_id, Request $request): RedirectResponse
     {
-        $userAward = UserAward::where(['user_id' => $id, 'award_id' => $award_id]);
-        if (empty($userAward)) {
+        $userAward = UserAward::where(['user_id' => $id, 'award_id' => $award_id])->get();
+        if (is_null($userAward)) {
             Flash::error('The user award could not be found');
 
             return redirect()->back();

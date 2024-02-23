@@ -203,7 +203,7 @@ class FlightController extends Controller
             ->with(['dpt_airport', 'arr_airport', 'alt_airport'])
             ->findWithoutFail($id);
 
-        if (empty($flight)) {
+        if (is_null($flight)) {
             Flash::error('Flight not found');
             return redirect(route('admin.flights.index'));
         }

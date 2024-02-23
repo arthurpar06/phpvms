@@ -565,7 +565,7 @@ class PirepService extends Service
      */
     public function updateCustomFields(string $pirep_id, array $field_values): void
     {
-        if (!$field_values || empty($field_values)) {
+        if (!$field_values) {
             return;
         }
 

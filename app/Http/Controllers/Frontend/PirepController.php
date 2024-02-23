@@ -489,7 +489,7 @@ class PirepController extends Controller
             ->with(['dpt_airport', 'arr_airport', 'alt_airport'])
             ->findWithoutFail($id);
 
-        if (empty($pirep)) {
+        if (is_null($pirep)) {
             Flash::error('Pirep not found');
 
             return redirect(route('frontend.pireps.index'));
@@ -568,7 +568,7 @@ class PirepController extends Controller
 
         /** @var Pirep $pirep */
         $pirep = $this->pirepRepo->findWithoutFail($id);
-        if (empty($pirep)) {
+        if (is_null($pirep)) {
             Flash::error('Pirep not found');
 
             return redirect(route('admin.pireps.index'));

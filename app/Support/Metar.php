@@ -339,7 +339,7 @@ class Metar implements \ArrayAccess
      * @param bool $debug
      * @param bool $icao
      */
-    final public function __construct($raw, $taf = false, $debug = false, $icao = true)
+    final public function __construct($raw, $taf = false, $debug = false)
     {
         $this->debug_enabled = $debug;
         // Log::info('Parsing metar="'.$raw.'"');

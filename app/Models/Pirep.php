@@ -60,7 +60,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int         score
  * @property User        user
  * @property Flight|null flight
- * @property Collection  fields
+ * @property Collection  $fields
  * @property string      status
  * @property int         state
  * @property int         source
@@ -68,7 +68,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property Carbon      submitted_at
  * @property Carbon      created_at
  * @property Carbon      updated_at
- * @property bool        read_only      Attribute
+ * @property bool        $read_only
  * @property Acars       position
  * @property Acars[]     acars
  * @property mixed       cancelled
@@ -379,7 +379,7 @@ class Pirep extends Model
      */
     public function allowedUpdates(): bool
     {
-        return !$this->getReadOnlyAttribute();
+        return !$this->read_only;
     }
 
     /**

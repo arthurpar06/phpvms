@@ -183,7 +183,7 @@ class SubfleetController extends Controller
             ->with(['home', 'fares', 'ranks', 'typeratings'])
             ->findWithoutFail($id);
 
-        if (empty($subfleet)) {
+        if (is_null($subfleet)) {
             Flash::error('Subfleet not found');
 
             return redirect(route('admin.subfleets.index'));

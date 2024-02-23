@@ -130,6 +130,7 @@ abstract class Repository extends BaseRepository
         $this->applyScope();
 
         $max = config('repository.pagination.limit', 50);
+        // @phpstan-ignore-next-line
         $limit = (int) ($limit ?? request()->query('limit') ?? $max);
         $page = (int) request()->query('page', 1);
 

@@ -31,7 +31,7 @@ return new class() extends Migration {
 
             /** @var \App\Models\Fare $sf */
             $sf = $cached[$subfleet->id]->where('code', $fare->code)->first();
-            $fare->capacity = empty($sf) ? $fare->count : $sf->capacity;
+            $fare->capacity = is_null($sf) ? $fare->count : $sf->capacity;
             $fare->save();
         }
     }

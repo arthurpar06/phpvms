@@ -166,7 +166,7 @@ class AircraftController extends Controller
             ->with(['airport', 'hub'])
             ->findWithoutFail($id);
 
-        if (empty($aircraft)) {
+        if (is_null($aircraft)) {
             Flash::error('Aircraft not found');
             return redirect(route('admin.aircraft.index'));
         }
@@ -204,7 +204,7 @@ class AircraftController extends Controller
         /** @var \App\Models\Aircraft $aircraft */
         $aircraft = $this->aircraftRepo->findWithoutFail($id);
 
-        if (empty($aircraft)) {
+        if (is_null($aircraft)) {
             Flash::error('Aircraft not found');
             return redirect(route('admin.aircraft.index'));
         }
@@ -228,7 +228,7 @@ class AircraftController extends Controller
         /** @var \App\Models\Aircraft $aircraft */
         $aircraft = $this->aircraftRepo->findWithoutFail($id);
 
-        if (empty($aircraft)) {
+        if (is_null($aircraft)) {
             Flash::error('Aircraft not found');
             return redirect(route('admin.aircraft.index'));
         }

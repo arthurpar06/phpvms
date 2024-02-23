@@ -132,7 +132,7 @@ class FlightController extends Controller
             ->get();
 
         // Build collection with type codes and labels
-        $flight_types = collect('', '');
+        $flight_types = collect('');
         foreach ($usedtypes as $ftype) {
             $flight_types->put($ftype->flight_type, FlightType::label($ftype->flight_type));
         }

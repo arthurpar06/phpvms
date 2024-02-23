@@ -42,7 +42,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Carbon\Carbon   created_at
  * @property \Carbon\Carbon   updated_at
  * @property Rank             rank
- * @property Journal          journal
+ * @property Journal          $journal
  * @property int              rank_id
  * @property string           discord_id
  * @property int              state
@@ -293,7 +293,7 @@ class User extends Authenticatable implements LaratrustUser, MustVerifyEmail
     {
         /** @var File $avatar */
         $avatar = $this->avatar;
-        if (empty($avatar)) {
+        if (!$avatar) {
             return $this->gravatar();
         }
 

@@ -7,11 +7,14 @@ parameters:
         - app/
 
     # Level 9 is the highest level
-    level: 0
+    level: 1
 
     ignoreErrors:
         # Some Facades errors with nwidart laravel modules
         - '#Static call to instance method Nwidart\\Modules\\Facades\\Module::[a-zA-Z]+\(\)#'
+
+        # Undefined properties due to model magic properties
+        - '#Access to an undefined property App\\Http\\Resources\\[a-zA-Z]+::\$[a-zA-Z]+#'
 #
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php

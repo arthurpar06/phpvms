@@ -65,11 +65,7 @@ class UserService extends Service
             ->with(['airline', 'bids', 'rank'])
             ->find($user_id);
 
-        if (empty($user)) {
-            return null;
-        }
-
-        if ($user->state === UserState::DELETED) {
+        if (!$user || $user->state === UserState::DELETED) {
             return null;
         }
 
@@ -261,18 +257,21 @@ class UserService extends Service
         $airlines = $this->airlineRepo->all(['id', 'icao', 'iata']);
 
         $ident_str = null;
+        $airline_id = null;
         $pilot_id = strtoupper($pilot_id);
 
         /** @var Airline $airline */
         foreach ($airlines as $airline) {
             if (strpos($pilot_id, $airline->icao) !== false) {
                 $ident_str = $airline->icao;
+                $airline_id = $airline->id;
                 break;
             }
 
             if (!empty($airline->iata)) {
                 if (strpos($pilot_id, $airline->iata) !== false) {
                     $ident_str = $airline->iata;
+                    $airline_id = $airline->id;
                     break;
                 }
             }
@@ -283,7 +282,7 @@ class UserService extends Service
         }
 
         $parsed_pilot_id = str_replace($ident_str, '', $pilot_id);
-        $user = User::where(['airline_id' => $airline->id, 'pilot_id' => $parsed_pilot_id])->first();
+        $user = User::where(['airline_id' => $airline_id, 'pilot_id' => $parsed_pilot_id])->first();
         if (empty($user)) {
             throw new PilotIdNotFound($pilot_id);
         }

@@ -27,7 +27,7 @@ class InternalError extends ValidationException
         Log::error($message);
         $validator = Validator::make([], []);
         $validator->errors()->add(
-            $field ?? static::FIELD,
+            $field ?? static::FIELD, //@phpstan-ignore-line
             $message ?? static::MESSAGE
         );
 

@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Kyslik\ColumnSortable\Sortable;
 
+//TODO: PHPStan note: $ is required in front of the property name
+
 /**
  * @property mixed   id
  * @property string  code
@@ -23,7 +25,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property string  callsign
  * @property string  logo
  * @property string  country
- * @property Journal journal
+ * @property Journal $journal
  */
 class Airline extends Model
 {

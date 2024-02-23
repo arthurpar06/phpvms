@@ -79,7 +79,7 @@ class ProfileController extends Controller
         /** @var \App\Models\User $user */
         $user = User::with($with)->where('id', $id)->first();
 
-        if (empty($user)) {
+        if (is_null($user)) {
             Flash::error('User not found!');
 
             return redirect(route('frontend.dashboard.index'));
@@ -108,7 +108,7 @@ class ProfileController extends Controller
         /** @var \App\Models\User $user */
         $user = User::with('fields.field', 'location')->where('id', Auth::id())->first();
 
-        if (empty($user)) {
+        if (is_null($user)) {
             Flash::error('User not found!');
 
             return redirect(route('frontend.dashboard.index'));
