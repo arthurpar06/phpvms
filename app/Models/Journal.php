@@ -129,7 +129,6 @@ class Journal extends Model
         return new Money($balance);
     }
 
-
     /**
      * Get the debit only balance of the journal based on a given date.
      *

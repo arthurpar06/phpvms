@@ -9,7 +9,6 @@ namespace App\Models\Observers;
  */
 class Sluggable
 {
-
     protected array $attributes = [];
 
     /**

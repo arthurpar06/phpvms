@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property string  $name
- * @property float   $cost
- * @property float   $price
- * @property int     $code
- * @property int     $capacity
- * @property int     $count Only when merged with pivot
- * @property int     $type
- * @property string  $notes
- * @property bool    $active
+ * @property string $name
+ * @property float  $cost
+ * @property float  $price
+ * @property int    $code
+ * @property int    $capacity
+ * @property int    $count    Only when merged with pivot
+ * @property int    $type
+ * @property string $notes
+ * @property bool   $active
  */
 class Fare extends Model
 {

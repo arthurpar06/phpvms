@@ -7,7 +7,6 @@ use App\Exceptions\Converters\SymfonyException;
 use App\Exceptions\Converters\ValidationException;
 use App\Http\Middleware\SetActiveTheme;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
@@ -17,7 +16,6 @@ use Illuminate\Validation\ValidationException as IlluminateValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException as SymfonyHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
-use Whoops\Handler\HandlerInterface;
 
 /**
  * Class Handler

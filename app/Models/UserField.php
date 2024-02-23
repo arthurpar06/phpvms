@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 /**
  * @property string $name
  * @property string $slug
- * @property string $value  Only set if "squashed"
+ * @property string $value                Only set if "squashed"
  * @property bool   $show_on_registration
  * @property bool   $required
  * @property bool   $private

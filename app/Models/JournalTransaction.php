@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string  $id  UUID type
+ * @property string  $id                UUID type
  * @property string  $currency
  * @property string  $memo
  * @property string  $transaction_group

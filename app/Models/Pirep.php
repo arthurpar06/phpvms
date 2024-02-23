@@ -48,7 +48,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property Carbon      $block_off_time
  * @property Carbon      $block_on_time
  * @property int         $block_time
- * @property int         $flight_time    In minutes
+ * @property int         $flight_time         In minutes
  * @property int         $planned_flight_time
  * @property Fuel        $block_fuel
  * @property Fuel        $fuel_used

@@ -24,7 +24,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property int              $airline_id
  * @property string           $callsign
  * @property string           $name
- * @property string           $name_private Only first name, rest are initials
+ * @property string           $name_private    Only first name, rest are initials
  * @property string           $email
  * @property string           $password
  * @property string           $api_key

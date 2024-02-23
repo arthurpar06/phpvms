@@ -21,8 +21,8 @@ use Znck\Eloquent\Traits\BelongsToThrough;
 /**
  * @property int      $id
  * @property mixed    $subfleet_id
- * @property string   $airport_id   The apt where the aircraft is
- * @property string   $hub_id       The apt where the aircraft is based
+ * @property string   $airport_id    The apt where the aircraft is
+ * @property string   $hub_id        The apt where the aircraft is based
  * @property string   $ident
  * @property string   $name
  * @property string   $icao
@@ -46,7 +46,6 @@ use Znck\Eloquent\Traits\BelongsToThrough;
  * @property float    $fuel_onboard
  * @property Bid      $bid
  * @property File[]   $files
- * 
  */
 class Aircraft extends Model
 {
