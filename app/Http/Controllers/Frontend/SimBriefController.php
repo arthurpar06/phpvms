@@ -72,6 +72,7 @@ class SimBriefController
 
         // No aircraft selected, try to find one from a bid
         if (!$aircraft_id) {
+            /** @var ?Bid $bid */
             $bid = Bid::where(['user_id' => $user->id, 'flight_id' => $flight_id])->first();
             if ($bid) {
                 $aircraft_id = $bid->aircraft_id;
@@ -116,6 +117,7 @@ class SimBriefController
         }
 
         // Check if a Simbrief profile already exists
+        /** @var ?SimBrief $simbrief */
         $simbrief = SimBrief::select('id')->where([
             'flight_id' => $flight_id,
             'user_id'   => $user->id,
@@ -313,6 +315,7 @@ class SimBriefController
      */
     public function generate_new(Request $request): RedirectResponse
     {
+        /** @var ?SimBrief $simbrief */
         $simbrief = SimBrief::find($request->id);
 
         // Invalid Simbrief ID/profile, go back to the main flight index
@@ -343,6 +346,7 @@ class SimBriefController
      */
     public function prefile(Request $request): RedirectResponse
     {
+        /** @var ?SimBrief $sb */
         $sb = SimBrief::find($request->id);
         if (!$sb) {
             return redirect(route('frontend.flights.index'));
@@ -362,10 +366,9 @@ class SimBriefController
      */
     public function cancel(Request $request): RedirectResponse
     {
+        /** @var ?SimBrief $sb */
         $sb = SimBrief::find($request->id);
-        if (!$sb) {
-            $sb->delete();
-        }
+        $sb?->delete();
 
         return redirect(route('frontend.simbrief.prefile', ['id' => $request->id]));
     }

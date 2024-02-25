@@ -91,7 +91,7 @@ class ModuleService extends Service
     /**
      * Get all of the modules from database but make sure they also exist on disk
      *
-     * @return object
+     * @return array
      */
     public function getAllModules(): array
     {
@@ -123,8 +123,9 @@ class ModuleService extends Service
      */
     public function isModuleActive(string $name): bool
     {
+        /** @var ?Module $module */
         $module = Module::where('name', $name)->first();
-        if (empty($module)) {
+        if (!$module) {
             return false;
         }
 
@@ -285,6 +286,7 @@ class ModuleService extends Service
      */
     public function updateModule($id, $status): bool
     {
+        /** @var ?Module $module */
         $module = Module::find($id);
 
         $cache = config('cache.keys.MODULES');
@@ -311,6 +313,7 @@ class ModuleService extends Service
      */
     public function deleteModule($id, $data): bool
     {
+        /** @var ?Module $module */
         $module = Module::find($id);
         if ($data['verify'] === strtoupper($module->name)) {
             try {

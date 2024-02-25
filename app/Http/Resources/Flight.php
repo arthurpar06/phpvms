@@ -17,7 +17,6 @@ class Flight extends Resource
      */
     protected function setFields()
     {
-        /** @var \Illuminate\Support\Collection $field_values */
         $return_values = new stdClass();
         $field_values = $this->field_values;
         if (!$field_values || $field_values->count() === 0) {

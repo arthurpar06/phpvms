@@ -35,6 +35,7 @@ class ExpenseImporter extends BaseImporter
                 'ref_model'  => Expense::class,
             ];
 
+            /** @var Expense $expense */
             $expense = Expense::updateOrCreate(['name' => $row->name], $attrs);
             $this->idMapper->addMapping('expenses', $row->id, $expense->id);
             $this->idMapper->addMapping('expenses', $row->name, $expense->id);

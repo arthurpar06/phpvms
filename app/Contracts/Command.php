@@ -2,6 +2,7 @@
 
 namespace App\Contracts;
 
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Process;
 
@@ -46,28 +47,13 @@ abstract class Command extends \Illuminate\Console\Command
      *
      * @param string $channel_name Channel name from config/logging.php
      */
-    public function redirectLoggingToFile($channel_name): void
+    public function redirectLoggingToFile(string $channel_name): void
     {
-        $logger = app(\Illuminate\Log\Logger::class);
-
-        // Close the existing loggers
-        try {
-            $handlers = $logger->getHandlers();
-            foreach ($handlers as $handler) {
-                $handler->close();
-            }
-        } catch (\Exception $e) {
-            $this->error('Error closing handlers: '.$e->getMessage());
-        }
-
-        // Open the handlers for the channel name,
-        // and then set them to the main logger
-        try {
-            $logger->setHandlers(
-                Log::channel($channel_name)->getHandlers()
-            );
-        } catch (\Exception $e) {
-            $this->error('Couldn\'t splice the logger: '.$e->getMessage());
+        // If the channel exists in the logging config, redirect the logging to it
+        if (array_key_exists($channel_name, config('logging.channels'))) {
+            config(['logging.default' => $channel_name]);
+        } else {
+            Log::error('Failed to redirect logging to '.$channel_name);
         }
     }
 

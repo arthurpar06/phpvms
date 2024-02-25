@@ -51,6 +51,7 @@ class FlightImporter extends BaseImporter
             try {
                 $w = ['airline_id' => $airline_id, 'flight_number' => $flight_num];
                 // $flight = Flight::updateOrCreate($w, $attrs);
+                /** @var Flight $flight */
                 $flight = Flight::create(array_merge($w, $attrs));
             } catch (\Exception $e) {
                 $this->error($e);

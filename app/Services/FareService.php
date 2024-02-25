@@ -99,17 +99,17 @@ class FareService extends Service
      * Determine the correct fares to use between a subfleet and flight. You probably aren't
      * looking to call this one directly, but instead, call getReconciledFaresForFlight()
      *
-     * @param Collection[Fare] $subfleet_fares The fare for a subfleet
-     * @param Collection[Fare] $flight_fares   The fares on a flight
+     * @param Collection<int, Fare> $subfleet_fares The fare for a subfleet
+     * @param Collection<int, Fare> $flight_fares   The fares on a flight
      *
-     * @return Collection[Fare] Collection of Fare
+     * @return Collection<int, Fare> Collection of Fare
      */
-    public function getFareWithOverrides($subfleet_fares, $flight_fares): Collection
+    public function getFareWithOverrides(Collection $subfleet_fares, Collection $flight_fares): Collection
     {
         /**
          * Make sure we've got something in terms of fares on the subfleet or the flight
          */
-        if (empty($subfleet_fares) && empty($flight_fares)) {
+        if ($subfleet_fares->count() === 0 && $flight_fares->count() === 0) {
             return collect();
         }
 
@@ -117,7 +117,7 @@ class FareService extends Service
          * Check to see if there are any subfleet fares. This might only have fares on the
          * flight, no matter how rare that might be
          */
-        if ($subfleet_fares === null || count($subfleet_fares) === 0) {
+        if (count($subfleet_fares) === 0) {
             return $flight_fares->map(function ($fare, $_) {
                 return $this->getFareWithPivot($fare, $fare->pivot);
             });
@@ -222,7 +222,7 @@ class FareService extends Service
      * @param Fare  $fare
      * @param Pivot $pivot
      *
-     * @return \App\Models\Fare
+     * @return Fare
      */
     public function getFareWithPivot(Fare $fare, Pivot $pivot): Fare
     {
@@ -279,7 +279,7 @@ class FareService extends Service
      *
      * @param Flight $flight
      * @param Fare   $fare
-     * @param array    set the price/cost/capacity
+     * @param array  $override set the price/cost/capacity
      *
      * @return Flight
      */
@@ -321,7 +321,7 @@ class FareService extends Service
      *
      * @param Subfleet $subfleet
      * @param Fare     $fare
-     * @param array    set the price/cost/capacity
+     * @param array    $override set the price/cost/capacity
      *
      * @return Subfleet
      */

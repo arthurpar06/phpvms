@@ -328,6 +328,7 @@ class Pirep extends Model
     public function fields(): Attribute
     {
         return Attribute::make(get: function ($_, $attrs) {
+            /** @var \Illuminate\Database\Eloquent\Collection<int, PirepField> $custom_fields */
             $custom_fields = PirepField::whereIn('pirep_source', [$this->source, PirepFieldSource::BOTH])->get();
             $field_values = PirepFieldValue::where('pirep_id', $this->id)->orderBy(
                 'created_at',

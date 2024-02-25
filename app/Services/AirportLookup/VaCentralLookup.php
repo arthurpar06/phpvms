@@ -24,9 +24,10 @@ class VaCentralLookup extends AirportLookup
     public function getAirport($icao)
     {
         try {
+            // We ignore these lines because the central va module is not well typed
             $airport = $this->client->getAirport($icao);
-            $airport->location = $airport->city;
-            $airport->timezone = $airport->tz;
+            $airport->location = $airport->city; // @phpstan-ignore-line
+            $airport->timezone = $airport->tz; // @phpstan-ignore-line
 
             return $airport;
         } catch (HttpException $e) {

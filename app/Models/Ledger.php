@@ -9,6 +9,7 @@ namespace App\Models;
 use App\Contracts\Model;
 use App\Support\Money;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Ledger
@@ -18,7 +19,7 @@ use Carbon\Carbon;
  * @property Carbon               $updated_at
  * @property Carbon               $post_date
  * @property Carbon               $created_at
- * @property JournalTransaction[] $journal_transctions
+ * @property Collection<int, JournalTransaction> $journal_transctions
  */
 class Ledger extends Model
 {

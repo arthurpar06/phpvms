@@ -95,12 +95,15 @@ class ExpenseImporter extends ImportExport
 
         if ($class === Aircraft::class) {
             Log::info('Trying to import expense on aircraft, registration: '.$id);
+            /** @var ?Aircraft $obj */
             $obj = Aircraft::where('registration', $id)->first();
         } elseif ($class === Airport::class) {
             Log::info('Trying to import expense on airport, icao: '.$id);
+            /** @var ?Airport $obj */
             $obj = Airport::where('icao', $id)->first();
         } elseif ($class === Subfleet::class) {
             Log::info('Trying to import expense on subfleet, type: '.$id);
+            /** @var ?Subfleet $obj */
             $obj = Subfleet::where('type', $id)->first();
         } else {
             $this->errorLog('Unknown/unsupported Expense class: '.$class);

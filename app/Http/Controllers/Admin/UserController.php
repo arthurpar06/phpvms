@@ -142,7 +142,7 @@ class UserController extends Controller
      *
      * @throws RepositoryException
      *
-     * @return mixed
+     * @return View
      */
     public function edit(int $id): View
     {
@@ -215,9 +215,7 @@ class UserController extends Controller
         }
 
         if ($request->filled('avatar_upload')) {
-            /**
-             * @var $file \Illuminate\Http\UploadedFile
-             */
+            /** @var \Illuminate\Http\UploadedFile $file */
             $file = $request->file('avatar_upload');
             $file_path = $file->storeAs(
                 'avatars',
@@ -293,7 +291,7 @@ class UserController extends Controller
      */
     public function destroy_user_award(int $id, int $award_id, Request $request): RedirectResponse
     {
-        $userAward = UserAward::where(['user_id' => $id, 'award_id' => $award_id])->get();
+        $userAward = UserAward::where(['user_id' => $id, 'award_id' => $award_id])->first();
         if (is_null($userAward)) {
             Flash::error('The user award could not be found');
 
@@ -315,6 +313,7 @@ class UserController extends Controller
      */
     public function regen_apikey(int $id, Request $request): RedirectResponse
     {
+        /** @var User $user */
         $user = User::find($id);
         Log::info('Regenerating API key "'.$user->ident.'"');
 

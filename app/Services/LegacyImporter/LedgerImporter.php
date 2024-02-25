@@ -38,6 +38,7 @@ class LedgerImporter extends BaseImporter
         $count = 0;
         $rows = $this->db->readRows($this->table, $this->idField, $start);
         foreach ($rows as $row) {
+            /** @var ?Pirep $pirep */
             $pirep = Pirep::find($this->idMapper->getMapping('pireps', $row->pirepid));
             if (!$pirep) {
                 continue;

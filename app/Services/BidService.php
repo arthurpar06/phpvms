@@ -60,7 +60,7 @@ class BidService extends Service
         if (!empty($bid->aircraft)) {
             $bid->flight->subfleets = $this->flightSvc->getSubfleetsForBid($bid);
         } else {
-            $bid->flight = $this->flightSvc->filterSubfleets($user, $bid->flight, $bid);
+            $bid->flight = $this->flightSvc->filterSubfleets($user, $bid->flight);
         }
 
         $bid->flight = $this->fareSvc->getReconciledFaresForFlight($bid->flight);
@@ -98,7 +98,7 @@ class BidService extends Service
             if (!empty($bid->aircraft)) {
                 $bid->flight->subfleets = $this->flightSvc->getSubfleetsForBid($bid);
             } else {
-                $bid->flight = $this->flightSvc->filterSubfleets($user, $bid->flight, $bid);
+                $bid->flight = $this->flightSvc->filterSubfleets($user, $bid->flight);
             }
 
             $bid->flight = $this->fareSvc->getReconciledFaresForFlight($bid->flight);
@@ -135,6 +135,7 @@ class BidService extends Service
         }
 
         // Get all of the bids for this flight
+        /** @var \Illuminate\Database\Eloquent\Collection<int, Bid> $bids */
         $bids = Bid::where(['flight_id' => $flight->id])->get();
         if ($bids->count() > 0) {
             // Does the flight have a bid set?
@@ -170,12 +171,14 @@ class BidService extends Service
         }
 
         if (setting('bids.block_aircraft') && $aircraft) {
+            /** @var Bid $bid */
             $bid = Bid::firstOrCreate([
                 'user_id'     => $user->id,
                 'flight_id'   => $flight->id,
                 'aircraft_id' => $aircraft->id,
             ]);
         } else {
+            /** @var Bid $bid */
             $bid = Bid::firstOrCreate([
                 'user_id'   => $user->id,
                 'flight_id' => $flight->id,

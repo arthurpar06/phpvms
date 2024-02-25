@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string    name
- * @property string    value
- * @property UserField field
- * @property User      user
+ * @property string    $name
+ * @property string    $value
+ * @property UserField $field
+ * @property User      $user
  */
 class UserFieldValue extends Model
 {

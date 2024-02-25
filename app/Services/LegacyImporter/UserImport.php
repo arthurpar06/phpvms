@@ -50,6 +50,7 @@ class UserImport extends BaseImporter
                 Log::info('User with pilot id '.$pilot_id.' exists');
 
                 // Is this the same user? If not, get a new pilot ID
+                /** @var ?User $user_exist */
                 $user_exist = User::where('pilot_id', $pilot_id)->first();
                 if ($user_exist->email !== $row->email) {
                     $pilot_id = $this->userSvc->getNextAvailablePilotId();
@@ -75,6 +76,7 @@ class UserImport extends BaseImporter
                 'email_verified_at' => now(),
             ];
 
+            /** @var User $user */
             $user = User::updateOrCreate(['email' => $row->email], $attrs);
             $this->idMapper->addMapping('users', $row->pilotid, $user->id);
 
@@ -100,7 +102,7 @@ class UserImport extends BaseImporter
         // them to the new group(s)
         $old_user_groups = $this->db->findBy('groupmembers', ['pilotid' => $old_pilot_id]);
         foreach ($old_user_groups as $oldGroup) {
-            $newRoleId = $this->idMapper->getMapping('group', $oldGroup->groupid);
+            $newRoleId = $this->idMapper->getMapping('group', $oldGroup->groupid); // @phpstan-ignore-line
 
             // This role should be ignored
             if ($newRoleId === -1) {

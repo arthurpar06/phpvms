@@ -105,6 +105,7 @@ class PirepImporter extends BaseImporter
 
             $w = ['id' => $pirep_id];
 
+            /** @var Pirep $pirep */
             $pirep = Pirep::updateOrCreate($w, $attrs);
             //$pirep = Pirep::create(array_merge($w, $attrs));
 

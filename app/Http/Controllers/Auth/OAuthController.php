@@ -33,7 +33,7 @@ class OAuthController extends Controller
                 if (!config('services.discord.enabled')) {
                     abort(404);
                 }
-                return Socialite::driver('discord')->scopes(['identify'])->redirect();
+                return Socialite::driver('discord')->scopes(['identify'])->redirect(); // @phpstan-ignore-line
             default:
                 abort(404);
         }
@@ -72,8 +72,8 @@ class OAuthController extends Controller
                 'user_id'  => $user->id,
                 'provider' => $provider,
             ], [
-                'token'             => $providerUser->token,
-                'refresh_token'     => $providerUser->refreshToken,
+                'token'             => $providerUser->token, // @phpstan-ignore-line
+                'refresh_token'     => $providerUser->refreshToken, // @phpstan-ignore-line
                 'last_refreshed_at' => now(),
             ]);
 
@@ -86,6 +86,7 @@ class OAuthController extends Controller
             return redirect(route('frontend.profile.index'));
         }
 
+        /** @var User $user */
         $user = User::where($provider.'_id', $providerUser->getId())->orWhere('email', $providerUser->getEmail())->first();
 
         if ($user) {
@@ -126,8 +127,8 @@ class OAuthController extends Controller
                 'user_id'  => $user->id,
                 'provider' => $provider,
             ], [
-                'token'             => $providerUser->token,
-                'refresh_token'     => $providerUser->refreshToken,
+                'token'             => $providerUser->token, // @phpstan-ignore-line
+                'refresh_token'     => $providerUser->refreshToken, // @phpstan-ignore-line
                 'last_refreshed_at' => now(),
             ]);
 

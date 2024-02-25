@@ -13,6 +13,7 @@ class PositionRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        /** @var Pirep $pirep */
         $pirep = Pirep::findOrFail($this->route('pirep_id'), ['user_id']);
         return $pirep->user_id === Auth::id();
     }

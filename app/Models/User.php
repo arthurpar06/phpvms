@@ -6,6 +6,7 @@ use App\Models\Enums\JournalType;
 use App\Models\Traits\JournalTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -33,7 +34,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string           $atc
  * @property string           $curr_airport_id
  * @property string           $home_airport_id
- * @property string           $avatar
+ * @property File             $avatar
  * @property Airline          $airline
  * @property int              $flights
  * @property int              $flight_time
@@ -49,23 +50,20 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string           $last_ip
  * @property \Carbon\Carbon   $lastlogin_at
  * @property bool             $opt_in
- * @property Pirep[]          $pireps
+ * @property Collection<int, Pirep>          $pireps
  * @property string           $last_pirep_id
  * @property Pirep            $last_pirep
  * @property UserFieldValue[] $fields
  * @property UserOAuthToken[] $oauth_tokens
- * @property Role[]           $roles
+ * @property Collection<int, Role>           $roles
  * @property Subfleet[]       $subfleets
- * @property TypeRating[]     $typeratings
+ * @property Collection<int, TypeRating>       $typeratings
  * @property Airport          $home_airport
  * @property Airport          $current_airport
  * @property Airport          $location
  * @property Bid[]            $bids
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
- * @mixin \Illuminate\Notifications\Notifiable
- * @mixin \Illuminate\Notifications\RoutesNotifications
- * @mixin \Laratrust\Traits\HasRolesAndPermissions
  */
 class User extends Authenticatable implements LaratrustUser, MustVerifyEmail
 {

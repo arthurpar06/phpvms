@@ -15,6 +15,7 @@ use App\Repositories\UserRepository;
 use App\Services\GeoService;
 use App\Services\ModuleService;
 use App\Services\UserService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -125,6 +126,7 @@ class FlightController extends Controller
 
         // Get only used Flight Types for the search form
         // And filter according to settings
+        /** @var Collection<int, Flight> $usedtypes */
         $usedtypes = Flight::select('flight_type')
             ->where($where)
             ->groupby('flight_type')
@@ -155,6 +157,7 @@ class FlightController extends Controller
             ->paginate();
 
         $saved_flights = [];
+        /** @var Collection<int, Bid> $bids */
         $bids = Bid::where('user_id', Auth::id())->get();
         foreach ($bids as $bid) {
             if (!$bid->flight) {
@@ -228,7 +231,7 @@ class FlightController extends Controller
      *
      * @param string $id
      *
-     * @return mixed
+     * @return View
      */
     public function show(string $id): View
     {

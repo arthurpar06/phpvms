@@ -15,6 +15,7 @@ use App\Support\Countries;
 use App\Support\HttpClient;
 use App\Support\Timezonelist;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -69,6 +70,7 @@ class RegisterController extends Controller
                 abort(403, 'Registrations are invite only');
             }
 
+            /** @var Invite $invite */
             $invite = Invite::find($request->get('invite'));
             if (!$invite || $invite->token !== $request->get('token')) {
                 abort(403, 'Invalid invite');
@@ -121,6 +123,7 @@ class RegisterController extends Controller
         ];
 
         // Dynamically add the required fields
+        /** @var Collection<int, UserField> $userFields */
         $userFields = UserField::where([
             'show_on_registration' => true,
             'required'             => true,
@@ -158,11 +161,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param array $opts
-     *
-     * @throws \Exception
-     * @throws \RuntimeException
-     *
+     * @param Request $request
      * @return User
      */
     protected function create(Request $request): User
@@ -176,6 +175,7 @@ class RegisterController extends Controller
                 abort(403, 'Registrations are invite only');
             }
 
+            /** @var Invite $invite */
             $invite = Invite::find($request->get('invite'));
             if (!$invite || $invite->token !== base64_decode($request->get('invite_token'))) {
                 abort(403, 'Invalid invite');
@@ -215,6 +215,7 @@ class RegisterController extends Controller
 
         Log::info('User registered: ', $user->toArray());
 
+        /** @var Collection<int, UserField> $userFields */
         $userFields = UserField::where(['show_on_registration' => true, 'active' => true])->get();
         foreach ($userFields as $field) {
             $field_name = 'field_'.$field->slug;

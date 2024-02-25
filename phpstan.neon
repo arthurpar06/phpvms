@@ -18,7 +18,11 @@ parameters:
 
         # Magic method in repositories
         - '#Call to an undefined method App\\Repositories\\[a-zA-Z]+Repository::[a-zA-Z]+\(\)#'
-#
+
+        # PHPStan can't type pivot columns
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Relations\\Pivot::\$[a-zA-Z]+#'
+        - '#Access to an undefined property App\\Models\\[a-zA-Z]+::\$pivot#'
+
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
 #

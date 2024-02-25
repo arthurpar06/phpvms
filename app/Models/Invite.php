@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 /**
  * @property string         $email
  * @property string         $token
+ * @property string         $link
  * @property int            $usage_count
  * @property int            $usage_limit
  * @property \Carbon\Carbon $expires_at

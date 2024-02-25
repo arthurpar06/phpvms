@@ -83,6 +83,7 @@ class SettingsController extends Controller
     public function update(Request $request): RedirectResponse
     {
         foreach ($request->post() as $id => $value) {
+            /** @var ?Setting $setting */
             $setting = Setting::find($id);
             if (!$setting) {
                 continue;

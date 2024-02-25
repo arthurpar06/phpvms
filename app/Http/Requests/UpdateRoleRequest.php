@@ -6,7 +6,7 @@ use App\Contracts\FormRequest;
 use App\Models\Role;
 
 /**
- * @property array permissions
+ * @property array $permissions
  */
 class UpdateRoleRequest extends FormRequest
 {

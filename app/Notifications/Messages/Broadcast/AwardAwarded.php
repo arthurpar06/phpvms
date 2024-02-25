@@ -9,14 +9,14 @@ use App\Models\UserAward;
 use App\Notifications\Channels\Discord\DiscordMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AwardAwarded extends Notification implements ShouldQueue
+class AwardAwarded extends Notification
 {
-    private $userAward;
+    private UserAward $userAward;
 
     /**
      * Create a new notification instance.
      *
-     * @param \App\Models\Pirep $pirep
+     * @param UserAward $userAward
      */
     public function __construct(UserAward $userAward)
     {
@@ -33,16 +33,21 @@ class AwardAwarded extends Notification implements ShouldQueue
     /**
      * Send a Discord notification
      *
-     * @param Pirep $pirep
-     * @param mixed $userAward
+     * @param UserAward $userAward
      *
      * @return DiscordMessage|null
      */
-    public function toDiscordChannel($userAward): ?DiscordMessage
+    public function toDiscordChannel(UserAward $userAward): ?DiscordMessage
     {
+        /** @var ?Award $award */
         $award = Award::where('id', $userAward->award_id)->first();
 
+        /** @var ?User $user */
         $user = User::where('id', $userAward->user_id)->first();
+
+        if (!$user || !$award) {
+            return null;
+        }
 
         $title = 'Received award '.$award->name;
         //$fields = $this->createFields($user);

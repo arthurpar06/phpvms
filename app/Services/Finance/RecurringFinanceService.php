@@ -3,13 +3,17 @@
 namespace App\Services\Finance;
 
 use App\Contracts\Service;
+use App\Models\Aircraft;
 use App\Models\Airline;
+use App\Models\Airport;
 use App\Models\Enums\ExpenseType;
 use App\Models\Expense;
 use App\Models\JournalTransaction;
+use App\Models\Subfleet;
 use App\Services\FinanceService;
 use App\Support\Money;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -33,9 +37,12 @@ class RecurringFinanceService extends Service
     protected function findJournals(Expense $expense)
     {
         if ($expense->airline_id) {
-            $airline = Airline::find($expense->airline_id)->first(['id', 'icao']);
-            Log::info('Charging to '.$airline->icao);
-            yield $airline->journal;
+            /** @var ?Airline $airline */
+            $airline = Airline::find($expense->airline_id, ['id', 'icao']);
+            if ($airline) {
+                Log::info('Charging to '.$airline->icao);
+                yield $airline->journal;
+            }
         } else {
             $airlines = Airline::all(['id', 'icao']);
             foreach ($airlines as $airline) {
@@ -55,13 +62,15 @@ class RecurringFinanceService extends Service
     protected function getMemoAndGroup(Expense $expense): array
     {
         $klass = 'Expense';
+        $obj = null;
         if ($expense->ref_model) {
             $ref = explode('\\', $expense->ref_model);
             $klass = end($ref);
+            /** @var Airport|Subfleet|Aircraft $obj */
             $obj = $expense->getReferencedObject();
         }
 
-        if (empty($obj)) {
+        if (!$obj) {
             return [null, null];
         }
 
@@ -91,6 +100,7 @@ class RecurringFinanceService extends Service
      */
     public function processExpenses($type = ExpenseType::DAILY): void
     {
+        /** @var Collection<int, Expense> $expenses */
         $expenses = Expense::where(['type' => $type])->get();
 
         $tag = 'expense_recurring';
@@ -100,9 +110,6 @@ class RecurringFinanceService extends Service
             $tag = 'expenses_monthly';
         }
 
-        /**
-         * @var $expenses Expense[]
-         */
         foreach ($expenses as $expense) {
             // Apply the expenses to the appropriate journals
             $journals = $this->findJournals($expense);

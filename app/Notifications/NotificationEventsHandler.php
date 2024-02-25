@@ -45,7 +45,7 @@ class NotificationEventsHandler extends Listener
 
     public function __construct()
     {
-        static::$broadcastNotifyable = app(Broadcast::class);
+        self::$broadcastNotifyable = app(Broadcast::class);
     }
 
     /**
@@ -116,33 +116,35 @@ class NotificationEventsHandler extends Listener
 
     public function onEmailVerified(Verified $event): void
     {
+        /** @var User $user */
+        $user = $event->user;
         // Return if the user has any flights (email change / admin requests new verification)
-        if ($event->user->flights > 0) {
+        if ($user->flights > 0) {
             return;
         }
 
         Log::info('NotificationEvents::onUserRegister: '
-            .$event->user->ident.' is '
-            .UserState::label($event->user->state).', sending active email');
+            .$user->ident.' is '
+            .UserState::label($user->state).', sending active email');
 
         /*
          * Send the user a confirmation email
          */
-        if ($event->user->state === UserState::ACTIVE) {
-            $this->notifyUser($event->user, new Messages\UserRegistered($event->user));
-        } elseif ($event->user->state === UserState::PENDING) {
-            $this->notifyUser($event->user, new Messages\UserPending($event->user));
+        if ($user->state === UserState::ACTIVE) {
+            $this->notifyUser($user, new Messages\UserRegistered($user));
+        } elseif ($user->state === UserState::PENDING) {
+            $this->notifyUser($user, new Messages\UserPending($user));
         }
 
         /*
          * Send all of the admins a notification that a new user registered
          */
-        $this->notifyAdmins(new Messages\AdminUserRegistered($event->user));
+        $this->notifyAdmins(new Messages\AdminUserRegistered($user));
 
         /*
          * Broadcast notifications
          */
-        Notification::send([$event->user], new Messages\Broadcast\UserRegistered($event->user));
+        Notification::send([$user], new Messages\Broadcast\UserRegistered($user));
     }
 
     /**

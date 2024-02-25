@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
 
+/**
+ * @property int   $use_id
+ * @property int   $award_id
+ * @property Award $award
+ * @property User  $user
+ */
 class UserAward extends Model
 {
     use Notifiable;

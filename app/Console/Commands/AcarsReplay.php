@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Contracts\Command;
+use App\Models\Flight;
 use App\Support\Units\Time;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Collection;
@@ -207,6 +208,7 @@ class AcarsReplay extends Command
          */
         while ($flights->count() > 0) {
             $flights = $flights->each(function (Collection $updates, $idx) {
+                /** @var Flight $update */
                 $update = $updates->shift();
                 $pirep_id = $this->pirepList[$update->callsign];
 

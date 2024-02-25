@@ -40,6 +40,7 @@ use App\Repositories\FlightRepository;
 use App\Repositories\PirepRepository;
 use App\Support\Units\Fuel;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -199,7 +200,7 @@ class PirepService extends Service
      * Create a new PIREP with some given fields
      *
      * @param Pirep $pirep
-     * @param array PirepFieldValue[] $field_values
+     * @param PirepFieldValue[] $fields
      *
      * @return Pirep
      */
@@ -415,6 +416,7 @@ class PirepService extends Service
             return $pirep;
         }
 
+        /** @var Collection<int, Navdata> $route */
         $route = $this->geoSvc->getCoordsFromRoute(
             $pirep->dpt_airport_id,
             $pirep->arr_airport_id,
@@ -422,9 +424,6 @@ class PirepService extends Service
             $pirep->route
         );
 
-        /**
-         * @var $point Navdata
-         */
         $point_count = 1;
         foreach ($route as $point) {
             $acars = new Acars();
@@ -548,12 +547,14 @@ class PirepService extends Service
         $pirep->forceDelete();
 
         // Update the user's last PIREP
+        /** @var ?Pirep $last_pirep */
         $last_pirep = Pirep::where(['user_id' => $user_id, 'state' => PirepState::ACCEPTED])
             ->latest('submitted_at')
             ->first();
 
+        /** @var User $user */
         $user = User::find($user_id);
-        $user->last_pirep_id = !empty($last_pirep) ? $last_pirep->id : null;
+        $user->last_pirep_id = $last_pirep?->id;
         $user->save();
     }
 

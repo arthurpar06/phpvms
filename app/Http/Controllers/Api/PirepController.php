@@ -207,9 +207,7 @@ class PirepController extends Controller
      */
     public function prefile(PrefileRequest $request): PirepResource
     {
-        /**
-         * @var $user \App\Models\User
-         */
+        /** @var User $user */
         $user = Auth::user();
 
         $attrs = $this->parsePirep($request);
@@ -294,6 +292,7 @@ class PirepController extends Controller
         $user = Auth::user();
 
         // Check if the status is cancelled...
+        /** @var Pirep $pirep */
         $pirep = Pirep::find($pirep_id);
         $this->checkCancelled($pirep);
         $this->checkReadOnly($pirep);
@@ -365,6 +364,7 @@ class PirepController extends Controller
      */
     public function comments_get(string $id): AnonymousResourceCollection
     {
+        /** @var Pirep $pirep */
         $pirep = Pirep::find($id);
         return PirepCommentResource::collection($pirep->comments);
     }
@@ -404,6 +404,7 @@ class PirepController extends Controller
      */
     public function fields_get(string $pirep_id): PirepFieldCollection
     {
+        /** @var Pirep $pirep */
         $pirep = Pirep::find($pirep_id);
         return new PirepFieldCollection($pirep->fields);
     }
@@ -418,6 +419,7 @@ class PirepController extends Controller
      */
     public function fields_post(string $pirep_id, FieldsRequest $request): PirepFieldCollection
     {
+        /** @var Pirep $pirep */
         $pirep = Pirep::find($pirep_id);
         $this->checkCancelled($pirep);
 

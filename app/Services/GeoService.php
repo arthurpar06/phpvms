@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use League\Geotools\Coordinate\Coordinate;
+use League\Geotools\Distance\Distance;
 use League\Geotools\Geotools;
+use League\Geotools\Vertex\Vertex;
 
 class GeoService extends Service
 {
@@ -48,6 +50,7 @@ class GeoService extends Service
 
         foreach ($all_coords as $coords) {
             $coord = new Coordinate($coords);
+            /** @var Distance $dist */
             $dist = $geotools->distance()->setFrom($start)->setTo($coord);
             $distance[] = $dist->greatCircle();
         }
@@ -85,10 +88,7 @@ class GeoService extends Service
             return !(empty($point) || \in_array($point, $filter_points, true));
         });
 
-        /**
-         * @var $split_route Collection
-         * @var $route_point Acars
-         */
+        /** @var Collection<int, Acars> $split_route */
         foreach ($split_route as $route_point) {
             Log::debug('Looking for '.$route_point);
 
@@ -171,6 +171,7 @@ class GeoService extends Service
         $coordA = new Coordinate([$latA, $lonA]);
         $coordB = new Coordinate([$latB, $lonB]);
 
+        /** @var Vertex $vertex */
         $vertex = $geotools->vertex()->setFrom($coordA)->setTo($coordB);
         $middlePoint = $vertex->middle();
 
@@ -256,9 +257,6 @@ class GeoService extends Service
          * @var Pirep $pirep
          */
         foreach ($pireps as $pirep) {
-            /**
-             * @var $point \App\Models\Acars
-             */
             $point = $pirep->position;
             if (!$point) {
                 continue;

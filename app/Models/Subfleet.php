@@ -7,6 +7,7 @@ use App\Models\Enums\AircraftStatus;
 use App\Models\Traits\ExpensableTrait;
 use App\Models\Traits\FilesTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -23,7 +24,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int        $airline_id
  * @property int        $hub_id
  * @property string     $ground_handling_multiplier
- * @property Fare[]     $fares
+ * @property Collection<int, Fare> $fares
  * @property float      $cost_block_hour
  * @property float      $cost_delay_minute
  * @property Airline    $airline

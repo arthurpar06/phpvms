@@ -44,6 +44,7 @@ class VerificationController extends Controller
 
     public function verify(Request $request)
     {
+        /** @var User $user */
         $user = User::find($request->route('id'));
 
         if (!hash_equals((string) $request->route('id'), (string) $user->getKey())) {

@@ -149,9 +149,9 @@ class AirportService extends Service
      * @param string $fromIcao
      * @param string $toIcao
      *
-     * @return Distance
+     * @return ?Distance
      */
-    public function calculateDistance($fromIcao, $toIcao)
+    public function calculateDistance(string $fromIcao, string $toIcao): ?Distance
     {
         $from = $this->airportRepo->find($fromIcao, ['lat', 'lon']);
         $to = $this->airportRepo->find($toIcao, ['lat', 'lon']);
@@ -168,16 +168,17 @@ class AirportService extends Service
         $geotools = new Geotools();
         $start = new Coordinate([$from->lat, $from->lon]);
         $end = new Coordinate([$to->lat, $to->lon]);
+        /** @var \League\Geotools\Distance\Distance $dist */
         $dist = $geotools->distance()->setFrom($start)->setTo($end);
+
+        /** @var \League\Geotools\Distance\Distance $dist_mi */
+        $dist_mi = $dist->in('mi');
 
         // Convert into a Distance object
         try {
-            $distance = new Distance($dist->in('mi')->greatCircle(), 'mi');
-            return $distance;
-        } catch (NonNumericValue $e) {
-            return;
-        } catch (NonStringUnitName $e) {
-            return;
+            return new Distance($dist_mi->greatCircle(), 'mi');
+        } catch (NonNumericValue|NonStringUnitName $e) {
+            return null;
         }
     }
 }

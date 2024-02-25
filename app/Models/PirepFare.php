@@ -7,18 +7,18 @@ use App\Models\Enums\FareType;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int       id
- * @property string    pirep_id
- * @property int       fare_id
- * @property string    code
- * @property string    name
- * @property int       count
- * @property float     price
- * @property float $cost
- * @property int   $capacity
- * @property Pirep     pirep
- * @property Fare|null fare
- * @property FareType  type
+ * @property int       $id
+ * @property string    $pirep_id
+ * @property int       $fare_id
+ * @property string    $code
+ * @property string    $name
+ * @property int       $count
+ * @property float     $price
+ * @property float     $cost
+ * @property int       $capacity
+ * @property Pirep     $pirep
+ * @property Fare|null $fare
+ * @property FareType  $type
  */
 class PirepFare extends Model
 {

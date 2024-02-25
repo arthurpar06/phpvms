@@ -120,6 +120,7 @@ class UserController extends Controller
 
         if ($request->isMethod('DELETE')) {
             if ($request->filled('bid_id')) {
+                /** @var Bid $bid */
                 $bid = Bid::findOrFail($request->input('bid_id'));
                 $flight_id = $bid->flight_id;
             } else {
@@ -142,7 +143,7 @@ class UserController extends Controller
      * @param int                      $bid_id
      * @param \Illuminate\Http\Request $request
      *
-     * @return Bid
+     * @return BidResource
      */
     public function get_bid(int $bid_id, Request $request): BidResource
     {

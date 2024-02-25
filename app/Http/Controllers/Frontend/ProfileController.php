@@ -13,6 +13,7 @@ use App\Repositories\UserRepository;
 use App\Support\Countries;
 use App\Support\Timezonelist;
 use App\Support\Utils;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -154,6 +155,7 @@ class ProfileController extends Controller
             'avatar'     => 'nullable|mimes:jpeg,png,jpg',
         ];
 
+        /** @var Collection<int, UserField> $userFields */
         $userFields = UserField::where(['show_on_registration' => true, 'required' => true])->get();
         foreach ($userFields as $field) {
             $rules['field_'.$field->slug] = 'required';
@@ -243,7 +245,7 @@ class ProfileController extends Controller
      */
     public function regen_apikey(Request $request): RedirectResponse
     {
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
         Log::info('Regenerating API key "'.$user->ident.'"');
 
         $user->api_key = Utils::generateApiKey();

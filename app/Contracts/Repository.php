@@ -15,6 +15,11 @@ use function is_array;
 abstract class Repository extends BaseRepository
 {
     /**
+     * @var Model
+     */
+    protected $model;
+
+    /**
      * @param       $id
      * @param array $columns
      *
@@ -36,7 +41,6 @@ abstract class Repository extends BaseRepository
      */
     public function validate($values)
     {
-        /** @var \App\Contracts\Model $this->model */
         $validator = Validator::make($values, $this->model->rules);
         if ($validator->fails()) {
             return $validator->messages();

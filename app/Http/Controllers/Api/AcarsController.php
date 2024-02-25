@@ -63,9 +63,7 @@ class AcarsController extends Controller
     public function live_flights()
     {
         $pireps = $this->acarsRepo->getPositions(setting('acars.live_time'))->filter(
-            function ($pirep) {
-                return $pirep->position !== null;
-            }
+            fn(Pirep $pirep) => $pirep->position !== null
         );
 
         return PirepResource::collection($pireps);
@@ -150,8 +148,9 @@ class AcarsController extends Controller
     public function acars_store(string $id, PositionRequest $request): JsonResponse
     {
         // Check if the status is cancelled...
+        /** @var ?Pirep $pirep */
         $pirep = Pirep::find($id);
-        if (empty($pirep)) {
+        if (!$pirep) {
             throw new PirepNotFound($id);
         }
 

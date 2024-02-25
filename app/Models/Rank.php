@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contracts\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,11 +14,13 @@ use Kyslik\ColumnSortable\Sortable;
 /**
  * @property string $name
  * @property int    $hours
+ * @property string $image_url
  * @property float  $manual_base_pay_rate
  * @property float  $acars_base_pay_rate
  * @property bool   $auto_promote
  * @property bool   $auto_approve_acars
  * @property bool   $auto_approve_manual
+ * @property Collection<int, Subfleet> $subfleets
  */
 class Rank extends Model
 {

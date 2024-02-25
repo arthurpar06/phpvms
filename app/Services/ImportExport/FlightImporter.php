@@ -268,6 +268,7 @@ class FlightImporter extends ImportExport
                 continue;
             }
 
+            /** @var Subfleet $subfleet */
             $subfleet = Subfleet::firstOrCreate(
                 ['type' => $subfleet_type],
                 [

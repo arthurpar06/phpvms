@@ -55,7 +55,7 @@ class PirepFieldValue extends Model
     /**
      * If it was filled in from ACARS, then it's read only
      *
-     * @return bool
+     * @return Attribute
      */
     public function readOnly(): Attribute
     {

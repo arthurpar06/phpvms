@@ -140,7 +140,7 @@ class Airport extends Model
      * Return full name like:
      * KJFK - John F Kennedy
      *
-     * @return string
+     * @return Attribute
      */
     public function fullName(): Attribute
     {

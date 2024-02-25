@@ -3,6 +3,7 @@
 namespace App\Services\ImportExport;
 
 use App\Contracts\ImportExport;
+use App\Contracts\Model;
 use App\Models\Aircraft;
 use App\Models\Airport;
 use App\Models\Expense;
@@ -50,6 +51,7 @@ class ExpenseExporter extends ImportExport
             $ret['ref_model'] = '';
             $ret['ref_model_id'] = '';
         } else {
+            /** @var Aircraft|Airport|Subfleet $obj */
             $obj = $expense->getReferencedObject();
             if (!$obj) { // bail out
                 return $ret;

@@ -135,7 +135,7 @@ class LegacyImporterService extends Service
             throw new Exception('Unknown importer "'.$importer.'"');
         }
 
-        /** @var $importerInst BaseImporter */
+        /** @var BaseImporter $importerInst */
         $importerInst = new $importer();
 
         try {

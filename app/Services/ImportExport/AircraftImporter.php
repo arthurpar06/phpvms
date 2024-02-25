@@ -50,11 +50,14 @@ class AircraftImporter extends ImportExport
      */
     protected function getSubfleet($type)
     {
+        /** @var Airline $airline */
+        $airline = Airline::where('active', true)->first();
+
         return Subfleet::firstOrCreate([
             'type' => $type,
         ], [
             'name'       => $type,
-            'airline_id' => Airline::where('active', true)->first()->id,
+            'airline_id' => $airline->id,
         ]);
     }
 

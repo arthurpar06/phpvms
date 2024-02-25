@@ -23,12 +23,14 @@ class ExpenseLogImporter extends BaseImporter
 
         /** @var FinanceService $financeSvc */
         $financeSvc = app(FinanceService::class);
+        /** @var Airline $airline */
         $airline = Airline::first();
 
         $count = 0;
         $rows = $this->db->readRows($this->table, $this->idField, $start);
         foreach ($rows as $row) {
             $expense_id = $this->idMapper->getMapping('expenses', $row->name);
+            /** @var Expense $expense */
             $expense = Expense::find($expense_id);
 
             $debit = Money::createFromAmount($expense->amount);

@@ -40,7 +40,7 @@ class AircraftImporter extends BaseImporter
 
             $airline_id = null;
             if (!empty($row->airline)) {
-                $subfleet_name = $row->airline.' - '.$row->icao;
+                $subfleet_name = $row->airline.' - '.$row->icao; // @phpstan-ignore-line
                 $airline_id = $this->idMapper->getMapping('airlines', $row->airline);
             }
 
@@ -61,6 +61,7 @@ class AircraftImporter extends BaseImporter
                 $cols['airport_id'] = $row->location;
             }
 
+            /** @var Aircraft $aircraft */
             $aircraft = Aircraft::firstOrCreate($where, $cols);
 
             $this->idMapper->addMapping('aircraft', $row->id, $aircraft->id);
@@ -84,7 +85,8 @@ class AircraftImporter extends BaseImporter
      */
     protected function getSubfleet($name, $icao, $airline_id = null)
     {
-        if (empty($airline_id)) {
+        if (!$airline_id) {
+            /** @var Airline $airline */
             $airline = Airline::first();
             $airline_id = $airline->id;
         }

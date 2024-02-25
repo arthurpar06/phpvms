@@ -6,12 +6,12 @@ use App\Contracts\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int            user_id
- * @property User           user
- * @property string         provider
- * @property string         token
- * @property string         refresh_token
- * @property \Carbon\Carbon last_refreshed_at
+ * @property int            $user_id
+ * @property User           $user
+ * @property string         $provider
+ * @property string         $token
+ * @property string         $refresh_token
+ * @property \Carbon\Carbon $last_refreshed_at
  */
 class UserOAuthToken extends Model
 {
@@ -33,7 +33,7 @@ class UserOAuthToken extends Model
         'last_refreshed_at' => 'datetime',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'user_id'           => 'required|integer',
         'provider'          => 'required|string',
         'token'             => 'required|string',

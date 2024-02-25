@@ -116,7 +116,7 @@ class AirportController extends Controller
     /**
      * Search for airports in the database
      *
-     * @param string $searchString
+     * @param Request $request
      *
      * @return AnonymousResourceCollection
      */

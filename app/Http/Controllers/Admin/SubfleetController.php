@@ -375,7 +375,7 @@ class SubfleetController extends Controller
     /**
      * @param ?Subfleet $subfleet
      *
-     * @return mixed
+     * @return View
      */
     protected function return_expenses_view(?Subfleet $subfleet): View
     {

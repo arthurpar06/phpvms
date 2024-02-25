@@ -9,6 +9,7 @@ use App\Models\Traits\HashIdTrait;
 use App\Support\Units\Distance;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
@@ -30,9 +30,9 @@ use Kyslik\ColumnSortable\Sortable;
  * @property mixed      $route_code
  * @property int        $route_leg
  * @property bool       $has_bid
- * @property Collection $field_values
- * @property Collection $fares
- * @property Collection $subfleets
+ * @property Collection<int, FlightFieldValue> $field_values
+ * @property Collection<int, Fare> $fares
+ * @property Collection<int, Subfleet> $subfleets
  * @property int        $days
  * @property Distance   $distance
  * @property Distance   $planned_distance

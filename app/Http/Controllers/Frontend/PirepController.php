@@ -299,6 +299,7 @@ class PirepController extends Controller
         $aircraft = null;
         if ($request->has('sb_id')) {
             $simbrief_id = $request->input('sb_id');
+            /** @var SimBrief $simbrief */
             $simbrief = SimBrief::find($simbrief_id);
             $pirep = Pirep::fromSimBrief($simbrief);
 

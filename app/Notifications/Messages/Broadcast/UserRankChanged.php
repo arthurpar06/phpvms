@@ -9,12 +9,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserRankChanged extends Notification implements ShouldQueue
 {
-    private $user;
+    private User $user;
 
     /**
      * Create a new notification instance.
      *
-     * @param \App\Models\Pirep $pirep
+     * @param User $user
      */
     public function __construct(User $user)
     {
@@ -31,12 +31,11 @@ class UserRankChanged extends Notification implements ShouldQueue
     /**
      * Send a Discord notification
      *
-     * @param Pirep $pirep
-     * @param mixed $user
+     * @param User $user
      *
      * @return DiscordMessage|null
      */
-    public function toDiscordChannel($user): ?DiscordMessage
+    public function toDiscordChannel(User $user): ?DiscordMessage
     {
         $title = 'Rank changed '.$user->rank->name;
         //$fields = $this->createFields($user);
