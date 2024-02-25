@@ -134,7 +134,7 @@ class AirportService extends Service
 
         $lookup = $this->lookupAirport($icao);
         if (empty($lookup)) {
-            return;
+            return null;
         }
 
         $airport = new Airport($lookup);

@@ -13,7 +13,7 @@ class Time implements Arrayable
      * @param $minutes
      * @param $hours
      *
-     * @return static
+     * @return self
      */
     public static function init($minutes, $hours)
     {
@@ -85,11 +85,14 @@ class Time implements Arrayable
      */
     public function toArray()
     {
-        return $this->getMinutes();
+        return [
+            'hours'   => $this->hours,
+            'minutes' => $this->minutes,
+        ];
     }
 
     /**
-     * @param string $minutes
+     * @param int $minutes
      *
      * @return array
      */

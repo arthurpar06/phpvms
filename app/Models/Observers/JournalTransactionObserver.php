@@ -3,6 +3,7 @@
 namespace App\Models\Observers;
 
 use App\Models\JournalTransaction;
+use App\Support\Money;
 
 /**
  * Class JournalTransactionObserver
@@ -31,12 +32,12 @@ class JournalTransactionObserver
         $journal = $transaction->journal;
         if ($transaction['credit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = (int) $balance + $transaction->credit;
+            $journal->balance = Money::createFromAmount((int) $balance + $transaction->credit);
         }
 
         if ($transaction['debit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = (int) $balance - $transaction->debit;
+            $journal->balance = Money::createFromAmount((int) $balance - $transaction->debit);
         }
 
         $journal->save();
@@ -52,12 +53,12 @@ class JournalTransactionObserver
         $journal = $transaction->journal;
         if ($transaction['credit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = $balance - $transaction['credit'];
+            $journal->balance = Money::createFromAmount($balance - $transaction['credit']);
         }
 
         if ($transaction['debit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = $balance + $transaction['debit'];
+            $journal->balance = Money::createFromAmount((int) $balance + $transaction['debit']);
         }
 
         $journal->save();

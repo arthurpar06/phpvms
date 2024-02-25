@@ -34,12 +34,8 @@ class JournalRepository extends Repository implements CacheableInterface
      *
      * @return string
      */
-    public function formatPostDate(Carbon $date = null)
+    public function formatPostDate(Carbon $date)
     {
-        if (!$date) {
-            return;
-        }
-
         return $date->setTimezone('UTC')->toDateString();
     }
 
@@ -63,7 +59,7 @@ class JournalRepository extends Repository implements CacheableInterface
         $debits = Money::create($this->findWhere($where)->sum('debit') ?: 0);
         $balance = $credits->subtract($debits);
 
-        $journal->balance = $balance->getAmount();
+        $journal->balance = Money::createFromAmount($balance->getAmount());
         $journal->save();
 
         return $journal;

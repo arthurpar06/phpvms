@@ -55,21 +55,21 @@ class Award extends Model
     /**
      * Get the referring object
      *
-     * @param self      $award
+     * @param ?self     $award
      * @param User|null $user
      *
-     * @return null
+     * @return Model|null
      */
     public function getReference(self $award = null, User $user = null)
     {
         if (!$this->ref_model) {
-            return;
+            return null;
         }
 
         try {
             return new $this->ref_model($award, $user);
         } catch (\Exception $e) {
-            return;
+            return null;
         }
     }
 }

@@ -12,7 +12,7 @@ class JournalFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var class-string<Journal>
      */
     protected $model = Journal::class;
 

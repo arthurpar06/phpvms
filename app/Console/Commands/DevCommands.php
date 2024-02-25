@@ -16,6 +16,7 @@ use App\Services\UserService;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Schema;
 use PDO;
 use Symfony\Component\Yaml\Yaml;
@@ -136,8 +137,8 @@ class DevCommands extends Command
      */
     protected function compileAssets()
     {
-        $this->runCommand('npm update');
-        $this->runCommand('npm run dev');
+        echo Process::run('npm install')->output();
+        echo Process::run('npm run dev')->output();
     }
 
     /**

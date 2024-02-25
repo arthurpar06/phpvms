@@ -4,6 +4,7 @@ namespace App\Contracts;
 
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 use function is_array;
@@ -77,38 +78,5 @@ abstract class Command extends \Illuminate\Console\Command
         }
 
         fclose($fp);
-    }
-
-    /**
-     * @param array|string $cmd
-     * @param bool         $return
-     * @param mixed        $verbose
-     *
-     * @throws \Symfony\Component\Process\Exception\RuntimeException
-     * @throws \Symfony\Component\Process\Exception\LogicException
-     *
-     * @return string
-     */
-    public function runCommand($cmd, $return = false, $verbose = true): string
-    {
-        if (is_array($cmd)) {
-            $cmd = implode(' ', $cmd);
-        }
-
-        if ($verbose) {
-            $this->info('Running '.$cmd);
-        }
-
-        $val = '';
-        $process = Process::fromShellCommandline($cmd);
-        $process->run(function ($type, $buffer) use ($return, &$val) {
-            if ($return) {
-                $val .= $buffer;
-            } else {
-                echo $buffer;
-            }
-        });
-
-        return $val;
     }
 }

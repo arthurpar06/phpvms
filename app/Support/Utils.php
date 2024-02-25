@@ -16,7 +16,7 @@ class Utils
     /**
      * Generate a new ID with a given length
      *
-     * @param int [$length]
+     * @param int $length
      *
      * @return string
      */

@@ -13,7 +13,7 @@ class AirlineFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var class-string<Airline>
      */
     protected $model = Airline::class;
 

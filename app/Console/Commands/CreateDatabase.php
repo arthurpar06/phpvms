@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Console\Services\Database;
 use App\Contracts\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Process;
 use Tivie\OS\Detector;
 
 class CreateDatabase extends Command
@@ -110,7 +111,7 @@ class CreateDatabase extends Command
                 '".exit"',
             ];
 
-            $this->runCommand($cmd);
+            echo Process::run($cmd)->output();
         }
     }
 

@@ -75,9 +75,9 @@ class AirlinesController extends Controller
      *
      * @param int $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show(int $id): View
+    public function show(int $id): View|RedirectResponse
     {
         $airlines = $this->airlineRepo->findWithoutFail($id);
 
@@ -96,9 +96,9 @@ class AirlinesController extends Controller
      *
      * @param int $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function edit(int $id): View
+    public function edit(int $id): View|RedirectResponse
     {
         $airline = $this->airlineRepo->findWithoutFail($id);
 

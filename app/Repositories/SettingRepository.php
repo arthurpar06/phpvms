@@ -85,7 +85,7 @@ class SettingRepository extends Repository implements CacheableInterface
      * @param $key
      * @param $value
      *
-     * @return null
+     * @return string|null
      */
     public function store($key, $value)
     {
@@ -96,7 +96,7 @@ class SettingRepository extends Repository implements CacheableInterface
         )->first();
 
         if (!$setting) {
-            return;
+            return null;
         }
 
         try {

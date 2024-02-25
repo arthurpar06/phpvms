@@ -13,7 +13,7 @@ class AcarsFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var class-string<Acars>
      */
     protected $model = Acars::class;
 

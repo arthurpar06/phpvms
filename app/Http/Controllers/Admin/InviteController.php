@@ -44,6 +44,7 @@ class InviteController extends Controller
             return redirect(route('admin.users.index'));
         }
 
+        /** @var Invite $invite */
         $invite = Invite::create([
             'email'       => $request->get('email'),
             'token'       => sha1(hrtime(true).str_random()),

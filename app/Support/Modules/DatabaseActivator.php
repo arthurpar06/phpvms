@@ -5,6 +5,7 @@ namespace App\Support\Modules;
 use Exception;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -65,9 +66,11 @@ class DatabaseActivator implements ActivatorInterface
             if (app()->environment('production')) {
                 $cache = config('cache.keys.MODULES');
                 return Cache::remember($cache['key'].'.'.$name, $cache['time'], function () use ($name) {
+                    /** @var ?\App\Models\Module */
                     return \App\Models\Module::where(['name' => $name])->first();
                 });
             } else {
+                /** @var ?\App\Models\Module */
                 return \App\Models\Module::where(['name' => $name])->first();
             }
         } catch (Exception $e) { // Catch any database/connection errors
@@ -86,6 +89,7 @@ class DatabaseActivator implements ActivatorInterface
             if (app()->environment('production')) {
                 $cache = config('cache.keys.MODULES');
                 $retVal = Cache::remember($cache['key'], $cache['time'], function () {
+                    /** @var Collection<int, \App\Models\Module> $modules */
                     $modules = \App\Models\Module::select('name', 'enabled')->get();
 
                     $retValCache = [];
@@ -96,6 +100,7 @@ class DatabaseActivator implements ActivatorInterface
                     return $retValCache;
                 });
             } else {
+                /** @var Collection<int, \App\Models\Module> $modules */
                 $modules = \App\Models\Module::select('name', 'enabled')->get();
 
                 $retVal = [];
@@ -152,15 +157,16 @@ class DatabaseActivator implements ActivatorInterface
      */
     public function setActive(Module $module, bool $active): void
     {
-        $module = $this->getModuleByName($module->getName());
-        if (!$module) {
-            $module = \App\Models\Module::create([
-                'name' => $module->name,
+        $DBModule = $this->getModuleByName($module->getName());
+        if (!$DBModule) {
+            /** @var \App\Models\Module $DBModule */
+            $DBModule = \App\Models\Module::create([
+                'name' => $module->getName(),
             ]);
         }
 
-        $module->enabled = $active;
-        $module->save();
+        $DBModule->enabled = $active;
+        $DBModule->save();
     }
 
     /**

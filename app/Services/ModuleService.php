@@ -147,10 +147,11 @@ class ModuleService extends Service
      *
      * @param $id
      *
-     * @return Module
+     * @return ?Module
      */
-    public function getModule($id): Module
+    public function getModule($id): ?Module
     {
+        /** @var ?Module */
         return Module::find($id);
     }
 

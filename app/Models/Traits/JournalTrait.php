@@ -3,6 +3,7 @@
 namespace App\Models\Traits;
 
 use App\Models\Journal;
+use App\Support\Money;
 
 trait JournalTrait
 {
@@ -41,7 +42,7 @@ trait JournalTrait
             $journal = new Journal();
             $journal->type = $this->journal_type;
             $journal->currency = $currency_code;
-            $journal->balance = 0;
+            $journal->balance = Money::createFromAmount(0);
             $this->journal()->save($journal);
 
             $journal->refresh();

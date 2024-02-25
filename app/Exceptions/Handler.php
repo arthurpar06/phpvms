@@ -9,7 +9,9 @@ use App\Http\Middleware\SetActiveTheme;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException as IlluminateValidationException;
@@ -63,7 +65,7 @@ class Handler extends ExceptionHandler
      * @param            $request
      * @param \Throwable $exception
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|Response
      */
     private function handleApiError($request, Throwable $exception)
     {
@@ -108,7 +110,7 @@ class Handler extends ExceptionHandler
      * @param Request                 $request
      * @param AuthenticationException $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return Response|RedirectResponse
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {

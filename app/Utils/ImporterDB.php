@@ -17,7 +17,7 @@ class ImporterDB
     public $batchSize;
 
     /**
-     * @var PDO
+     * @var ?PDO
      */
     private $conn;
 

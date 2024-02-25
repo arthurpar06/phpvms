@@ -7,6 +7,7 @@ use App\Models\Casts\FuelCast;
 use App\Models\Enums\AircraftStatus;
 use App\Models\Traits\ExpensableTrait;
 use App\Models\Traits\FilesTrait;
+use App\Support\Units\Fuel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,7 +44,7 @@ use Znck\Eloquent\Traits\BelongsToThrough;
  * @property int      $state
  * @property string   $simbrief_type
  * @property Carbon   $landing_time
- * @property float    $fuel_onboard
+ * @property Fuel     $fuel_onboard
  * @property Bid      $bid
  * @property File[]   $files
  */

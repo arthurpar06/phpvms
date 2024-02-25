@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int       $id
  * @property string    $pirep_id
- * @property int       $fare_id
+ * @property ?int      $fare_id
  * @property string    $code
  * @property string    $name
  * @property int       $count

@@ -56,7 +56,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property UserFieldValue[] $fields
  * @property UserOAuthToken[] $oauth_tokens
  * @property Collection<int, Role>           $roles
- * @property Subfleet[]       $subfleets
+ * @property Collection<int, Subfleet>       $subfleets
  * @property Collection<int, TypeRating>       $typeratings
  * @property Airport          $home_airport
  * @property Airport          $current_airport

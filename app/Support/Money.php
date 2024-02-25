@@ -93,7 +93,7 @@ class Money
     /**
      * Return the amount of currency in smallest denomination
      *
-     * @return string
+     * @return float|int
      */
     public function getAmount()
     {

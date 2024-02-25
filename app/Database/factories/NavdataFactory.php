@@ -13,7 +13,7 @@ class NavdataFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var class-string<Navdata>
      */
     protected $model = Navdata::class;
 

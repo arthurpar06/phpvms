@@ -142,9 +142,9 @@ class UserController extends Controller
      *
      * @throws RepositoryException
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function edit(int $id): View
+    public function edit(int $id): View|RedirectResponse
     {
         /** @var User $user */
         $user = $this->userRepo

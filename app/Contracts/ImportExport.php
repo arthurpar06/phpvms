@@ -55,6 +55,7 @@ class ImportExport
      */
     public function getAirline($code): Airline
     {
+        /** @var Airline $airline */
         $airline = Airline::firstOrCreate([
             'icao' => $code,
         ], ['name' => $code]);

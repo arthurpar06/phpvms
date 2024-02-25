@@ -10,8 +10,8 @@ use Illuminate\Support\Collection;
 /**
  * @property string      $id                   The Simbrief OFP ID
  * @property int         $user_id              The user that generated this
- * @property string      $flight_id            Optional, if attached to a flight, removed if attached to PIREP
- * @property string      $pirep_id             Optional, if attached to a PIREP, removed if attached to flight
+ * @property ?string     $flight_id            Optional, if attached to a flight, removed if attached to PIREP
+ * @property ?string     $pirep_id             Optional, if attached to a PIREP, removed if attached to flight
  * @property string      $aircraft_id          The aircraft this is for
  * @property string      $acars_xml
  * @property string      $ofp_xml
@@ -49,15 +49,15 @@ class SimBrief extends Model
         'user_id' => 'integer',
     ];
 
-    /** @var \App\Models\SimBriefXML Store a cached version of the XML object */
+    /** @var \App\Models\SimBriefXML|false Store a cached version of the XML object */
     private $xml_instance;
 
     /**
      * Return a SimpleXML object of the $ofp_xml
      *
-     * @return \App\Models\SimBriefXML|null
+     * @return \App\Models\SimBriefXML|false|null
      */
-    public function getXmlAttribute(): ?SimBriefXML
+    public function getXmlAttribute(): SimBriefXML|false|null
     {
         if (empty($this->attributes['ofp_xml'])) {
             return null;

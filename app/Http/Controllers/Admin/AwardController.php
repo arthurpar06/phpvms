@@ -113,9 +113,9 @@ class AwardController extends Controller
      *
      * @param int $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show(int $id): View
+    public function show(int $id): View|RedirectResponse
     {
         $award = $this->awardRepo->findWithoutFail($id);
         if (empty($award)) {

@@ -98,9 +98,9 @@ class AirportController extends Controller
      *
      * @param string $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show(string $id): View
+    public function show(string $id): View|RedirectResponse
     {
         $airport = $this->airportRepo->findWithoutFail($id);
 
@@ -119,9 +119,9 @@ class AirportController extends Controller
      *
      * @param string $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function edit(string $id): View
+    public function edit(string $id): View|RedirectResponse
     {
         $airport = $this->airportRepo->findWithoutFail($id);
 

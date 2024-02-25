@@ -4,6 +4,7 @@ namespace App\Contracts;
 
 use Exception;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Exceptions\RepositoryException;
 
@@ -37,7 +38,7 @@ abstract class Repository extends BaseRepository
     /**
      * @param $values
      *
-     * @return bool
+     * @return bool|MessageBag
      */
     public function validate($values)
     {

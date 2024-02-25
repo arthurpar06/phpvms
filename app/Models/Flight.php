@@ -8,6 +8,7 @@ use App\Models\Enums\Days;
 use App\Models\Traits\HashIdTrait;
 use App\Support\Units\Distance;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -173,7 +174,7 @@ class Flight extends Model
      *
      * @param Days[] $days List of the enumerated values
      *
-     * @return Flight
+     * @return Builder
      */
     public static function findByDays(array $days)
     {

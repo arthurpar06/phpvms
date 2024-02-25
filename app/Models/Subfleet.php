@@ -23,7 +23,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property string     $name
  * @property int        $airline_id
  * @property int        $hub_id
- * @property string     $ground_handling_multiplier
+ * @property int        $ground_handling_multiplier
  * @property Collection<int, Fare> $fares
  * @property float      $cost_block_hour
  * @property float      $cost_delay_minute

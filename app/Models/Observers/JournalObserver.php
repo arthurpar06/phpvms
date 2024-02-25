@@ -3,6 +3,7 @@
 namespace App\Models\Observers;
 
 use App\Models\Journal;
+use App\Support\Money;
 
 /**
  * Class JournalObserver
@@ -17,6 +18,6 @@ class JournalObserver
      */
     public function creating(Journal $journal): void
     {
-        $journal->balance = 0;
+        $journal->balance = Money::createFromAmount(0);
     }
 }

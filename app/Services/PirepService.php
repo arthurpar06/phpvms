@@ -372,6 +372,7 @@ class PirepService extends Service
         }
 
         try {
+            /** @var Collection<int, Pirep> $found_pireps */
             $found_pireps = Pirep::where($where)
                 ->where('state', '!=', PirepState::CANCELLED)
                 ->where('created_at', '>=', $time_limit)

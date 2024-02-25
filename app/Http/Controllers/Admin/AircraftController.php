@@ -136,9 +136,9 @@ class AircraftController extends Controller
      *
      * @param mixed $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show($id): View
+    public function show($id): View|RedirectResponse
     {
         $aircraft = $this->aircraftRepo->findWithoutFail($id);
 

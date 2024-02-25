@@ -88,6 +88,7 @@ class UserService extends Service
      */
     public function createUser(array $attrs, array $roles = [], ?int $state = null): User
     {
+        /** @var User $user */
         $user = User::create($attrs);
         $user->api_key = Utils::generateApiKey();
         $user->curr_airport_id = $user->home_airport_id;
@@ -282,8 +283,9 @@ class UserService extends Service
         }
 
         $parsed_pilot_id = str_replace($ident_str, '', $pilot_id);
+        /** @var ?User $user */
         $user = User::where(['airline_id' => $airline_id, 'pilot_id' => $parsed_pilot_id])->first();
-        if (empty($user)) {
+        if (!$user) {
             throw new PilotIdNotFound($pilot_id);
         }
 
@@ -303,19 +305,19 @@ class UserService extends Service
         }
 
         $date = Carbon::now('UTC');
-        $users = User::where('state', UserState::ACTIVE)->get();
+        /** @var \Illuminate\Database\Eloquent\Collection<int, User> $users */
+        $users = User::with('roles')->where('state', UserState::ACTIVE)->get();
 
-        /** @var User $user */
         return $users->filter(function ($user, $i) use ($date, $leave_days) {
             // If any role for this user has the "disable_activity_check" feature activated, skip this user
-            foreach ($user->roles()->get() as $role) {
-                /** @var Role $role */
+            foreach ($user->roles as $role) {
                 if ($role->disable_activity_checks) {
                     return false;
                 }
             }
 
             // If they haven't submitted a PIREP, use the date that the user was created
+            /** @var ?Pirep $last_pirep */
             $last_pirep = Pirep::where(['user_id' => $user->id])->latest('submitted_at')->first();
             if (!$last_pirep) {
                 $diff_date = $user->created_at;
@@ -485,6 +487,7 @@ class UserService extends Service
         $old_rank = $user->rank;
         $original_rank_id = $user->rank_id;
 
+        /** @var \Illuminate\Database\Eloquent\Collection<int, Rank> $ranks */
         $ranks = Rank::where('auto_promote', true)
             ->orderBy('hours', 'asc')->get();
 

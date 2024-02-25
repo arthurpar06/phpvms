@@ -95,9 +95,9 @@ class ExpenseController extends Controller
      *
      * @param int $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show(int $id): View
+    public function show(int $id): View|RedirectResponse
     {
         $expenses = $this->expenseRepo->findWithoutFail($id);
 
@@ -117,9 +117,9 @@ class ExpenseController extends Controller
      *
      * @param int $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function edit(int $id): View
+    public function edit(int $id): View|RedirectResponse
     {
         $expense = $this->expenseRepo->findWithoutFail($id);
 

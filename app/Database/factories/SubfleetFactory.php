@@ -12,7 +12,7 @@ class SubfleetFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var string
+     * @var class-string<Subfleet>
      */
     protected $model = Subfleet::class;
 

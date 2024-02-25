@@ -16,6 +16,7 @@ use App\Services\GeoService;
 use App\Services\ModuleService;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -231,9 +232,9 @@ class FlightController extends Controller
      *
      * @param string $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show(string $id): View
+    public function show(string $id): View|RedirectResponse
     {
         $user_id = Auth::id();
         // Support retrieval of deleted relationships

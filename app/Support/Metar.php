@@ -337,7 +337,6 @@ class Metar implements \ArrayAccess
      * @param      $raw
      * @param bool $taf
      * @param bool $debug
-     * @param bool $icao
      */
     final public function __construct($raw, $taf = false, $debug = false)
     {
@@ -480,12 +479,12 @@ class Metar implements \ArrayAccess
         $current_method = 0;
 
         $raw_part_count = count($this->raw_parts);
-        $method_name_count = count(static::$method_names);
+        $method_name_count = count(self::$method_names);
 
         while ($this->part < $raw_part_count) {
             $this->method = $current_method;
             while ($this->method < $method_name_count) {
-                $method = 'get_'.static::$method_names[$this->method];
+                $method = 'get_'.self::$method_names[$this->method];
                 $token = $this->raw_parts[$this->part];
                 if ($this->$method($token) === true) {
                     /*$this->set_debug('Token "'.$token.'" is parsed by method: '.$method.', '.
@@ -1005,7 +1004,7 @@ class Metar implements \ArrayAccess
         ];
 
         // Runway past tendency
-        if (isset($found[8], static::$rvr_tendency_codes[$found[8]])) {
+        if (isset($found[8], self::$rvr_tendency_codes[$found[8]])) {
             $observed['tendency'] = $found[8];
         }
 
@@ -1028,9 +1027,9 @@ class Metar implements \ArrayAccess
             if ($observed['variable'] !== null) {
                 $report[] = $observed['variable'][$report_unit].$report_unit;
             } elseif ($observed['interval_min'] !== null && $observed['interval_max'] !== null) {
-                if (isset(static::$rvr_prefix_codes[$observed['variable_prefix']])) {
+                if (isset(self::$rvr_prefix_codes[$observed['variable_prefix']])) {
                     $report[] = 'varying from a min. of '.$observed['interval_min'][$report_unit].$report_unit.' until a max. of '.
-                        static::$rvr_prefix_codes[$observed['variable_prefix']].' that '.
+                        self::$rvr_prefix_codes[$observed['variable_prefix']].' that '.
                         $observed['interval_max'][$report_unit].' '.$report_unit;
                 } else {
                     $report[] = 'varying from a min. of '.$observed['interval_min'][$report_unit].$report_unit.' until a max. of '.
@@ -1038,8 +1037,8 @@ class Metar implements \ArrayAccess
                 }
             }
 
-            if (null !== $observed['tendency'] && isset(static::$rvr_tendency_codes[$observed['tendency']])) {
-                $report[] = 'and '.static::$rvr_tendency_codes[$observed['tendency']];
+            if (null !== $observed['tendency'] && isset(self::$rvr_tendency_codes[$observed['tendency']])) {
+                $report[] = 'and '.self::$rvr_tendency_codes[$observed['tendency']];
             }
 
             $observed['report'] = ucfirst(implode(' ', $report));
@@ -1098,7 +1097,7 @@ class Metar implements \ArrayAccess
 
         // Clear skies or no observation
         if (isset($found[2]) && !empty($found[2])) {
-            if (isset(static::$cloud_codes[$found[2]])) {
+            if (isset(self::$cloud_codes[$found[2]])) {
                 $observed['amount'] = $found[2];
             }
         } // Cloud cover observed
@@ -1110,12 +1109,12 @@ class Metar implements \ArrayAccess
                 $this->set_result_value('cloud_height', $observed['height']);
             }
 
-            if (isset(static::$cloud_codes[$found[4]])) {
+            if (isset(self::$cloud_codes[$found[4]])) {
                 $observed['amount'] = $found[4];
             }
         }
         // Type
-        if (isset($found[6], static::$cloud_type_codes[$found[6]]) && !empty($found[6]) && $found[4] !== 'VV') {
+        if (isset($found[6], self::$cloud_type_codes[$found[6]]) && !empty($found[6]) && $found[4] !== 'VV') {
             $observed['type'] = $found[6];
         }
 
@@ -1124,13 +1123,13 @@ class Metar implements \ArrayAccess
             $report = [];
             $report_ft = [];
 
-            $report[] = static::$cloud_codes[$observed['amount']];
-            $report_ft[] = static::$cloud_codes[$observed['amount']];
+            $report[] = self::$cloud_codes[$observed['amount']];
+            $report_ft[] = self::$cloud_codes[$observed['amount']];
 
             if ($observed['height']) {
                 if (null !== $observed['type']) {
-                    $report[] = 'at '.round($observed['height']['m'], 0).' meters, '.static::$cloud_type_codes[$observed['type']];
-                    $report_ft[] = 'at '.round($observed['height']['ft'], 0).' feet, '.static::$cloud_type_codes[$observed['type']];
+                    $report[] = 'at '.round($observed['height']['m'], 0).' meters, '.self::$cloud_type_codes[$observed['type']];
+                    $report_ft[] = 'at '.round($observed['height']['ft'], 0).' feet, '.self::$cloud_type_codes[$observed['type']];
                 } else {
                     $report[] = 'at '.round($observed['height']['m'], 0).' meters';
                     $report_ft[] = 'at '.round($observed['height']['ft'], 0).' feet';
@@ -1295,13 +1294,13 @@ class Metar implements \ArrayAccess
             else {
                 // Type
                 $deposits = $found[5];
-                if (isset(static::$runway_deposits_codes[$deposits])) {
+                if (isset(self::$runway_deposits_codes[$deposits])) {
                     $observed['deposits'] = $deposits;
                 }
 
                 // Extent
                 $deposits_extent = $found[6];
-                if (isset(static::$runway_deposits_extent_codes[$deposits_extent])) {
+                if (isset(self::$runway_deposits_extent_codes[$deposits_extent])) {
                     $observed['deposits_extent'] = $deposits_extent;
                 }
 
@@ -1312,7 +1311,7 @@ class Metar implements \ArrayAccess
                 if ((int) $deposits_depth >= 1 && (int) $deposits_depth <= 90) {
                     $observed['deposits_depth'] = (int) $deposits_depth;
                 } // Uses codes
-                elseif (isset(static::$runway_deposits_depth_codes[$deposits_depth])) {
+                elseif (isset(self::$runway_deposits_depth_codes[$deposits_depth])) {
                     $observed['deposits_depth'] = $deposits_depth;
                 }
             }
@@ -1322,25 +1321,25 @@ class Metar implements \ArrayAccess
 
             // Uses coefficient
             if ((int) $friction > 0 && (int) $friction <= 90) {
-                $observed['friction'] = round($friction / 100, 2);
+                $observed['friction'] = round((int) $friction / 100, 2);
             } // Uses codes
-            elseif (isset(static::$runway_friction_codes[$friction])) {
+            elseif (isset(self::$runway_friction_codes[$friction])) {
                 $observed['friction'] = $friction;
             }
 
             // Build runways report
             $report = [];
             if ($observed['deposits'] !== null) {
-                $report[] = static::$runway_deposits_codes[$observed['deposits']];
+                $report[] = self::$runway_deposits_codes[$observed['deposits']];
                 if (null !== $observed['deposits_extent']) {
-                    $report[] = 'contamination '.static::$runway_deposits_extent_codes[$observed['deposits_extent']];
+                    $report[] = 'contamination '.self::$runway_deposits_extent_codes[$observed['deposits_extent']];
                 }
 
                 if ($observed['deposits_depth'] !== null) {
                     if ($observed['deposits_depth'] === '99') {
                         $report[] = 'runway closed';
-                    } elseif (isset(static::$runway_deposits_depth_codes[$observed['deposits_depth']])) {
-                        $report[] = 'deposit is '.static::$runway_deposits_depth_codes[$observed['deposits_depth']].' deep';
+                    } elseif (isset(self::$runway_deposits_depth_codes[$observed['deposits_depth']])) {
+                        $report[] = 'deposit is '.self::$runway_deposits_depth_codes[$observed['deposits_depth']].' deep';
                     } else {
                         $report[] = 'deposit is '.$observed['deposits_depth'].' mm deep';
                     }
@@ -1348,8 +1347,8 @@ class Metar implements \ArrayAccess
             }
 
             if ($observed['friction'] !== null) {
-                if (isset(static::$runway_friction_codes[$observed['friction']])) {
-                    $report[] = 'a braking action is '.static::$runway_friction_codes[$observed['friction']];
+                if (isset(self::$runway_friction_codes[$observed['friction']])) {
+                    $report[] = 'a braking action is '.self::$runway_friction_codes[$observed['friction']];
                 } else {
                     $report[] = 'a friction coefficient is '.$observed['friction'];
                 }
@@ -1670,7 +1669,7 @@ class Metar implements \ArrayAccess
      */
     private function decode_weather($part, $method, $regexp_prefix = '')
     {
-        $wx_codes = implode('|', array_keys(array_merge(static::$weather_char_codes, static::$weather_type_codes)));
+        $wx_codes = implode('|', array_keys(array_merge(self::$weather_char_codes, self::$weather_type_codes)));
         if (!preg_match('@^'.$regexp_prefix.'([-+]|VC)?('.$wx_codes.')?('.$wx_codes.')?('.$wx_codes.')?('.$wx_codes.')@', $part, $found)) {
             return false;
         }
@@ -1689,7 +1688,7 @@ class Metar implements \ArrayAccess
 
         foreach (\array_slice($found, 1) as $code) {
             // Types
-            if (isset(static::$weather_type_codes[$code])) {
+            if (isset(self::$weather_type_codes[$code])) {
                 if (null === $observed['types']) {
                     $observed['types'] = [];
                 }
@@ -1698,7 +1697,7 @@ class Metar implements \ArrayAccess
             }
 
             // Characteristics (uses last)
-            if (isset(static::$weather_char_codes[$code])) {
+            if (isset(self::$weather_char_codes[$code])) {
                 $observed['characteristics'] = $code;
             }
         }
@@ -1708,19 +1707,19 @@ class Metar implements \ArrayAccess
             $report = [];
             if (null !== $observed['intensity']) {
                 if ($observed['intensity'] === 'VC') {
-                    $report[] = static::$weather_intensity_codes[$observed['intensity']].',';
+                    $report[] = self::$weather_intensity_codes[$observed['intensity']].',';
                 } else {
-                    $report[] = static::$weather_intensity_codes[$observed['intensity']];
+                    $report[] = self::$weather_intensity_codes[$observed['intensity']];
                 }
             }
 
             if ($observed['characteristics'] !== null) {
-                $report[] = static::$weather_char_codes[$observed['characteristics']];
+                $report[] = self::$weather_char_codes[$observed['characteristics']];
             }
 
             if ($observed['types'] !== null) {
                 foreach ($observed['types'] as $code) {
-                    $report[] = static::$weather_type_codes[$code];
+                    $report[] = self::$weather_type_codes[$code];
                 }
             }
 
@@ -1822,7 +1821,7 @@ class Metar implements \ArrayAccess
     private function convert_direction_label($direction): string
     {
         if ($direction >= 0 && $direction <= 360) {
-            return static::$direction_codes[round($direction / 22.5) % 16];
+            return self::$direction_codes[round($direction / 22.5) % 16];
         }
 
         return 'N';

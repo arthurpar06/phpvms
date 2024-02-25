@@ -100,6 +100,7 @@ class SimBriefService extends Service
         }
 
         // Save this into the Simbrief table, if it doesn't already exist
+        /** @var Simbrief */
         return SimBrief::updateOrCreate(
             ['id' => $ofp_id],
             $attrs

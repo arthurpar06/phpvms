@@ -66,9 +66,9 @@ class PagesController extends Controller
      *
      * @param int $id
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function show(int $id): View
+    public function show(int $id): View|RedirectResponse
     {
         $pages = $this->pageRepo->findWithoutFail($id);
 

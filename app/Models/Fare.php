@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Model;
+use App\Models\Enums\FareType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,10 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property float  $cost
  * @property float  $price
- * @property int    $code
+ * @property string $code
  * @property int    $capacity
  * @property int    $count    Only when merged with pivot
- * @property int    $type
+ * @property FareType $type
  * @property string $notes
  * @property bool   $active
  */
