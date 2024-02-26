@@ -14,7 +14,7 @@ class CommaDelimitedCast implements CastsAttributes
      * @param mixed                               $value
      * @param array                               $attributes
      *
-     * @return mixed
+     * @return string[]
      */
     public function get($model, string $key, $value, array $attributes)
     {

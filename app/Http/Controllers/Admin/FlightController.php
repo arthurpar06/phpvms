@@ -38,24 +38,20 @@ class FlightController extends Controller
      * FlightController constructor.
      *
      * @param AirlineRepository     $airlineRepo
-     * @param AirportRepository     $airportRepo
      * @param FareRepository        $fareRepo
      * @param FlightRepository      $flightRepo
      * @param FlightFieldRepository $flightFieldRepo
      * @param FareService           $fareSvc
      * @param FlightService         $flightSvc
-     * @param ImportService         $importSvc
      * @param SubfleetRepository    $subfleetRepo
      */
     public function __construct(
         private readonly AirlineRepository $airlineRepo,
-        private readonly AirportRepository $airportRepo,
         private readonly FareRepository $fareRepo,
         private readonly FlightRepository $flightRepo,
         private readonly FlightFieldRepository $flightFieldRepo,
         private readonly FareService $fareSvc,
         private readonly FlightService $flightSvc,
-        private readonly ImportService $importSvc,
         private readonly SubfleetRepository $subfleetRepo
     ) {
     }
@@ -198,7 +194,7 @@ class FlightController extends Controller
      */
     public function edit(string $id): RedirectResponse|View
     {
-        /** @var Flight $flight */
+        /** @var ?Flight $flight */
         $flight = $this->flightRepo
             ->with(['dpt_airport', 'arr_airport', 'alt_airport'])
             ->findWithoutFail($id);
@@ -375,7 +371,7 @@ class FlightController extends Controller
             $field->save();
         } elseif ($request->isMethod('put')) {
             Log::info('Updating flight field, flight: '.$flight_id, $request->input());
-            /** @var FlightFieldValue $field */
+            /** @var ?FlightFieldValue $field */
             $field = FlightFieldValue::where([
                 'name'      => $request->input('name'),
                 'flight_id' => $flight_id,

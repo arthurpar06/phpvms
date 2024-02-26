@@ -16,7 +16,7 @@ class Velocity extends Unit
     ];
 
     /**
-     * @param float  $value
+     * @param float|self  $value
      * @param string $unit
      *
      * @throws \PhpUnitsOfMeasure\Exception\NonNumericValue
@@ -25,7 +25,7 @@ class Velocity extends Unit
     public function __construct($value, string $unit)
     {
         if (empty($value)) {
-            $value = 0;
+            $value = 0.;
         }
 
         $this->localUnit = setting('units.speed');

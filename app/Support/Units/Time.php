@@ -191,7 +191,7 @@ class Time implements Arrayable
 
     /**
      * @param      $hours
-     * @param null $minutes
+     * @param ?int $minutes
      *
      * @return float|int
      */

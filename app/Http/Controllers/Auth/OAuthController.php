@@ -55,11 +55,6 @@ class OAuthController extends Controller
                 abort(404);
         }
 
-        if (!$providerUser) {
-            flash()->error('Provider '.$provider.' not found');
-            return redirect(url('/login'));
-        }
-
         // If a user is logged in we want to link the account
         if (Auth::check()) {
             $user = Auth::user();
@@ -86,7 +81,7 @@ class OAuthController extends Controller
             return redirect(route('frontend.profile.index'));
         }
 
-        /** @var User $user */
+        /** @var ?User $user */
         $user = User::where($provider.'_id', $providerUser->getId())->orWhere('email', $providerUser->getEmail())->first();
 
         if ($user) {

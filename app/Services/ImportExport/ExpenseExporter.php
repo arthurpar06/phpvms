@@ -51,7 +51,7 @@ class ExpenseExporter extends ImportExport
             $ret['ref_model'] = '';
             $ret['ref_model_id'] = '';
         } else {
-            /** @var Aircraft|Airport|Subfleet $obj */
+            /** @var Aircraft|Airport|Subfleet|null $obj */
             $obj = $expense->getReferencedObject();
             if (!$obj) { // bail out
                 return $ret;

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int       $capacity
  * @property Pirep     $pirep
  * @property Fare|null $fare
- * @property FareType  $type
+ * @property int       $type
  */
 class PirepFare extends Model
 {

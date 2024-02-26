@@ -178,7 +178,7 @@ class SubfleetController extends Controller
      */
     public function edit(int $id): RedirectResponse|View
     {
-        /** @var Subfleet $subfleet */
+        /** @var ?Subfleet $subfleet */
         $subfleet = $this->subfleetRepo
             ->with(['home', 'fares', 'ranks', 'typeratings'])
             ->findWithoutFail($id);

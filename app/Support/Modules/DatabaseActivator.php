@@ -18,13 +18,14 @@ class DatabaseActivator implements ActivatorInterface
      * Laravel config instance
      *
      * @var Config
-     */
-    private $config;
+     *
+    private $config;*/
 
     /**
      * @var Filesystem
-     */
+     *
     private $files;
+    */
 
     /**
      * The module path.
@@ -40,18 +41,20 @@ class DatabaseActivator implements ActivatorInterface
      */
     protected $paths = [];
 
+    /*
     /**
      * Array of modules activation statuses
      *
      * @var array
-     */
+     *
     private $modulesStatuses;
+    */
 
-    public function __construct(Container $app, $path = null)
+    public function __construct($path = null)
     {
-        $this->config = $app['config'];
-        $this->files = $app['files'];
-        $this->modulesStatuses = $this->getModulesStatuses();
+        //$this->config = $app['config'];
+        //$this->files = $app['files'];
+        //$this->modulesStatuses = $this->getModulesStatuses();
         $this->path = $path;
     }
 
@@ -83,13 +86,14 @@ class DatabaseActivator implements ActivatorInterface
      *
      * @return array
      */
+    /*
     private function getModulesStatuses(): array
     {
         try {
             if (app()->environment('production')) {
                 $cache = config('cache.keys.MODULES');
                 $retVal = Cache::remember($cache['key'], $cache['time'], function () {
-                    /** @var Collection<int, \App\Models\Module> $modules */
+                    /** @var Collection<int, \App\Models\Module> $modules *
                     $modules = \App\Models\Module::select('name', 'enabled')->get();
 
                     $retValCache = [];
@@ -100,7 +104,7 @@ class DatabaseActivator implements ActivatorInterface
                     return $retValCache;
                 });
             } else {
-                /** @var Collection<int, \App\Models\Module> $modules */
+                /** @var Collection<int, \App\Models\Module> $modules *
                 $modules = \App\Models\Module::select('name', 'enabled')->get();
 
                 $retVal = [];
@@ -113,6 +117,7 @@ class DatabaseActivator implements ActivatorInterface
             return [];
         }
     }
+    */
 
     /**
      * {@inheritdoc}

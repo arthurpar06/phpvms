@@ -100,7 +100,7 @@ class ModuleService extends Service
 
         /** @var Module $module */
         foreach ($moduleList as $module) {
-            /** @var \Nwidart\Modules\Module $moduleInstance */
+            /** @var ?\Nwidart\Modules\Module $moduleInstance */
             $moduleInstance = \Nwidart\Modules\Facades\Module::find($module->name);
             if (!$moduleInstance) {
                 continue;
@@ -129,7 +129,7 @@ class ModuleService extends Service
             return false;
         }
 
-        /** @var \Nwidart\Modules\Module $moduleInstance */
+        /** @var ?\Nwidart\Modules\Module $moduleInstance */
         $moduleInstance = \Nwidart\Modules\Facades\Module::find($module->name);
         if (!$moduleInstance) {
             return false;

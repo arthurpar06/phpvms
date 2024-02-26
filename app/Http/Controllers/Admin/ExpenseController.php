@@ -28,12 +28,10 @@ class ExpenseController extends Controller
      *
      * @param AirlineRepository $airlineRepo
      * @param ExpenseRepository $expenseRepo
-     * @param ImportService     $importSvc
      */
     public function __construct(
         private readonly AirlineRepository $airlineRepo,
-        private readonly ExpenseRepository $expenseRepo,
-        private readonly ImportService $importSvc
+        private readonly ExpenseRepository $expenseRepo
     ) {
     }
 

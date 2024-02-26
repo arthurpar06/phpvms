@@ -11,15 +11,6 @@ class LedgerImporter extends BaseImporter
     protected $table = 'ledger';
 
     /**
-     * Legacy ID to the current ledger ref_model mapping
-     *
-     * @var array
-     */
-    private static $legacy_paysource = [
-        1 => Pirep::class,
-    ];
-
-    /**
      * {@inheritdoc}
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException

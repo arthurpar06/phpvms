@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property float   $amount
  * @property string  $name
  * @property string  $type
- * @property string  $flight_type
+ * @property string[] $flight_type
  * @property string  $ref_model
  * @property string  $ref_model_id
  * @property bool    $charge_to_user

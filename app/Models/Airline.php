@@ -15,15 +15,15 @@ use Illuminate\Support\Str;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * @property mixed   $id
- * @property string  $code
- * @property string  $icao
- * @property string  $iata
- * @property string  $name
- * @property string  $callsign
- * @property string  $logo
- * @property string  $country
- * @property Journal $journal
+ * @property mixed    $id
+ * @property string   $code
+ * @property string   $icao
+ * @property string   $iata
+ * @property string   $name
+ * @property string   $callsign
+ * @property string   $logo
+ * @property string   $country
+ * @property ?Journal $journal
  */
 class Airline extends Model
 {

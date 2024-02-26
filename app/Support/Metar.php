@@ -269,6 +269,7 @@ class Metar implements \ArrayAccess
     /*
      * Trends time codes.
      */
+    /*
     private static $trends_flag_codes = [
         'BECMG' => 'expected to arise soon',
         'TEMPO' => 'expected to arise temporarily',
@@ -276,16 +277,17 @@ class Metar implements \ArrayAccess
         'PROV'  => 'provisional forecast',
         'CNL'   => 'cancelled forecast',
         'NIL'   => 'nil forecast',
-    ];
+    ];*/
 
     /*
      * Trends time codes.
      */
+    /*
     private static $trends_time_codes = [
         'AT' => 'at',
         'FM' => 'from',
         'TL' => 'until',
-    ];
+    ];*/
 
     /*
      * Interpretation of compass degrees codes.
@@ -1485,6 +1487,7 @@ class Metar implements \ArrayAccess
 
         // Ignore trends
         return true;
+        /*
         // Detects TAF on report
         if ($this->part <= 4) {
             $this->set_result_value('taf', true);
@@ -1584,7 +1587,7 @@ class Metar implements \ArrayAccess
                 foreach ($debug as $message) {
                     $this->set_debug('Recursion: '.$message);
                 }
-            }*/
+            }* end of commented code
 
             // Process parse errors
             if ($errors = $parser->errors()) {
@@ -1623,6 +1626,7 @@ class Metar implements \ArrayAccess
 
         $this->set_result_group('trends', $trend);
         return true;
+        */
     }
 
     /**

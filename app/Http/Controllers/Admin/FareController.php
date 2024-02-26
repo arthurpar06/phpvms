@@ -11,7 +11,6 @@ use App\Models\Enums\ImportExportType;
 use App\Models\Fare;
 use App\Repositories\FareRepository;
 use App\Services\ExportService;
-use App\Services\ImportService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,11 +27,9 @@ class FareController extends Controller
      * FareController constructor.
      *
      * @param FareRepository $fareRepo
-     * @param ImportService  $importSvc
      */
     public function __construct(
-        private readonly FareRepository $fareRepo,
-        private readonly ImportService $importSvc
+        private readonly FareRepository $fareRepo
     ) {
     }
 

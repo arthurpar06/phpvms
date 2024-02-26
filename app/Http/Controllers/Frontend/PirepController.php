@@ -485,7 +485,7 @@ class PirepController extends Controller
      */
     public function edit(string $id): RedirectResponse|View
     {
-        /** @var Pirep $pirep */
+        /** @var ?Pirep $pirep */
         $pirep = $this->pirepRepo
             ->with(['dpt_airport', 'arr_airport', 'alt_airport'])
             ->findWithoutFail($id);
@@ -567,7 +567,7 @@ class PirepController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        /** @var Pirep $pirep */
+        /** @var ?Pirep $pirep */
         $pirep = $this->pirepRepo->findWithoutFail($id);
         if (is_null($pirep)) {
             Flash::error('Pirep not found');

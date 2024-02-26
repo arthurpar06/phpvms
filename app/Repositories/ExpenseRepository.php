@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\Repository;
+use App\Models\Enums\ExpenseType;
 use App\Models\Expense;
 use Illuminate\Support\Collection;
 use Prettus\Repository\Contracts\CacheableInterface;
@@ -21,10 +22,10 @@ class ExpenseRepository extends Repository implements CacheableInterface
      * Get all of the expenses for a given type, and also
      * include expenses for a given airline ID
      *
-     * @param       $type
-     * @param null  $airline_id
-     * @param null  $ref_model
-     * @param mixed $ref_model_id
+     * @param int $type
+     * @param ?int $airline_id
+     * @param class-string|object|null  $ref_model
+     * @param string|int $ref_model_id
      *
      * @return Collection
      */

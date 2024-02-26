@@ -49,10 +49,10 @@ use Kyslik\ColumnSortable\Sortable;
  * @property float      $pilot_pay
  * @property Airport    $dpt_airport
  * @property Airport    $arr_airport
- * @property Airport    $alt_airport
+ * @property ?Airport   $alt_airport
  * @property string     $dpt_airport_id
  * @property string     $arr_airport_id
- * @property string     $alt_airport_id
+ * @property ?string    $alt_airport_id
  * @property int        $event_id
  * @property int        $user_id
  * @property int        $active

@@ -45,7 +45,7 @@ class AwardHandler extends Listener //implements ShouldQueue
         foreach ($awards as $award) {
             /** @var \App\Contracts\Award $klass */
             $klass = $award->getReference($award, $user);
-            $klass?->handle();
+            $klass->handle();
         }
     }
 }

@@ -39,13 +39,11 @@ class RegisterController extends Controller
      * RegisterController constructor.
      *
      * @param AirlineRepository $airlineRepo
-     * @param AirportRepository $airportRepo
      * @param UserService       $userService
      * @param HttpClient        $httpClient
      */
     public function __construct(
         private readonly AirlineRepository $airlineRepo,
-        private readonly AirportRepository $airportRepo,
         private readonly HttpClient $httpClient,
         private readonly UserService $userService,
     ) {
@@ -70,7 +68,7 @@ class RegisterController extends Controller
                 abort(403, 'Registrations are invite only');
             }
 
-            /** @var Invite $invite */
+            /** @var ?Invite $invite */
             $invite = Invite::find($request->get('invite'));
             if (!$invite || $invite->token !== $request->get('token')) {
                 abort(403, 'Invalid invite');
@@ -175,7 +173,7 @@ class RegisterController extends Controller
                 abort(403, 'Registrations are invite only');
             }
 
-            /** @var Invite $invite */
+            /** @var ?Invite $invite */
             $invite = Invite::find($request->get('invite'));
             if (!$invite || $invite->token !== base64_decode($request->get('invite_token'))) {
                 abort(403, 'Invalid invite');

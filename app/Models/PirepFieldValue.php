@@ -60,7 +60,7 @@ class PirepFieldValue extends Model
     public function readOnly(): Attribute
     {
         return Attribute::make(
-            get: fn ($_, $attrs) => $this->source === PirepFieldSource::ACARS
+            get: fn ($_, $attrs) => (int) $this->source === PirepFieldSource::ACARS
         );
     }
 

@@ -161,9 +161,9 @@ class AircraftController extends Controller
      */
     public function edit(int $id): View|RedirectResponse
     {
-        /** @var Aircraft $aircraft */
+        /** @var ?Aircraft $aircraft */
         $aircraft = $this->aircraftRepo
-            ->with(['airport', 'hub'])
+            ->with(['airport', 'home'])
             ->findWithoutFail($id);
 
         if (is_null($aircraft)) {
@@ -176,8 +176,8 @@ class AircraftController extends Controller
             $airports[$aircraft->airport->id] = $aircraft->airport->description;
         }
 
-        if ($aircraft->hub) {
-            $airports[$aircraft->hub->id] = $aircraft->hub->description;
+        if ($aircraft->home) {
+            $airports[$aircraft->home->id] = $aircraft->home->description;
         }
 
         return view('admin.aircraft.edit', [
@@ -201,7 +201,7 @@ class AircraftController extends Controller
      */
     public function update(int $id, UpdateAircraftRequest $request): RedirectResponse
     {
-        /** @var \App\Models\Aircraft $aircraft */
+        /** @var ?Aircraft $aircraft */
         $aircraft = $this->aircraftRepo->findWithoutFail($id);
 
         if (is_null($aircraft)) {
@@ -225,7 +225,7 @@ class AircraftController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        /** @var \App\Models\Aircraft $aircraft */
+        /** @var ?Aircraft $aircraft */
         $aircraft = $this->aircraftRepo->findWithoutFail($id);
 
         if (is_null($aircraft)) {

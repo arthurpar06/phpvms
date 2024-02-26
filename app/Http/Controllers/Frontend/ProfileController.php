@@ -33,12 +33,10 @@ class ProfileController extends Controller
      * ProfileController constructor.
      *
      * @param AirlineRepository $airlineRepo
-     * @param AirportRepository $airportRepo
      * @param UserRepository    $userRepo
      */
     public function __construct(
         private readonly AirlineRepository $airlineRepo,
-        private readonly AirportRepository $airportRepo,
         private readonly UserRepository $userRepo
     ) {
     }
@@ -49,13 +47,9 @@ class ProfileController extends Controller
     private function acarsEnabled(): bool
     {
         // Is the ACARS module enabled?
-        $acars_enabled = false;
+        /** @var ?\Nwidart\Modules\Module $acars */
         $acars = Module::find('VMSAcars');
-        if ($acars) {
-            $acars_enabled = $acars->isEnabled();
-        }
-
-        return $acars_enabled;
+        return $acars?->isEnabled() ?? false;
     }
 
     /**
@@ -77,7 +71,7 @@ class ProfileController extends Controller
     public function show(int $id): RedirectResponse|View
     {
         $with = ['airline', 'awards', 'current_airport', 'fields.field', 'home_airport', 'last_pirep', 'rank', 'typeratings'];
-        /** @var \App\Models\User $user */
+        /** @var ?User $user */
         $user = User::with($with)->where('id', $id)->first();
 
         if (is_null($user)) {
@@ -106,7 +100,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): RedirectResponse|View
     {
-        /** @var \App\Models\User $user */
+        /** @var ?User $user */
         $user = User::with('fields.field', 'location')->where('id', Auth::id())->first();
 
         if (is_null($user)) {

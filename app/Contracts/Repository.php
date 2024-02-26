@@ -96,7 +96,7 @@ abstract class Repository extends BaseRepository
      *
      * @param string $col
      * @param array  $values
-     * @param string $sort_by
+     * @param string|array $sort_by
      * @param string $order_by
      *
      * @return $this

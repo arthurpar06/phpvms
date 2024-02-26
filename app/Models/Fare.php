@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $code
  * @property int    $capacity
  * @property int    $count    Only when merged with pivot
- * @property FareType $type
+ * @property int    $type
  * @property string $notes
  * @property bool   $active
  */

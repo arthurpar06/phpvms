@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\Notification;
  */
 class NotificationEventsHandler extends Listener
 {
-    private static $broadcastNotifyable;
 
     public static $callbacks = [
         AwardAwarded::class      => 'onAwardAwarded',
@@ -42,11 +41,6 @@ class NotificationEventsHandler extends Listener
         UserStatsChanged::class  => 'onUserStatsChanged',
         Verified::class          => 'onEmailVerified',
     ];
-
-    public function __construct()
-    {
-        self::$broadcastNotifyable = app(Broadcast::class);
-    }
 
     /**
      * Send a notification to all of the admins

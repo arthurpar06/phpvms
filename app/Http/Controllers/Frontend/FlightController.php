@@ -7,7 +7,6 @@ use App\Models\Bid;
 use App\Models\Enums\FlightType;
 use App\Models\Flight;
 use App\Repositories\AirlineRepository;
-use App\Repositories\AirportRepository;
 use App\Repositories\Criteria\WhereCriteria;
 use App\Repositories\FlightRepository;
 use App\Repositories\SubfleetRepository;
@@ -30,7 +29,6 @@ class FlightController extends Controller
 {
     /**
      * @param AirlineRepository  $airlineRepo
-     * @param AirportRepository  $airportRepo
      * @param FlightRepository   $flightRepo
      * @param GeoService         $geoSvc
      * @param ModuleService      $moduleSvc
@@ -40,7 +38,6 @@ class FlightController extends Controller
      */
     public function __construct(
         private readonly AirlineRepository $airlineRepo,
-        private readonly AirportRepository $airportRepo,
         private readonly FlightRepository $flightRepo,
         private readonly GeoService $geoSvc,
         private readonly ModuleService $moduleSvc,
@@ -161,11 +158,6 @@ class FlightController extends Controller
         /** @var Collection<int, Bid> $bids */
         $bids = Bid::where('user_id', Auth::id())->get();
         foreach ($bids as $bid) {
-            if (!$bid->flight) {
-                $bid->delete();
-                continue;
-            }
-
             $saved_flights[$bid->flight_id] = $bid->id;
         }
 

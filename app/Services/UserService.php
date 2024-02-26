@@ -60,10 +60,10 @@ class UserService extends Service
      */
     public function getUser($user_id): ?User
     {
-        /** @var User $user */
+        /** @var ?User $user */
         $user = $this->userRepo
             ->with(['airline', 'bids', 'rank'])
-            ->find($user_id);
+            ->findWithoutFail($user_id);
 
         if (!$user || $user->state === UserState::DELETED) {
             return null;

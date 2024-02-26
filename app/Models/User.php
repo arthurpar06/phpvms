@@ -32,9 +32,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property mixed            $timezone
  * @property string           $ident
  * @property string           $atc
- * @property string           $curr_airport_id
- * @property string           $home_airport_id
- * @property File             $avatar
+ * @property ?string          $curr_airport_id
+ * @property ?string          $home_airport_id
+ * @property ?File            $avatar
  * @property Airline          $airline
  * @property int              $flights
  * @property int              $flight_time
@@ -42,9 +42,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string           $remember_token
  * @property \Carbon\Carbon   $created_at
  * @property \Carbon\Carbon   $updated_at
- * @property Rank             $rank
- * @property Journal          $journal
- * @property int              $rank_id
+ * @property ?Rank            $rank
+ * @property ?Journal         $journal
+ * @property ?int             $rank_id
  * @property string           $discord_id
  * @property int              $state
  * @property string           $last_ip
@@ -58,9 +58,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Collection<int, Role>           $roles
  * @property Collection<int, Subfleet>       $subfleets
  * @property Collection<int, TypeRating>       $typeratings
- * @property Airport          $home_airport
- * @property Airport          $current_airport
- * @property Airport          $location
+ * @property ?Airport         $home_airport
+ * @property ?Airport         $current_airport
+ * @property ?Airport         $location
  * @property Bid[]            $bids
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -290,7 +290,7 @@ class User extends Authenticatable implements LaratrustUser, MustVerifyEmail
 
     public function resolveAvatarUrl()
     {
-        /** @var File $avatar */
+        /** @var ?File $avatar */
         $avatar = $this->avatar;
         if (!$avatar) {
             return $this->gravatar();

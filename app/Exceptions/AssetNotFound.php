@@ -6,9 +6,7 @@ use Exception;
 
 class AssetNotFound extends AbstractHttpException
 {
-    public function __construct(
-        private readonly Exception $exception
-    ) {
+    public function __construct(Exception $exception) {
         parent::__construct(
             404,
             $exception->getMessage()

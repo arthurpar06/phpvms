@@ -188,9 +188,8 @@ class SeederService extends Service
                 ->first();
 
             if ($group === null) {
-                $offset = (int) DB::table('settings')->max('offset');
-                if ($offset === null) {
-                    $offset = 0;
+                $offset = (int) DB::table('settings')->max('offset'); // If the query returns null then the variable worth 0
+                if ($offset === 0) {
                     $start_offset = 1;
                 } else {
                     $offset += 100;
@@ -199,7 +198,7 @@ class SeederService extends Service
             } else {
                 // Now find the number to start from
                 $start_offset = (int) DB::table('settings')->where('group', $name)->max('order');
-                if ($start_offset === null) {
+                if ($start_offset === 0) {
                     $start_offset = $offset + 1;
                 } else {
                     $start_offset++;

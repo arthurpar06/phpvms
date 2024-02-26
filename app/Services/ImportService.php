@@ -25,16 +25,6 @@ use League\Csv\Reader;
 class ImportService extends Service
 {
     /**
-     * ImporterService constructor.
-     *
-     * @param FlightRepository $flightRepo
-     */
-    public function __construct(
-        private readonly FlightRepository $flightRepo
-    ) {
-    }
-
-    /**
      * Throw a validation error back up because it will automatically show
      * itself under the CSV file upload, and nothing special needs to be done
      *

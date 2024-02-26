@@ -215,7 +215,7 @@ class ImporterDB
      * @param int    $limit    Number of rows to read
      * @param int    $offset   Where to start from
      * @param        $order_by
-     * @param string $fields
+     * @param string|array $fields
      *
      * @return false|\PDOStatement|void
      */

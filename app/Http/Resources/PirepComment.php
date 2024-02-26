@@ -18,10 +18,6 @@ class PirepComment extends Resource
      */
     public function toArray($request)
     {
-        if (!$this->user) {
-            return [];
-        }
-
         $user = $this->user;
 
         return [

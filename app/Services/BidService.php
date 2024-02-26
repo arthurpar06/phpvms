@@ -49,7 +49,7 @@ class BidService extends Service
             'flight.subfleets.fares',
         ];
 
-        /** @var Bid $bid */
+        /** @var ?Bid $bid */
         $bid = Bid::with($with)->where(['id' => $bid_id])->first();
         if ($bid === null) {
             return null;
@@ -238,10 +238,11 @@ class BidService extends Service
             return;
         }
 
+        /** @var ?Bid $bid */
         $bid = Bid::where([
             'user_id'   => $pirep->user->id,
             'flight_id' => $flight->id,
-        ]);
+        ])->first();
 
         if ($bid) {
             Log::info('Bid for user: '.$pirep->user->ident.' on flight '.$flight->ident);

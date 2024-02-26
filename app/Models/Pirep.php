@@ -35,25 +35,25 @@ use Kyslik\ColumnSortable\Sortable;
  * @property string      $flight_type
  * @property int         $airline_id
  * @property int         $user_id
- * @property int         $aircraft_id
+ * @property ?int        $aircraft_id
  * @property int         $event_id
- * @property Aircraft    $aircraft
+ * @property ?Aircraft   $aircraft
  * @property Airline     $airline
  * @property Airport     $arr_airport
  * @property string      $arr_airport_id
  * @property Airport     $dpt_airport
  * @property string      $dpt_airport_id
- * @property Airport     $alt_airport
- * @property string      $alt_airport_id
- * @property Carbon      $block_off_time
- * @property Carbon      $block_on_time
+ * @property ?Airport    $alt_airport
+ * @property ?string     $alt_airport_id
+ * @property ?Carbon     $block_off_time
+ * @property ?Carbon     $block_on_time
  * @property int         $block_time
  * @property int         $flight_time         In minutes
  * @property int         $planned_flight_time
  * @property Fuel        $block_fuel
  * @property Fuel        $fuel_used
- * @property Distance    $distance
- * @property Distance    $planned_distance
+ * @property ?Distance   $distance
+ * @property ?Distance   $planned_distance
  * @property float       $progress_percent
  * @property int         $level
  * @property string      $route
@@ -65,15 +65,15 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int         $state
  * @property int         $source
  * @property string      $source_name
- * @property Carbon      $submitted_at
+ * @property ?Carbon     $submitted_at
  * @property Carbon      $created_at
  * @property Carbon      $updated_at
  * @property bool        $read_only
- * @property Acars       $position
+ * @property ?Acars      $position
  * @property Acars[]     $acars
  * @property mixed       $cancelled
  * @property PirepFare[] $fares
- * @property SimBrief    $simbrief
+ * @property ?SimBrief   $simbrief
  */
 class Pirep extends Model
 {

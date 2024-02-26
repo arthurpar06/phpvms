@@ -158,7 +158,7 @@ class JournalRepository extends Repository implements CacheableInterface
      * @param Carbon      $date
      * @param Journal     $journal
      * @param Carbon|null $start_date
-     * @param null        $transaction_group
+     * @param ?string     $transaction_group
      *
      * @throws \UnexpectedValueException
      * @throws \InvalidArgumentException
@@ -197,7 +197,7 @@ class JournalRepository extends Repository implements CacheableInterface
      * @param Carbon      $date
      * @param Journal     $journal
      * @param Carbon|null $start_date
-     * @param null        $transaction_group
+     * @param string      $transaction_group
      *
      * @throws \UnexpectedValueException
      * @throws \InvalidArgumentException
@@ -236,7 +236,7 @@ class JournalRepository extends Repository implements CacheableInterface
      * Return all transactions for a given object
      *
      * @param             $object
-     * @param null        $journal
+     * @param ?Journal    $journal
      * @param Carbon|null $date
      *
      * @throws \UnexpectedValueException
@@ -275,8 +275,8 @@ class JournalRepository extends Repository implements CacheableInterface
     /**
      * Delete all transactions for a given object
      *
-     * @param      $object
-     * @param null $journal
+     * @param          $object
+     * @param ?Journal $journal
      *
      * @return void
      */

@@ -30,7 +30,7 @@ class KvpRepository
      * @param string $key
      * @param mixed  $default default value to return
      *
-     * @return array|string|null
+     * @return mixed
      */
     public function get($key, $default = null)
     {

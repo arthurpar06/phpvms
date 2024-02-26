@@ -1,6 +1,7 @@
 <?php
 
 use App\Contracts\Migration;
+use App\Models\Fare;
 use App\Models\PirepFare;
 
 /**
@@ -29,7 +30,7 @@ return new class() extends Migration {
                 $cached[$subfleet->id] = $fareSvc->getForSubfleet($subfleet);
             }
 
-            /** @var \App\Models\Fare $sf */
+            /** @var ?Fare $sf */
             $sf = $cached[$subfleet->id]->where('code', $fare->code)->first();
             $fare->capacity = is_null($sf) ? $fare->count : $sf->capacity;
             $fare->save();

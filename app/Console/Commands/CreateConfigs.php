@@ -18,8 +18,6 @@ class CreateConfigs extends Command
     protected $description = 'Create the config files';
 
     public function __construct(
-        private readonly DatabaseSeeder $databaseSeeder,
-        private readonly SeederService $seederSvc,
         private readonly MigrationService $migrationSvc,
     ) {
         parent::__construct();

@@ -201,7 +201,7 @@ class PirepFinanceService extends Service
 
         // Get Aircraft Fuel Type from Subfleet
         // And set $fuel_cost according to type (Failsafe is Jet A)
-        $sf = $pirep->aircraft->subfleet;
+        $sf = $pirep->aircraft?->subfleet;
         if ($sf) {
             $fuel_type = $sf->fuel_type;
         } else {

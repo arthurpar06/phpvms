@@ -35,7 +35,6 @@ class UserController extends Controller
      * UserController constructor.
      *
      * @param AirlineRepository    $airlineRepo
-     * @param AirportRepository    $airportRepo
      * @param PirepRepository      $pirepRepo
      * @param RoleRepository       $roleRepo
      * @param TypeRatingRepository $typeratingRepo
@@ -44,7 +43,6 @@ class UserController extends Controller
      */
     public function __construct(
         private readonly AirlineRepository $airlineRepo,
-        private readonly AirportRepository $airportRepo,
         private readonly PirepRepository $pirepRepo,
         private readonly RoleRepository $roleRepo,
         private readonly TypeRatingRepository $typeratingRepo,
@@ -146,7 +144,7 @@ class UserController extends Controller
      */
     public function edit(int $id): View|RedirectResponse
     {
-        /** @var User $user */
+        /** @var ?User $user */
         $user = $this->userRepo
             ->with(['awards', 'fields', 'rank', 'typeratings', 'home_airport', 'location'])
             ->findWithoutFail($id);

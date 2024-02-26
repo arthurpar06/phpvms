@@ -24,17 +24,13 @@ class FlightService extends Service
      * FlightService constructor.
      *
      * @param AirportService    $airportSvc
-     * @param FareService       $fareSvc
      * @param FlightRepository  $flightRepo
      * @param NavdataRepository $navDataRepo
-     *
-     * @parma PirepRepository   $pirepRepo
-     *
+     * @param PirepRepository   $pirepRepo
      * @param UserService $userSvc
      */
     public function __construct(
         private readonly AirportService $airportSvc,
-        private readonly FareService $fareSvc,
         private readonly FlightRepository $flightRepo,
         private readonly NavdataRepository $navDataRepo,
         private readonly PirepRepository $pirepRepo,
@@ -156,16 +152,15 @@ class FlightService extends Service
         // Eager load some of the relationships needed
         //$flight->load(['flight.subfleets', 'flight.subfleets.aircraft', 'flight.subfleets.fares']);
 
-        /** @var \Illuminate\Support\Collection $subfleets */
         $subfleets = $flight->subfleets;
 
         // If no subfleets assigned to a flight get users allowed subfleets
-        if ($subfleets === null || $subfleets->count() === 0) {
+        if ($subfleets->count() === 0) {
             $subfleets = $this->userSvc->getAllowableSubfleets($user);
         }
 
         // If subfleets are still empty return the flight
-        if ($subfleets === null || $subfleets->count() === 0) {
+        if ($subfleets->count() === 0) {
             return $flight;
         }
 

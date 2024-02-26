@@ -78,6 +78,7 @@ class VersionService extends Service
         $releases = [];
 
         try {
+            /** @var array $releases */
             $releases = $this->httpClient->get(config('phpvms.version_file'), [
                 'headers' => [
                     'Accept' => 'application/json',

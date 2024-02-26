@@ -36,9 +36,9 @@ use Znck\Eloquent\Traits\BelongsToThrough;
  * @property float    $zfw
  * @property string   $hex_code
  * @property string   $selcal
- * @property Airport  $airport
- * @property Airport  $hub
- * @property Airport  $home
+ * @property ?Airport $airport
+ * @property ?Airport $hub
+ * @property ?Airport $home
  * @property Subfleet $subfleet
  * @property int      $status
  * @property int      $state

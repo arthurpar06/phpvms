@@ -64,12 +64,15 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 if ($request->filled($field)) {
                     $fields[$field] = $request->input($field);
                 }
-            } else {
-                /* @noinspection NestedPositiveIfStatementsInspection */
+            }
+            /* $request is always a Request object according to PHPDoc
+            else {
+                // @noinspection NestedPositiveIfStatementsInspection
                 if (array_key_exists($field, $request)) {
                     $fields[$field] = $request[$field];
                 }
             }
+            */
         }
 
         if (!empty($addtl_fields) && \is_array($addtl_fields)) {

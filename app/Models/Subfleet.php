@@ -22,13 +22,13 @@ use Kyslik\ColumnSortable\Sortable;
  * @property string     $simbrief_type
  * @property string     $name
  * @property int        $airline_id
- * @property int        $hub_id
+ * @property ?string    $hub_id
  * @property int        $ground_handling_multiplier
  * @property Collection<int, Fare> $fares
  * @property float      $cost_block_hour
  * @property float      $cost_delay_minute
  * @property Airline    $airline
- * @property Airport    $home
+ * @property ?Airport   $home
  * @property int        $fuel_type
  * @property Aircraft[] $aircraft
  */
