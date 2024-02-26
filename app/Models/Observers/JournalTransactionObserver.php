@@ -32,12 +32,13 @@ class JournalTransactionObserver
         $journal = $transaction->journal;
         if ($transaction['credit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = Money::create((int) $balance + $transaction->credit);
+            // PHPStan isn't able to understand that balance is cast through MoneyCast and MoneyCast accepts int
+            $journal->balance = (int) $balance + $transaction->credit; // @phpstan-ignore-line
         }
 
         if ($transaction['debit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = Money::create((int) $balance - $transaction->debit);
+            $journal->balance = (int) $balance - $transaction->debit; // @phpstan-ignore-line
         }
 
         $journal->save();
@@ -53,12 +54,12 @@ class JournalTransactionObserver
         $journal = $transaction->journal;
         if ($transaction['credit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = Money::create($balance - $transaction['credit']);
+            $journal->balance = (int) $balance - $transaction['credit']; // @phpstan-ignore-line
         }
 
         if ($transaction['debit']) {
             $balance = $journal->balance->toAmount();
-            $journal->balance = Money::create((int) $balance + $transaction['debit']);
+            $journal->balance = (int) $balance + $transaction['debit']; // @phpstan-ignore-line
         }
 
         $journal->save();
