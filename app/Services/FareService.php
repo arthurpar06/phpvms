@@ -99,17 +99,17 @@ class FareService extends Service
      * Determine the correct fares to use between a subfleet and flight. You probably aren't
      * looking to call this one directly, but instead, call getReconciledFaresForFlight()
      *
-     * @param Collection<int, Fare> $subfleet_fares The fare for a subfleet
-     * @param Collection<int, Fare> $flight_fares   The fares on a flight
+     * @param ?Collection<int, Fare> $subfleet_fares The fare for a subfleet
+     * @param ?Collection<int, Fare> $flight_fares   The fares on a flight
      *
      * @return Collection<int, Fare> Collection of Fare
      */
-    public function getFareWithOverrides(Collection $subfleet_fares, Collection $flight_fares): Collection
+    public function getFareWithOverrides(?Collection $subfleet_fares, ?Collection $flight_fares): Collection
     {
         /**
          * Make sure we've got something in terms of fares on the subfleet or the flight
          */
-        if ($subfleet_fares->count() === 0 && $flight_fares->count() === 0) {
+        if ((!$subfleet_fares || $subfleet_fares->count() === 0) && (!$flight_fares || $flight_fares->count() === 0)) {
             return collect();
         }
 
