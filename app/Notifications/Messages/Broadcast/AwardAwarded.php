@@ -7,7 +7,6 @@ use App\Models\Award;
 use App\Models\User;
 use App\Models\UserAward;
 use App\Notifications\Channels\Discord\DiscordMessage;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AwardAwarded extends Notification
 {

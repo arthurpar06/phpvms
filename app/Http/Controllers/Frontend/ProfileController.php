@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\UserField;
 use App\Models\UserFieldValue;
 use App\Repositories\AirlineRepository;
-use App\Repositories\AirportRepository;
 use App\Repositories\UserRepository;
 use App\Support\Countries;
 use App\Support\Timezonelist;

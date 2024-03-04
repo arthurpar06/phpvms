@@ -10,7 +10,6 @@ use App\Models\Rank;
 use App\Models\User;
 use App\Models\UserAward;
 use App\Repositories\AirlineRepository;
-use App\Repositories\AirportRepository;
 use App\Repositories\PirepRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\TypeRatingRepository;

@@ -20,48 +20,48 @@ use Laratrust\Traits\HasRolesAndPermissions;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
- * @property int              $id
- * @property int              $pilot_id
- * @property int              $airline_id
- * @property string           $callsign
- * @property string           $name
- * @property string           $name_private    Only first name, rest are initials
- * @property string           $email
- * @property string           $password
- * @property string           $api_key
- * @property mixed            $timezone
- * @property string           $ident
- * @property string           $atc
- * @property ?string          $curr_airport_id
- * @property ?string          $home_airport_id
- * @property ?File            $avatar
- * @property Airline          $airline
- * @property int              $flights
- * @property int              $flight_time
- * @property int              $transfer_time
- * @property string           $remember_token
- * @property \Carbon\Carbon   $created_at
- * @property \Carbon\Carbon   $updated_at
- * @property ?Rank            $rank
- * @property ?Journal         $journal
- * @property ?int             $rank_id
- * @property string           $discord_id
- * @property int              $state
- * @property string           $last_ip
- * @property \Carbon\Carbon   $lastlogin_at
- * @property bool             $opt_in
- * @property Collection<int, Pirep>          $pireps
- * @property string           $last_pirep_id
- * @property Pirep            $last_pirep
- * @property UserFieldValue[] $fields
- * @property UserOAuthToken[] $oauth_tokens
- * @property Collection<int, Role>           $roles
- * @property Collection<int, Subfleet>       $subfleets
- * @property Collection<int, TypeRating>       $typeratings
- * @property ?Airport         $home_airport
- * @property ?Airport         $current_airport
- * @property ?Airport         $location
- * @property Bid[]            $bids
+ * @property int                         $id
+ * @property int                         $pilot_id
+ * @property int                         $airline_id
+ * @property string                      $callsign
+ * @property string                      $name
+ * @property string                      $name_private    Only first name, rest are initials
+ * @property string                      $email
+ * @property string                      $password
+ * @property string                      $api_key
+ * @property mixed                       $timezone
+ * @property string                      $ident
+ * @property string                      $atc
+ * @property ?string                     $curr_airport_id
+ * @property ?string                     $home_airport_id
+ * @property ?File                       $avatar
+ * @property Airline                     $airline
+ * @property int                         $flights
+ * @property int                         $flight_time
+ * @property int                         $transfer_time
+ * @property string                      $remember_token
+ * @property \Carbon\Carbon              $created_at
+ * @property \Carbon\Carbon              $updated_at
+ * @property ?Rank                       $rank
+ * @property ?Journal                    $journal
+ * @property ?int                        $rank_id
+ * @property string                      $discord_id
+ * @property int                         $state
+ * @property string                      $last_ip
+ * @property \Carbon\Carbon              $lastlogin_at
+ * @property bool                        $opt_in
+ * @property Collection<int, Pirep>      $pireps
+ * @property string                      $last_pirep_id
+ * @property Pirep                       $last_pirep
+ * @property UserFieldValue[]            $fields
+ * @property UserOAuthToken[]            $oauth_tokens
+ * @property Collection<int, Role>       $roles
+ * @property Collection<int, Subfleet>   $subfleets
+ * @property Collection<int, TypeRating> $typeratings
+ * @property ?Airport                    $home_airport
+ * @property ?Airport                    $current_airport
+ * @property ?Airport                    $location
+ * @property Bid[]                       $bids
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */

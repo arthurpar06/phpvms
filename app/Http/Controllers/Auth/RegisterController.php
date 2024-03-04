@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\UserField;
 use App\Models\UserFieldValue;
 use App\Repositories\AirlineRepository;
-use App\Repositories\AirportRepository;
 use App\Services\UserService;
 use App\Support\Countries;
 use App\Support\HttpClient;
@@ -160,6 +159,7 @@ class RegisterController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param Request $request
+     *
      * @return User
      */
     protected function create(Request $request): User

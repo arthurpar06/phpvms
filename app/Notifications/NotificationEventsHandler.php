@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\Notification;
  */
 class NotificationEventsHandler extends Listener
 {
-
     public static $callbacks = [
         AwardAwarded::class      => 'onAwardAwarded',
         NewsAdded::class         => 'onNewsAdded',

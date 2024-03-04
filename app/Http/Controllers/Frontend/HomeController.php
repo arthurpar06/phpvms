@@ -6,7 +6,6 @@ use App\Contracts\Controller;
 use App\Models\Enums\UserState;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 

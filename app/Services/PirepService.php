@@ -199,7 +199,7 @@ class PirepService extends Service
     /**
      * Create a new PIREP with some given fields
      *
-     * @param Pirep $pirep
+     * @param Pirep             $pirep
      * @param PirepFieldValue[] $fields
      *
      * @return Pirep

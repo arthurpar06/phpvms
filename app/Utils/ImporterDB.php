@@ -211,10 +211,10 @@ class ImporterDB
     }
 
     /**
-     * @param string $table
-     * @param int    $limit    Number of rows to read
-     * @param int    $offset   Where to start from
-     * @param        $order_by
+     * @param string       $table
+     * @param int          $limit    Number of rows to read
+     * @param int          $offset   Where to start from
+     * @param              $order_by
      * @param string|array $fields
      *
      * @return false|\PDOStatement|void

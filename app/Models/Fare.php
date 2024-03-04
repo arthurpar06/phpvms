@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Contracts\Model;
-use App\Models\Enums\FareType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;

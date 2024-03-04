@@ -4,7 +4,6 @@ namespace App\Support\Modules;
 
 use Exception;
 use Illuminate\Config\Repository as Config;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Cache;
@@ -19,13 +18,13 @@ class DatabaseActivator implements ActivatorInterface
      *
      * @var Config
      *
-    private $config;*/
+     * private $config;*/
 
     /**
      * @var Filesystem
      *
-    private $files;
-    */
+     * private $files;
+     */
 
     /**
      * The module path.

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Contracts\Service;
 use App\Models\Role;
-use App\Repositories\RoleRepository;
 
 class RoleService extends Service
 {

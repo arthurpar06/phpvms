@@ -27,7 +27,7 @@ class FlightService extends Service
      * @param FlightRepository  $flightRepo
      * @param NavdataRepository $navDataRepo
      * @param PirepRepository   $pirepRepo
-     * @param UserService $userSvc
+     * @param UserService       $userSvc
      */
     public function __construct(
         private readonly AirportService $airportSvc,

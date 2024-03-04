@@ -10,15 +10,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property int     $airline_id
- * @property float   $amount
- * @property string  $name
- * @property string  $type
+ * @property int      $airline_id
+ * @property float    $amount
+ * @property string   $name
+ * @property string   $type
  * @property string[] $flight_type
- * @property string  $ref_model
- * @property string  $ref_model_id
- * @property bool    $charge_to_user
- * @property Airline $airline
+ * @property string   $ref_model
+ * @property string   $ref_model_id
+ * @property bool     $charge_to_user
+ * @property Airline  $airline
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */

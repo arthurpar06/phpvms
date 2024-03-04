@@ -9,7 +9,6 @@ use App\Models\Expense;
 use App\Models\Fare;
 use App\Models\Flight;
 use App\Models\FlightFieldValue;
-use App\Repositories\FlightRepository;
 use App\Services\ImportExport\AircraftImporter;
 use App\Services\ImportExport\AirportImporter;
 use App\Services\ImportExport\ExpenseImporter;

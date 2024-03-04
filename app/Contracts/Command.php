@@ -4,10 +4,6 @@ namespace App\Contracts;
 
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-
-use function is_array;
 
 /**
  * Class BaseCommand

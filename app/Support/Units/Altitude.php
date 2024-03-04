@@ -14,8 +14,8 @@ class Altitude extends Unit
     ];
 
     /**
-     * @param float|self  $value
-     * @param string $unit
+     * @param float|self $value
+     * @param string     $unit
      *
      * @throws \PhpUnitsOfMeasure\Exception\NonNumericValue
      * @throws \PhpUnitsOfMeasure\Exception\NonStringUnitName

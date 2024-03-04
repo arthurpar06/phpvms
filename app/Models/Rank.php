@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * @property string $name
- * @property int    $hours
- * @property string $image_url
- * @property float  $manual_base_pay_rate
- * @property float  $acars_base_pay_rate
- * @property bool   $auto_promote
- * @property bool   $auto_approve_acars
- * @property bool   $auto_approve_manual
+ * @property string                    $name
+ * @property int                       $hours
+ * @property string                    $image_url
+ * @property float                     $manual_base_pay_rate
+ * @property float                     $acars_base_pay_rate
+ * @property bool                      $auto_promote
+ * @property bool                      $auto_approve_acars
+ * @property bool                      $auto_approve_manual
  * @property Collection<int, Subfleet> $subfleets
  */
 class Rank extends Model

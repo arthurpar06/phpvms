@@ -63,7 +63,7 @@ class AcarsController extends Controller
     public function live_flights()
     {
         $pireps = $this->acarsRepo->getPositions(setting('acars.live_time'))->filter(
-            fn(Pirep $pirep) => $pirep->position !== null
+            fn (Pirep $pirep) => $pirep->position !== null
         );
 
         return PirepResource::collection($pireps);

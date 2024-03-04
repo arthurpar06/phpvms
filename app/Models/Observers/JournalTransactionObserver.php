@@ -3,7 +3,6 @@
 namespace App\Models\Observers;
 
 use App\Models\JournalTransaction;
-use App\Support\Money;
 
 /**
  * Class JournalTransactionObserver

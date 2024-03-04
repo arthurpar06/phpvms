@@ -94,10 +94,10 @@ abstract class Repository extends BaseRepository
     /**
      * Find records where values don't match a list but sort the rest
      *
-     * @param string $col
-     * @param array  $values
+     * @param string       $col
+     * @param array        $values
      * @param string|array $sort_by
-     * @param string $order_by
+     * @param string       $order_by
      *
      * @return $this
      */
