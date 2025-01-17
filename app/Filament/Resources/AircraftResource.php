@@ -244,4 +244,9 @@ class AircraftResource extends Resource
     {
         return $record->name.' - '.$record->registration;
     }
+
+    public static function getModelLabel(): string
+    {
+        return trans('common.aircraft');
+    }
 }
