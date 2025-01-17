@@ -18,7 +18,7 @@ class ManageExpenses extends ManageRecords
         return [
             ExportAction::make('export')->arguments(['resourceTitle' => 'expenses', 'exportType' => ImportExportType::EXPENSES]),
             ImportAction::make('import')->arguments(['resourceTitle' => 'expenses', 'importType' => ImportExportType::EXPENSES]),
-            Actions\CreateAction::make()->label('Add Expense')->icon('heroicon-o-plus-circle'),
+            Actions\CreateAction::make()->icon('heroicon-o-plus-circle'),
         ];
     }
 }

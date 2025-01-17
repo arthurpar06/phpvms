@@ -232,8 +232,7 @@ class FlightResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make()
-                    ->icon('heroicon-o-plus-circle')
-                    ->label('Add Flight'),
+                    ->icon('heroicon-o-plus-circle'),
             ]);
     }
 

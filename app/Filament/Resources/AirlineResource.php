@@ -127,8 +127,7 @@ class AirlineResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make()
-                    ->icon('heroicon-o-plus-circle')
-                    ->label('Add Airline'),
+                    ->icon('heroicon-o-plus-circle'),
             ]);
     }
 

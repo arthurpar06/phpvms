@@ -119,8 +119,7 @@ class ExpenseResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make()
-                    ->icon('heroicon-o-plus-circle')
-                    ->label('Add Expense'),
+                    ->icon('heroicon-o-plus-circle'),
             ]);
     }
 

@@ -17,7 +17,6 @@ class ManageInvites extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Add Invite')
                 ->icon('heroicon-o-plus-circle')
                 ->mutateFormDataUsing(function (array $data): array {
                     if (!is_null($data['email'])) {

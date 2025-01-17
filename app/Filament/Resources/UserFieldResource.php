@@ -103,8 +103,7 @@ class UserFieldResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make()
-                    ->icon('heroicon-o-plus-circle')
-                    ->label('Add User Field'),
+                    ->icon('heroicon-o-plus-circle'),
             ]);
     }
 

@@ -47,7 +47,7 @@ class ExpensesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('Add Expense')->icon('heroicon-o-plus-circle')
+                Tables\Actions\CreateAction::make()->icon('heroicon-o-plus-circle')
                     ->mutateFormDataUsing(function (array $data, RelationManager $livewire): array {
                         $ownerRecord = $livewire->getOwnerRecord();
                         if ($ownerRecord instanceof Subfleet) {
@@ -71,7 +71,6 @@ class ExpensesRelationManager extends RelationManager
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make()
                     ->icon('heroicon-o-plus-circle')
-                    ->label('Add Expense')
                     ->mutateFormDataUsing(function (array $data, RelationManager $livewire): array {
                         $ownerRecord = $livewire->getOwnerRecord();
                         if ($ownerRecord instanceof Subfleet) {

@@ -48,7 +48,7 @@ class FilesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->icon('heroicon-o-plus-circle')->label('Add File')->mutateFormDataUsing(function (array $data): array {
+                Tables\Actions\CreateAction::make()->icon('heroicon-o-plus-circle')->mutateFormDataUsing(function (array $data): array {
                     if (!empty($data['url'])) {
                         $data['path'] = $data['url'];
                     } elseif (!empty($data['file'])) {
@@ -86,7 +86,7 @@ class FilesRelationManager extends RelationManager
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->icon('heroicon-o-plus-circle')->label('Add File')->mutateFormDataUsing(function (array $data): array {
+                Tables\Actions\CreateAction::make()->icon('heroicon-o-plus-circle')->mutateFormDataUsing(function (array $data): array {
                     if (!empty($data['url'])) {
                         $data['path'] = $data['url'];
                     } elseif (!empty($data['file'])) {

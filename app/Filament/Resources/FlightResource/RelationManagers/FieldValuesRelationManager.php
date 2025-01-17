@@ -42,7 +42,7 @@ class FieldValuesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('Add Flight Field')
+                Tables\Actions\CreateAction::make()
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['flight_id'] = $this->getOwnerRecord()->id;
                         $data['slug'] = str_slug($data['name']);

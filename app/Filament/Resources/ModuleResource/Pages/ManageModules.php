@@ -18,7 +18,7 @@ class ManageModules extends ManageRecords
     {
         return [
             // Our custom create action
-            Actions\Action::make('create')->label('Add Module')->icon('heroicon-o-plus-circle')
+            Actions\Action::make('create')->icon('heroicon-o-plus-circle')
                 ->form([
                     Forms\Components\Section::make('Module informations')
                         ->description('If you choose to upload a module zip file it will be installed and enabled automatically. Please not that module folder must be on top level of the zip and the zip name must be EXACTLY equal to the name of the module folder inside. If you choose to enable an already uploaded module, you have to upload it in the modules folder')

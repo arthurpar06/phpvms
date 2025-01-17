@@ -18,7 +18,7 @@ class ListSubfleets extends ListRecords
         return [
             ExportAction::make('export')->arguments(['resourceTitle' => 'subfleets', 'exportType' => ImportExportType::SUBFLEETS]),
             ImportAction::make('import')->arguments(['resourceTitle' => 'subfleets', 'importType' => ImportExportType::SUBFLEETS]),
-            Actions\CreateAction::make()->label('Add Subfleet')->icon('heroicon-o-plus-circle'),
+            Actions\CreateAction::make()->icon('heroicon-o-plus-circle'),
         ];
     }
 }

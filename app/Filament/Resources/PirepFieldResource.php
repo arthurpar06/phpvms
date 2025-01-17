@@ -77,8 +77,7 @@ class PirepFieldResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make()
-                    ->icon('heroicon-o-plus-circle')
-                    ->label('Add Pirep Field'),
+                    ->icon('heroicon-o-plus-circle'),
             ]);
     }
 

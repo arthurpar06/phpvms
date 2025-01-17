@@ -18,7 +18,7 @@ class ListFares extends ListRecords
         return [
             ExportAction::make('export')->arguments(['resourceTitle' => 'fares', 'exportType' => ImportExportType::FARES]),
             ImportAction::make('import')->arguments(['resourceTitle' => 'fares', 'importType' => ImportExportType::FARES]),
-            Actions\CreateAction::make()->label('Add Fare')->icon('heroicon-o-plus-circle'),
+            Actions\CreateAction::make()->icon('heroicon-o-plus-circle'),
         ];
     }
 }

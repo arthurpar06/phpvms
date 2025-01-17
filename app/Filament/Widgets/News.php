@@ -79,7 +79,6 @@ class News extends BaseWidget
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make('create')
-                    ->label('Add News')
                     ->icon('heroicon-o-plus-circle')
                     ->size(ActionSize::Small)
                     ->model(NewsModel::class)
