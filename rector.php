@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\FuncCall\CompactToVariablesRector;
 use Rector\Config\RectorConfig;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
 use RectorLaravel\Set\LaravelLevelSetList;
@@ -29,6 +30,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // Apply sets for Laravel and general code quality
     $rectorConfig->sets([
+        PHPUnitSetList::PHPUNIT_110,
         LaravelLevelSetList::UP_TO_LARAVEL_110,
         SetList::CODE_QUALITY,
     ]);
