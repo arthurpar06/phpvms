@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'registration' => 'Immatriculation',
     'status' => [
         'active'      => 'Actif',
         'maintenance' => 'Maintenance',

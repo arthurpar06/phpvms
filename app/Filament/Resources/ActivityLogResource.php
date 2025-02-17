@@ -20,8 +20,6 @@ class ActivityLogResource extends Resource
 
     protected static ?int $navigationSort = 9;
 
-    protected static ?string $navigationLabel = 'Activities';
-
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form
@@ -121,5 +119,10 @@ class ActivityLogResource extends Resource
             'index' => Pages\ListActivityLogs::route('/'),
             'view'  => Pages\ViewActivityLog::route('/{record}'),
         ];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return trans('common.activity');
     }
 }

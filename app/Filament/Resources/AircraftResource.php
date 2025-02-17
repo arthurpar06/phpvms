@@ -126,27 +126,31 @@ class AircraftResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('registration')
+                    ->label(trans('aircraft.registration'))
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('name')
+                    ->label(trans('common.name'))
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('fin')
+                    ->label('FIN')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('subfleet.name')
+                    ->label(trans('common.subfleet'))
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('hub_id')
-                    ->label('Home')
+                    ->label(trans('airports.home'))
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('airport_id')
-                    ->label('Location')
+                    ->label(trans('airports.current'))
                     ->searchable()
                     ->sortable(),
 
@@ -155,10 +159,12 @@ class AircraftResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('flight_time')
+                    ->label(trans('flights.flighttime'))
                     ->formatStateUsing(fn (string $state): string => floor($state / 60).'h'.$state % 60 .'min')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')
+                    ->label(trans('common.status'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         AircraftStatus::ACTIVE => 'success',
@@ -168,6 +174,7 @@ class AircraftResource extends Resource
                     ->formatStateUsing(fn (string $state): string => AircraftStatus::label($state)),
 
                 Tables\Columns\TextColumn::make('state')
+                    ->label(trans('common.state'))
                     ->badge()
                     ->color(fn (int $state): string => match ($state) {
                         AircraftState::PARKED => 'success',
@@ -180,6 +187,7 @@ class AircraftResource extends Resource
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
                 Tables\Filters\SelectFilter::make('subfleet')
+                    ->label(trans('common.subfleet'))
                     ->relationship('subfleet', 'name')
                     ->searchable(),
             ])
