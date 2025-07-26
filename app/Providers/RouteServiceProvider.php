@@ -245,6 +245,8 @@ class RouteServiceProvider extends ServiceProvider
 
                 Route::get('users/{id}/bids', 'UserController@bids');
                 Route::put('users/{id}/bids', 'UserController@bids');
+
+                Route::post('users/simbrief_username', 'UserController@simbrief_username')->name('users.simbrief_username');
             });
         });
     }

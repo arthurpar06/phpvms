@@ -49,6 +49,12 @@ class SimBriefController
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
+        if (!$user->simbrief_username) {
+            return view('flights.simbrief_username', [
+                'user' => $user,
+            ]);
+        }
+
         $flight_id = $request->input('flight_id');
         $aircraft_id = $request->input('aircraft_id');
 
