@@ -403,12 +403,13 @@ class SimBriefController
     {
         /** @var User $user */
         $user = Auth::user();
+        $static_id = $request->input('static_id');
         $ofp_id = $request->input('ofp_id');
         $flight_id = $request->input('flight_id');
         $aircraft_id = $request->input('aircraft_id');
         $fares = $request->session()->get('simbrief_fares', []);
 
-        $simbrief = $this->simBriefSvc->downloadOfp($user->id, $ofp_id, $flight_id, $aircraft_id, $fares);
+        $simbrief = $this->simBriefSvc->downloadOfp($user, $static_id, $ofp_id, $flight_id, $aircraft_id, $fares);
         if ($simbrief === null) {
             $error = new AssetNotFound(new Exception('Simbrief OFP not found'));
 

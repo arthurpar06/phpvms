@@ -11,74 +11,66 @@ use App\Models\SimBrief;
 use App\Models\SimBriefAircraft;
 use App\Models\SimBriefAirframe;
 use App\Models\SimBriefLayout;
-use App\Models\SimBriefXML;
+use App\Models\User;
 use Carbon\Carbon;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class SimBriefService extends Service
 {
-    public function __construct(
-        private readonly GuzzleClient $httpClient
-    ) {}
-
     /**
      * Check to see if the OFP exists server-side. If it does, download it and
      * cache it immediately
      *
-     * @param  string        $user_id      User who generated this
-     * @param  string        $ofp_id       The SimBrief OFP ID
-     * @param  string        $flight_id    The flight ID
-     * @param  string        $ac_id        The aircraft ID
-     * @param  array         $fares        Full list of fares for the flight
-     * @param  string|null   $sb_static_id Static ID for the generated OFP (Used for Update)
-     * @return SimBrief|null
+     * @param User   $user      User who generated this
+     * @param string $static_id The SimBrief OFP static ID
+     * @param string $ofp_id    The SimBrief OFP ID
+     * @param string $flight_id The flight ID
+     * @param string $ac_id     The aircraft ID
+     * @param array  $fares     Full list of fares for the flight
      */
     public function downloadOfp(
-        string $user_id,
+        User $user,
+        string $static_id,
         string $ofp_id,
         string $flight_id,
         string $ac_id,
-        array $fares = [],
-        ?string $sb_user_id = null,
-        ?string $sb_static_id = null
-    ) {
-        $uri = str_replace('{id}', $ofp_id, config('phpvms.simbrief_url'));
-
-        if ($sb_user_id && $sb_static_id) {
-            // $uri = str_replace('{sb_user_id}', $sb_user_id, config('phpvms.simbrief_update_url'));
-            // $uri = str_replace('{sb_static_id}', $sb_static_id, $uri);
-            $uri = 'https://www.simbrief.com/api/xml.fetcher.php?userid='.$sb_user_id.'&static_id='.$sb_static_id;
-        }
-
-        $opts = [
-            'connect_timeout' => 2, // wait two seconds by default
-            'allow_redirects' => false,
-        ];
-
+        array $fares = []
+    ): ?SimBrief {
         try {
-            $response = $this->httpClient->request('GET', $uri, $opts);
+            $response = Http::connectTimeout(2)
+                ->withoutRedirecting()
+                ->get('https://www.simbrief.com/api/xml.fetcher.php', [
+                    'username'  => $user->simbrief_username,
+                    'static_id' => $static_id,
+                    'json'      => 'v2',
+                ]);
             if ($response->getStatusCode() !== 200) {
                 return null;
             }
-        } catch (GuzzleException $e) {
+        } catch (ConnectionException $e) {
             Log::error('Simbrief HTTP Error: '.$e->getMessage());
 
             return null;
         }
 
-        $body = $response->getBody()->getContents();
+        $json = $response->json();
 
-        /** @var SimBriefXML $ofp */
-        $ofp = simplexml_load_string($body, SimBriefXML::class);
+        if (empty($json) || $json['fetch']['status'] !== 'Success') {
+            Log::error('Simbrief | No data returned for user: '.$user->id.' static_id: '.$static_id);
+
+            return null;
+        }
+
+        $ofp_json_path = Storage::put('simbrief/'.$ofp_id.'.json', $response->getBody()->getContents());
 
         $attrs = [
-            'user_id'     => $user_id,
-            'flight_id'   => $flight_id,
-            'aircraft_id' => $ac_id,
-            'ofp_xml'     => $ofp->asXML(),
+            'user_id'       => $user->id,
+            'flight_id'     => $flight_id,
+            'aircraft_id'   => $ac_id,
+            'ofp_json_path' => $ofp_json_path,
         ];
 
         // encode the fares data to JSONß
@@ -86,56 +78,11 @@ class SimBriefService extends Service
             $attrs['fare_data'] = json_encode($fares);
         }
 
-        // Try to download the XML file for ACARS. If it doesn't work, try to modify the main OFP
-        $acars_xml = $this->getAcarsOFP($ofp);
-        if (empty($acars_xml)) {
-            $new_doctype = '<VMSAcars Type="FlightPlan" version="1.0" generated="'.time().'">';
-            $acars_xml = str_replace('<OFP>', $new_doctype, $body);
-            $acars_xml = str_replace('</OFP>', '</VMSAcars>', $acars_xml);
-            $acars_xml = str_replace("\n", '', $acars_xml);
-
-            $attrs['acars_xml'] = simplexml_load_string($acars_xml)->asXML();
-        } else {
-            $attrs['acars_xml'] = $acars_xml->asXML();
-        }
-
         // Save this into the Simbrief table, if it doesn't already exist
         return SimBrief::updateOrCreate(
             ['id' => $ofp_id],
             $attrs
         );
-    }
-
-    /**
-     * @return \SimpleXMLElement|null
-     */
-    public function getAcarsOFP(SimBriefXML $ofp)
-    {
-        $url = $ofp->getAcarsXmlUrl();
-        if (empty($url)) {
-            return null;
-        }
-
-        $opts = [
-            'connect_timeout' => 2, // wait two seconds by default
-            'allow_redirects' => true,
-        ];
-
-        try {
-            $response = $this->httpClient->request('GET', $url, $opts);
-            if ($response->getStatusCode() !== 200) {
-                return null;
-            }
-        } catch (GuzzleException $e) {
-            Log::error('Simbrief HTTP Error: '.$e->getMessage());
-            dd($e);
-
-            return null;
-        }
-
-        $body = $response->getBody()->getContents();
-
-        return simplexml_load_string($body);
     }
 
     /**
