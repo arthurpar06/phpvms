@@ -3,27 +3,29 @@
 namespace App\Models;
 
 use App\Contracts\Model;
+use App\Dto\SimBriefOfp\SimBriefOfp;
+use App\Dto\SimBriefOfp\SimBriefOfpNavlog;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 /**
- * @property string      $id                   The Simbrief OFP ID
- * @property int         $user_id              The user that generated this
- * @property string      $flight_id            Optional, if attached to a flight, removed if attached to PIREP
- * @property string      $pirep_id             Optional, if attached to a PIREP, removed if attached to flight
- * @property string      $aircraft_id          The aircraft this is for
- * @property string      $acars_xml
- * @property string      $ofp_xml
- * @property string      $ofp_html
- * @property string      $fare_data            JSON string of the fare data that was generated
- * @property Collection  $images
- * @property Collection  $files
- * @property Flight      $flight
- * @property User        $user
- * @property SimBriefXML $xml
- * @property Aircraft    $aircraft
- * @property string      $acars_flightplan_url
+ * @property string     $id                   The Simbrief OFP ID
+ * @property int        $user_id              The user that generated this
+ * @property string     $flight_id            Optional, if attached to a flight, removed if attached to PIREP
+ * @property string     $pirep_id             Optional, if attached to a PIREP, removed if attached to flight
+ * @property string     $aircraft_id          The aircraft this is for
+ * @property string     $ofp_json_path
+ * @property string     $fare_data            JSON string of the fare data that was generated
+ * @property Collection $images
+ * @property Collection $files
+ * @property Flight     $flight
+ * @property User       $user
+ * @property array      $xml
+ * @property Aircraft   $aircraft
+ * @property string     $acars_flightplan_url
  */
 class SimBrief extends Model
 {
@@ -45,46 +47,63 @@ class SimBrief extends Model
         'updated_at',
     ];
 
-    /** @var \App\Models\SimBriefXML Store a cached version of the XML object */
-    private $xml_instance;
-
-    /**
-     * Return a SimpleXML object of the $ofp_xml
-     */
-    protected function xml(): \Illuminate\Database\Eloquent\Casts\Attribute
+    protected function ofp(): Attribute
     {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
-            if (empty($this->attributes['ofp_xml'])) {
-                return null;
-            }
-            if (!$this->xml_instance) {
-                $this->xml_instance = simplexml_load_string(
-                    $this->attributes['ofp_xml'],
-                    SimBriefXML::class
-                );
+        return Attribute::make(get: function () {
+            if (empty($this->attributes['ofp_json_path'])) {
+                return [];
             }
 
-            return $this->xml_instance;
+            $ofp = Storage::json($this->attributes['ofp_json_path']);
+
+            // dd($ofp);
+
+            // dd(SimBriefOfpNavlog::from($ofp['alternate_navlog'][0]));
+
+            return dd(SimBriefOfp::from(Storage::get($this->attributes['ofp_json_path'])));
         });
     }
 
     /**
      * Returns a list of images
      */
-    protected function images(): \Illuminate\Database\Eloquent\Casts\Attribute
+    protected function images(): Attribute
     {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
-            return $this->xml->getImages();
+        return Attribute::make(get: function () {
+            $images = collect();
+            $base_url = $this->ofp->images->directory;
+            foreach ($this->ofp->images->map as $image) {
+                $images->push([
+                    'name' => $image->name->__toString(),
+                    'url'  => $base_url.$image->link,
+                ]);
+            }
+
+            return $images;
         });
     }
 
     /**
      * Return all of the flight plans
      */
-    protected function files(): \Illuminate\Database\Eloquent\Casts\Attribute
+    protected function files(): Attribute
     {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
-            return $this->xml->getFlightPlans();
+        return Attribute::make(get: function () {
+            $flightplans = collect();
+            $base_url = $this->ofp->fms_downloads->directory;
+
+            foreach ($this->ofp->fms_downloads->children() as $child) {
+                if ($child->getName() === 'directory') {
+                    continue;
+                }
+
+                $flightplans->push([
+                    'name' => $child->name->__toString(),
+                    'url'  => $base_url.$child->link,
+                ]);
+            }
+
+            return $flightplans;
         });
     }
 

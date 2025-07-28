@@ -64,13 +64,13 @@ class SimBriefService extends Service
             return null;
         }
 
-        $ofp_json_path = Storage::put('simbrief/'.$ofp_id.'.json', $response->getBody()->getContents());
+        Storage::put('simbrief/'.$ofp_id.'.json', $response->body());
 
         $attrs = [
             'user_id'       => $user->id,
             'flight_id'     => $flight_id,
             'aircraft_id'   => $ac_id,
-            'ofp_json_path' => $ofp_json_path,
+            'ofp_json_path' => 'simbrief/'.$ofp_id.'.json',
         ];
 
         // encode the fares data to JSONß

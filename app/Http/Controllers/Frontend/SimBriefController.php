@@ -314,7 +314,7 @@ class SimBriefController
             return redirect(route('frontend.flights.index'));
         }
 
-        $str = $simbrief->xml->aircraft->equip;
+        $str = $simbrief->ofp->aircraft->equip;
         $wc = stripos($str, '-');
         $tr = stripos($str, '/');
         $wakecat = substr($str, 0, $wc);
