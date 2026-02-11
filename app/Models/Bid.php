@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Bid extends Model
 {
+    use HasFactory;
+
     public $table = 'bids';
 
     protected $fillable = [

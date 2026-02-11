@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int                             $id
@@ -32,6 +33,8 @@ use App\Contracts\Model;
  */
 class Event extends Model
 {
+    use HasFactory;
+
     public $table = 'events';
 
     protected $fillable = [
