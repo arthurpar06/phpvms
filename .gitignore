@@ -84,3 +84,9 @@ sync.sh
 
 copy-from.sh
 copy-to.sh
+
+# Laravel boost
+.ai
+.junie
+.vscode
+boost.json
