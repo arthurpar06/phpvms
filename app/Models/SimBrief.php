@@ -6,24 +6,25 @@ use App\Contracts\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
- * @property string                          $id
- * @property int                             $user_id
- * @property string|null                     $flight_id
- * @property string|null                     $pirep_id
- * @property int|null                        $aircraft_id
- * @property string                          $acars_xml
- * @property string                          $ofp_xml
- * @property string|null                     $fare_data
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Aircraft|null $aircraft
+ * @property string      $id
+ * @property int         $user_id
+ * @property string|null $flight_id
+ * @property string|null $pirep_id
+ * @property int|null    $aircraft_id
+ * @property string      $acars_xml
+ * @property string      $ofp_xml
+ * @property string|null $fare_data
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Aircraft|null $aircraft
  * @property-read mixed $files
- * @property-read \App\Models\Flight|null $flight
+ * @property-read Flight|null $flight
  * @property-read mixed $images
- * @property-read \App\Models\Pirep|null $pirep
- * @property-read \App\Models\User|null $user
+ * @property-read Pirep|null $pirep
+ * @property-read User|null $user
  * @property-read mixed $xml
  *
  * @method static \Database\Factories\SimBriefFactory                    factory($count = null, $state = [])
@@ -77,7 +78,7 @@ class SimBrief extends Model
                 return null;
             }
 
-            if (!$this->xml_instance instanceof \App\Models\SimBriefXML) {
+            if (!$this->xml_instance instanceof SimBriefXML) {
                 $xml = simplexml_load_string(
                     $this->attributes['ofp_xml'],
                     SimBriefXML::class
