@@ -126,7 +126,6 @@ final class FlightTest extends TestCase
      */
     public function test_search_flight(): void
     {
-        /** @var User user */
         $this->user = User::factory()->create();
         $flight = $this->addFlight($this->user);
 

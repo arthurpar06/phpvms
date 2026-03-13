@@ -5,7 +5,6 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Backups;
 use App\Filament\Plugins\LanguageSwitcherPlugin;
 use App\Filament\Plugins\ModuleLinksPlugin;
-use App\Models\Enums\NavigationGroup;
 use App\Models\Enums\NavigationGroup as EnumsNavigationGroup;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
@@ -65,10 +64,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->sidebarCollapsibleOnDesktop()
             ->navigationGroups([
-                NavigationGroup::Config->name,
-                NavigationGroup::Operations->name,
-                NavigationGroup::Modules->name,
-                NavigationGroup::Developers->name,
+                EnumsNavigationGroup::Config->name,
+                EnumsNavigationGroup::Operations->name,
+                EnumsNavigationGroup::Modules->name,
+                EnumsNavigationGroup::Developers->name,
             ])
             ->navigationItems([
                 // Labels should be in a closure to allow for translation
