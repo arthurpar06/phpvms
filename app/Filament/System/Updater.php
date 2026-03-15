@@ -77,7 +77,7 @@ class Updater extends Page
         return Action::make('update')
             ->label(__('installer.update'))
             ->action(function () {
-                $this->stream(to: $this->stream, content: PHP_EOL.__('installer.starting_migration_process').PHP_EOL);
+                $this->stream(content: PHP_EOL.__('installer.starting_migration_process').PHP_EOL, to: $this->stream);
 
                 $migrationSvc = app(MigrationService::class);
                 $seederSvc = app(SeederService::class);
@@ -86,7 +86,7 @@ class Updater extends Page
                 $dataMigrationsPending = $migrationSvc->dataMigrationsAvailable();
 
                 $streamCallback = function (string $buffer) {
-                    $this->stream(to: $this->stream, content: $buffer.PHP_EOL);
+                    $this->stream(content: $buffer.PHP_EOL, to: $this->stream);
                 };
 
                 if (count($migrationsPending) !== 0) {
@@ -109,14 +109,14 @@ class Updater extends Page
                     }
                 }
 
-                $this->stream(to: $this->stream, content: __('installer.migrations_completed').PHP_EOL.__('installer.lets_rebuild_cache').PHP_EOL);
+                $this->stream(content: __('installer.migrations_completed').PHP_EOL.__('installer.lets_rebuild_cache').PHP_EOL, to: $this->stream);
 
                 if (function_exists('proc_open')) {
                     // Streaming the output of the command is only available with proc_open (relies on Symfony Process)
                     app(StreamedCommandsService::class)->streamArtisanCommand(['optimize:clear'], $streamCallback);
                     app(StreamedCommandsService::class)->streamArtisanCommand(['optimize'], $streamCallback);
                 } else {
-                    $this->stream($this->stream, PHP_EOL.__('installer.cache_build_background').PHP_EOL);
+                    $this->stream(content: PHP_EOL.__('installer.cache_build_background').PHP_EOL, to: $this->stream);
 
                     // Clearing the cache immediately sends the response, thus killing the request. So we defer it, it's executed at the end of the request in the background.
                     defer(function () {
@@ -133,7 +133,7 @@ class Updater extends Page
                     });
                 }
 
-                $this->stream($this->stream, PHP_EOL.__('installer.update_completed').PHP_EOL);
+                $this->stream(content: PHP_EOL.__('installer.update_completed').PHP_EOL, to: $this->stream);
                 sleep(10);
                 $this->redirect(Filament::getDefaultPanel()->getUrl());
             });

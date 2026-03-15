@@ -23,9 +23,11 @@ use App\Services\BidService;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 
@@ -190,5 +192,36 @@ class UserController extends Controller
             ->paginate();
 
         return PirepResource::collection($pireps);
+    }
+
+    /**
+     * Update the SimBrief username for the currently authenticated user
+     */
+    public function simbrief_username(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'simbrief_username' => 'required|string',
+        ]);
+
+        // Now let's see if the simbrief username is valid
+        $response = Http::timeout(20)->get(config('phpvms.simbrief_ofp_url'), [
+            'username' => $validated['simbrief_username'],
+            'json'     => 'v2',
+        ]);
+
+        if ($response->failed() || $response->json('fetch.status') === 'Error: Unknown UserID') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid SimBrief username provided.',
+            ], 422);
+        }
+
+        // Finally, update the user's SimBrief username
+        $user = Auth::user();
+        $user->update([
+            'simbrief_username' => $validated['simbrief_username'],
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

@@ -45,6 +45,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string      $discord_private_channel_id
  * @property string      $vatsim_id
  * @property string      $ivao_id
+ * @property ?string     $simbrief_username
  * @property string|null $country
  * @property string|null $home_airport_id
  * @property string|null $curr_airport_id
@@ -180,6 +181,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, MustVerif
         'discord_private_channel_id',
         'vatsim_id',
         'ivao_id',
+        'simbrief_username',
         'api_key',
         'country',
         'home_airport_id',
