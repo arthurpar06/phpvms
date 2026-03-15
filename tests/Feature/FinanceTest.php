@@ -1153,7 +1153,9 @@ test('pirep expenses nightly', function () {
 
     $txn_airline1 = $journalRepo->getAllForObject($airline);
     $txn_airline2 = $journalRepo->getAllForObject($airline2);
-    // dd($txn_airline1);
+
+    expect($txn_airline1)->toHaveCount(3)
+        ->and($txn_airline2)->toHaveCount(3);
 });
 
 test('daily expenses are applied', function () {

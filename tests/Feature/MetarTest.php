@@ -65,23 +65,47 @@ test('metar2', function () {
 
 test('metar3', function () {
     $metar = 'LEBL 310337Z 24006G18KT 210V320 1000 '
-            .'R25R/P2000 R07L/1900N R07R/1700D R25L/1900N '
-            .'+TSRA SCT006 BKN015 SCT030CB 22/21 Q1018 NOSIG';
+        .'R25R/P2000 R07L/1900N R07R/1700D R25L/1900N '
+        .'+TSRA SCT006 BKN015 SCT030CB 22/21 Q1018 NOSIG';
 
     $parsed = Metar::parse($metar);
+
+    expect($parsed['station'])->toEqual('LEBL')
+        ->and($parsed['wind_direction'])->toEqual(240)
+        ->and($parsed['wind_speed']['knots'])->toEqual(6)
+        ->and($parsed['wind_gust_speed']['knots'])->toEqual(18)
+        // Visibility 1000 meters
+        ->and($parsed['visibility']['m'])->toEqual(1000)
+        // Weather: Heavy Thunderstorm with Rain
+        ->and($parsed['present_weather_report'])->toEqual('Strong thunderstorms rain')
+        // RVR Assertions
+        ->and($parsed['runways_visual_range'])->toHaveCount(4)
+        ->and($parsed['runways_visual_range'][0]['runway'])->toEqual('25R')
+        ->and($parsed['runways_visual_range'][0]['report'])->toEqual('2000m')
+        ->and($parsed['runways_visual_range'][2]['runway'])->toEqual('07R')
+        ->and($parsed['runways_visual_range'][2]['report'])->toEqual('1700m and decreasing')
+        // Clouds including Cumulonimbus
+        ->and($parsed['clouds'])->toHaveCount(3)
+        ->and($parsed['clouds'][2]['type'])->toEqual('CB')
+        ->and($parsed['barometer']['hPa'])->toEqual(1018);
 });
 
 test('metar trends', function () {
     $metar =
         'KJFK 070151Z 20005KT 10SM BKN100 08/07 A2970 RMK AO2 SLP056 T00780067';
 
-    /**
-     * John F.Kennedy International, New York, NY (KJFK). Apr 7, 0151Z. Wind from 200° at 5 knots,
-     * 10 statute miles visibility, Ceiling is Broken at 10,000 feet, Temperature 8°C, Dewpoint 7°C,
-     * Altimeter is 29.70. Remarks: automated station with precipitation discriminator sea level
-     * pressure 1005.6 hectopascals hourly temp 7.8°C dewpoint 6.7°C
-     */
     $parsed = Metar::parse($metar);
+
+    expect($parsed['station'])->toEqual('KJFK')
+        ->and($parsed['visibility']['mi'])->toEqual(10)
+        ->and($parsed['visibility']['m'])->toEqual(16093.44)
+        ->and($parsed['clouds'][0]['report'])->toEqual('Broken sky at 3048 meters')
+        ->and($parsed['temperature']['c'])->toEqual(8)
+        ->and($parsed['dew_point']['c'])->toEqual(7)
+        ->and($parsed['barometer']['inHg'])->toEqual(29.70)
+        // Remark check
+        ->and($parsed['remarks'])->toContain('AO2')
+        ->and($parsed['remarks'])->toContain('SLP056');
 });
 
 test('metar trends2', function () {

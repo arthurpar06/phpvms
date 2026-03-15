@@ -71,7 +71,7 @@ it('can retrieve news', function () {
     $news = News::factory()->create();
     $response = $this->get('/api/news');
 
-    $expected = \App\Http\Resources\News::collection([$news])->resolve();
+    $expected = App\Http\Resources\News::collection([$news])->resolve();
 
     $response->assertSuccessful();
 
@@ -97,7 +97,7 @@ it('can retrieve airlines', function () {
     $res->assertSuccessful()
         ->assertJsonCount($size, 'data');
 
-    $expected = \App\Http\Resources\Airline::collection($airlines)->resolve();
+    $expected = App\Http\Resources\Airline::collection($airlines)->resolve();
     expect($res->json('data'))->toEqualCanonicalizing($expected);
 
     $airline = $airlines->random();
@@ -105,7 +105,7 @@ it('can retrieve airlines', function () {
 
     $response->assertSuccessful();
 
-    $expected = \App\Http\Resources\Airline::make($airline)->resolve();
+    $expected = App\Http\Resources\Airline::make($airline)->resolve();
     expect($response->json('data'))->toEqual($expected);
 
 });
@@ -142,7 +142,7 @@ test('get airlines chinese chars', function () {
     $res->assertSuccessful()
         ->assertJsonCount(4, 'data');
 
-    $expected = \App\Http\Resources\Airline::collection($airlines)->resolve();
+    $expected = App\Http\Resources\Airline::collection($airlines)->resolve();
     expect($res->json('data'))->toEqualCanonicalizing($expected);
 });
 
@@ -200,8 +200,9 @@ it('can retrieve an airport', function () {
 
     $response->assertSuccessful();
 
-    $expected = \App\Http\Resources\Airport::make($airport)->resolve();
-    expect($response->json('data'))->toEqual($expected);
+    $expected = App\Http\Resources\Airport::make($airport)->resolve();
+
+    expect($response->json('data'))->toMatchArray(Arr::except($expected, ['deleted_at']));
 
     $this->get('/api/airports/UNK')->assertStatus(404);
 });

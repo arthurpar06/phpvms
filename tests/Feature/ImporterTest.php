@@ -19,6 +19,7 @@ use App\Services\ExportService;
 use App\Services\FareService;
 use App\Services\ImportExport\AircraftExporter;
 use App\Services\ImportExport\AirportExporter;
+use App\Services\ImportExport\ExpenseExporter;
 use App\Services\ImportExport\FlightExporter;
 use App\Services\ImportService;
 use Illuminate\Support\Facades\Storage;
@@ -351,11 +352,25 @@ test('empty cols', function () {
 });
 
 test('expense exporter', function () {
-    $expenses = Expense::factory(10)->create();
+    $expense = Expense::factory([
+        'airline_id' => Airline::factory()->create()->id,
+    ])->create();
 
-    /** @var ExportService $exporter */
+    $exporter = new ExpenseExporter();
+    $exported = $exporter->export($expense);
+
+    expect($exported['airline'])->toEqual($expense->airline->icao)
+        ->and($exported['name'])->toEqual($expense->name)
+        ->and($exported['amount'])->toEqual($expense->amount)
+        ->and($exported['type'])->toEqual($expense->type);
+
+    $importer = app(ImportService::class);
     $exporter = app(ExportService::class);
-    $exporter->exportExpenses($expenses);
+    $file = $exporter->exportExpenses(collect([$expense]));
+    $status = $importer->importExpenses($file);
+
+    expect($status['success'])->toHaveCount(1)
+        ->and($status['errors'])->toHaveCount(0);
 });
 
 test('expense importer', function () {
