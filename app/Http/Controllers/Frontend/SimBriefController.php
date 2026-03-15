@@ -49,6 +49,12 @@ class SimBriefController
         /** @var User $user */
         $user = Auth::user();
 
+        if (!$user->simbrief_username) {
+            return view('flights.simbrief_username', [
+                'user' => $user,
+            ]);
+        }
+
         $flight_id = $request->input('flight_id');
         $aircraft_id = $request->input('aircraft_id');
 
@@ -308,7 +314,7 @@ class SimBriefController
             return redirect(route('frontend.flights.index'));
         }
 
-        $str = $simbrief->xml->aircraft->equip;
+        $str = $simbrief->ofp->aircraft->equip;
         $wc = stripos($str, '-');
         $tr = stripos($str, '/');
         $wakecat = substr($str, 0, $wc);
@@ -397,13 +403,14 @@ class SimBriefController
     {
         /** @var User $user */
         $user = Auth::user();
+        $static_id = $request->input('static_id');
         $ofp_id = $request->input('ofp_id');
         $flight_id = $request->input('flight_id');
         $aircraft_id = $request->input('aircraft_id');
         $fares = $request->session()->get('simbrief_fares', []);
 
-        $simbrief = $this->simBriefSvc->downloadOfp($user->id, $ofp_id, $flight_id, $aircraft_id, $fares);
-        if ($simbrief === null) {
+        $simbrief = $this->simBriefSvc->downloadOfp($user, $static_id, $ofp_id, $flight_id, $aircraft_id, $fares);
+        if (!$simbrief instanceof SimBrief) {
             $error = new AssetNotFound(new Exception('Simbrief OFP not found'));
 
             return $error->getResponse();
@@ -430,8 +437,8 @@ class SimBriefController
         $sb_static_id = $request->input('sb_static_id');
         $fares = [];
 
-        $simbrief = $this->simBriefSvc->downloadOfp($user->id, $ofp_id, $flight_id, $aircraft_id, $fares, $sb_userid, $sb_static_id);
-        if ($simbrief === null) {
+        $simbrief = $this->simBriefSvc->downloadOfp($user, $sb_static_id, $ofp_id, $flight_id, $aircraft_id, $fares);
+        if (!$simbrief instanceof SimBrief) {
             $error = new AssetNotFound(new Exception('Simbrief OFP not found'));
 
             return $error->getResponse();
