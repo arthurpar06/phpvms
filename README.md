@@ -90,6 +90,13 @@ make build-assets
 
 This will build all of the assets according to the webpack file.
 
+### Laravel Boost
+
+If you want to use AI agents for your development workflow, please ensure you install [Laravel Boost](https://laravel.com/ai/boost) by running the following command:
+```bash
+php artisan boost:install
+```
+
 ---
 
 ## Contributors

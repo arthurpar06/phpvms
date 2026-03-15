@@ -6,21 +6,22 @@ use App\Contracts\Model;
 use App\Models\Traits\HashIdTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
- * @property string                          $id
- * @property string                          $name
- * @property string|null                     $description
- * @property string|null                     $disk
- * @property string|null                     $path
- * @property bool                            $public
- * @property int                             $download_count
- * @property string|null                     $ref_model_type
- * @property string|null                     $ref_model_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string      $id
+ * @property string      $name
+ * @property string|null $description
+ * @property string|null $disk
+ * @property string|null $path
+ * @property bool        $public
+ * @property int         $download_count
+ * @property string|null $ref_model_type
+ * @property string|null $ref_model_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read mixed $extension
  * @property-read mixed $filename
  * @property-read bool $is_external_file
