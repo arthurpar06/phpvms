@@ -18,7 +18,7 @@ use Carbon\Carbon;
 /**
  * @param array $attrs Additional user attributes
  *
- * @throws \Exception
+ * @throws Exception
  */
 function createUserData(array $attrs = []): array
 {
@@ -63,14 +63,12 @@ function loadSimBrief(User $user, Aircraft $aircraft, array $fares = [], ?string
  */
 function downloadOfp($user, $flight, $aircraft, $fares): ?SimBrief
 {
-    mockGuzzleResponse([
-        'simbrief/briefing.xml',
-        'simbrief/acars_briefing.xml',
-    ], 'text/xml');
 
-    $sb = app(SimBriefService::class);
+    Illuminate\Support\Facades\Http::fake([
+        'simbrief.com/*' => Http::response(readDataFile('simbrief/briefing.json'), 200, ['Content-Type' => 'application/json']),
+    ]);
 
-    return $sb->downloadOfp($user->id, Utils::generateNewId(), $flight->id, $aircraft->id, $fares);
+    return app(SimBriefService::class)->downloadOfp($user, 'static_id', Utils::generateNewId(), $flight->id, $aircraft->id, $fares);
 }
 
 test('read simbrief', function () {
@@ -78,28 +76,28 @@ test('read simbrief', function () {
     $user = $userinfo['user'];
     $briefing = loadSimBrief($user, $userinfo['aircraft']->first(), []);
 
-    expect($briefing->ofp_xml)->not->toBeEmpty()
-        ->and($briefing->xml)->not->toBeNull();
+    expect($briefing->ofp_json_path)->not->toBeEmpty()
+        ->and($briefing->ofp)->not->toBeNull();
 
     // Spot check reading of the files
     $files = $briefing->files;
-    expect($files->count())->toEqual(47)
+    expect($files->count())->toEqual(67)
         ->and($files->firstWhere('name',
-            'PDF Document')['url'])->toEqual('http://www.simbrief.com/ofp/flightplans/OMAAOMDB_PDF_1584226092.pdf');
+            'PDF Document')['url'])->toEqual('https://www.simbrief.com/ofp/flightplans/OMAAOMDB_PDF_1584226092.pdf');
 
     // Spot check reading of images
     $images = $briefing->images;
-    expect($images->count())->toEqual(5)
+    expect($images->count())->toEqual(6)
         ->and($images->firstWhere('name',
-            'Route')['url'])->toEqual('http://www.simbrief.com/ofp/uads/OMAAOMDB_1584226092_ROUTE.gif');
+            'Route')['url'])->toEqual('https://www.simbrief.com/ofp/uads/OMAAOMDB_UAD_1584226092_ROUTE.gif');
 
-    $level = $briefing->xml->getFlightLevel();
-    expect($level)->toEqual('380');
+    $level = $briefing->ofp->general->initial_altitude;
+    expect($level)->toEqual(9000);
 
     // Read the flight route
-    $routeStr = $briefing->xml->getRouteString();
+    $routeStr = $briefing->ofp->general->route;
     expect($routeStr)->toEqual('DCT BOMUP DCT LOVIM DCT RESIG DCT NODVI DCT OBMUK DCT LORID DCT '.
-    'ORGUR DCT PEBUS DCT EMOPO DCT LOTUK DCT LAGTA DCT LOVOL DCT');
+    'ORGUR DCT PEBUS DCT EMOPO DCT LOTUK DCT LAGTA DCT LOVOL');
 });
 
 test('api calls', function () {
@@ -140,11 +138,9 @@ test('api calls', function () {
     $response = $this->get('/api/flights/'.$briefing->id.'/briefing', [], $user);
     $response->assertOk();
 
-    $xml = simplexml_load_string($response->content());
-    expect($xml)->not->toBeNull()
-        ->and($xml->getName())->toEqual('VMSAcars')
-        ->and($xml->attributes()->Type)->toEqual('FlightPlan');
+    $json = $response->json();
 
+    expect($json)->not->toBeEmpty();
 });
 
 test('user bid simbrief', function () {
