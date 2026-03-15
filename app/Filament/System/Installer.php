@@ -177,20 +177,20 @@ class Installer extends Page
             ->label(__('installer.update'))
             ->action(function (Entry $component) {
                 $output = __('installer.starting_migration_process').PHP_EOL;
-                $this->stream(to: $this->stream, content: PHP_EOL.__('installer.starting_migration_process').PHP_EOL);
+                $this->stream(content: PHP_EOL.__('installer.starting_migration_process').PHP_EOL, to: $this->stream);
 
                 if (function_exists('proc_open')) {
                     // Streaming the output of the command is only available with proc_open (relies on Symfony Process)
                     app(MigrationService::class)
                         ->runAllMigrationsWithStreaming(function (string $buffer) use (&$output) {
                             $output .= $buffer;
-                            $this->stream(to: $this->stream, content: $buffer);
+                            $this->stream(content: $buffer, to: $this->stream);
                         });
                 } else {
                     $output .= app(MigrationService::class)
                         ->runAllMigrations();
 
-                    $this->stream(to: $this->stream, content: $output);
+                    $this->stream(content: $output, to: $this->stream);
                 }
 
                 app(SeederService::class)->syncAllSeeds();
@@ -198,22 +198,22 @@ class Installer extends Page
                 if (function_exists('proc_open')) {
                     app(StreamedCommandsService::class)->streamArtisanCommand(['db:seed', '--force', '--class='.ShieldSeeder::class], function (string $buffer) use (&$output) {
                         $output .= $buffer;
-                        $this->stream(to: $this->stream, content: $buffer);
+                        $this->stream(content: $buffer, to: $this->stream);
                     });
                 } else {
                     Artisan::call('db:seed', ['--force' => true, '--class' => ShieldSeeder::class]);
                     $buffer = Artisan::output();
                     $output .= $buffer;
-                    $this->stream(to: $this->stream, content: $buffer);
+                    $this->stream(content: $buffer, to: $this->stream);
                 }
 
                 $output .= __('installer.migrations_completed').PHP_EOL;
-                $this->stream($this->stream, __('installer.migrations_completed').PHP_EOL);
+                $this->stream(content: __('installer.migrations_completed').PHP_EOL, to: $this->stream);
 
                 // Let's generate a new key if the app is still using the one from the .env.example
                 if (config('app.key') === 'base64:1IcdcyMVAztKFFiqfJOX5w6FkOb9ONnjCA3bdxNbtQ4=' || config('app.key') === 'base64:zdgcDqu9PM8uGWCtMxd74ZqdGJIrnw812oRMmwDF6KY=') {
                     $output .= __('installer.app_key_warning').' php artisan key:generate --force'.PHP_EOL;
-                    $this->stream(to: $this->stream, content: __('installer.app_key_warning').' php artisan key:generate --force'.PHP_EOL);
+                    $this->stream(content: __('installer.app_key_warning').' php artisan key:generate --force'.PHP_EOL, to: $this->stream);
                 }
 
                 $component->state(fn () => $output);

@@ -1,5 +1,8 @@
 <?php
 
+use App\Services\AirportLookup\VaCentralLookup;
+use App\Services\Metar\AviationWeather;
+
 /**
  * DO NOT MODIFY THIS FILE DIRECTLY!
  * It will just make upgrading (a little) more difficult
@@ -39,13 +42,13 @@ return [
      * Point to the class to use to retrieve the METAR string. If this
      * goes inactive at some date, it can be replaced
      */
-    'metar_lookup' => App\Services\Metar\AviationWeather::class,
+    'metar_lookup' => AviationWeather::class,
 
     /*
      * Point to the class used to retrieve the airport information.
      * If this goes inactive at some date, it can be replaced
      */
-    'airport_lookup' => App\Services\AirportLookup\VaCentralLookup::class,
+    'airport_lookup' => VaCentralLookup::class,
 
     /*
      * URL for where to lookup the Simbrief flight plans
@@ -66,6 +69,11 @@ return [
      * URL for fetching Simbrief layouts data
      */
     'simbrief_layouts_url' => 'http://www.simbrief.com/api/inputs.list.json',
+
+    /*
+     * URL for fetching SimBrief OFP
+     */
+    'simbrief_ofp_url' => 'https://www.simbrief.com/api/xml.fetcher.php',
 
     /*
      * Your vaCentral API key
