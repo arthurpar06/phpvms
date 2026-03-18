@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Carbon;
 
 /**
  * Read a file from the data directory
@@ -58,10 +59,6 @@ function transformData(array &$data): array
     foreach ($data as $key => &$value) {
         if (is_array($value)) {
             transformData($value);
-        }
-
-        if (is_subclass_of($value, Unit::class)) {
-            $data[$key] = $value->__toString();
         }
 
         if ($value instanceof DateTimeImmutable) {

@@ -75,6 +75,9 @@ test('link account from profile', function () {
 });
 
 test('link account from login', function () {
+    $now = now()->setMicro(0);
+    Carbon::setTestNow($now);
+
     $user = User::factory()->create([
         'name'  => 'OAuth user',
         'email' => 'oauth.user@phpvms.net',
@@ -88,7 +91,7 @@ test('link account from login', function () {
 
         $user->refresh();
         expect($user->{$driver.'_id'})->toEqual(123456789)
-            ->and($user->lastlogin_at->diffInSeconds(now()) <= 2)->toBeTrue();
+            ->and($user->lastlogin_at)->toEqual($now);
 
         $tokens = $user->oauth_tokens()->where('provider', $driver)->first();
 
@@ -102,6 +105,9 @@ test('link account from login', function () {
 });
 
 test('login with linked account', function () {
+    $now = now()->setMicro(0);
+    Carbon::setTestNow($now);
+
     $user = User::factory()->create([
         'name'  => 'OAuth user',
         'email' => 'oauth.user@phpvms.net',
@@ -126,7 +132,7 @@ test('login with linked account', function () {
 
         $user->refresh();
         expect($user->{$driver.'_id'})->toEqual(123456789)
-            ->and($user->lastlogin_at->diffInSeconds(now()) <= 2)->toBeTrue();
+            ->and($user->lastlogin_at)->toEqual($now);
 
         $tokens = $user->oauth_tokens()->where('provider', $driver)->first();
 

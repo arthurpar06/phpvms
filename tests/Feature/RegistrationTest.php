@@ -7,11 +7,20 @@ use App\Models\Invite;
 use App\Models\User;
 use App\Notifications\Messages\AdminUserRegistered;
 use App\Services\UserService;
+use Database\Seeders\ShieldSeeder;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
+use function Pest\Laravel\seed;
+
+beforeEach(function (): void {
+    // Create a default user to prevent redirection to the installer
+    User::factory()->create();
+});
+
 test('registration', function () {
+    seed(ShieldSeeder::class);
     Notification::fake();
 
     $admin = createAdminUser(['name' => 'testRegistration Admin']);

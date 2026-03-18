@@ -17,12 +17,14 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
+        $startDate = fake()->dateTimeBetween('-1 month', '+1 month');
+
         return [
             'type'        => fake()->numberBetween(),
             'name'        => fake()->text(50),
             'description' => fake()->text(150),
-            'start_date'  => fake()->date(),
-            'end_date'    => fake()->date(),
+            'start_date'  => $startDate->format('Y-m-d'),
+            'end_date'    => fake()->dateTimeBetween($startDate, '+2 months')->format('Y-m-d'),
             'active'      => true,
         ];
     }

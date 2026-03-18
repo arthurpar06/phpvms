@@ -19,4 +19,5 @@ test('news notifications', function () {
     ]);
 
     Notification::assertSentTo($users_opt_in, NewsAdded::class);
+    Notification::assertNotSentTo($users_opt_out, NewsAdded::class);
 });

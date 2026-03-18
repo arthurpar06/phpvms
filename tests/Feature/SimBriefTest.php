@@ -135,7 +135,7 @@ test('api calls', function () {
     expect(str_ends_with($url, $briefing->id.'/briefing'))->toBeTrue();
 
     // Retrieve the briefing via API, and then check the doctype
-    $response = $this->get('/api/flights/'.$briefing->id.'/briefing', [], $user);
+    $response = $this->get('/api/flights/'.$briefing->id.'/briefing');
     $response->assertOk();
 
     $json = $response->json();
@@ -216,13 +216,15 @@ test('user bid simbrief doesnt leak', function () {
     $data = ['flight_id' => $flight->id];
 
     // add for both users
-    $body = $this->put($uri, $data, [], $user2)->json('data');
+    apiAs($user2);
+    $body = $this->put($uri, $data)->json('data');
     expect($body)->not->toBeEmpty();
 
-    $body = $this->put($uri, $data, [], $user)->json('data');
+    apiAs($user);
+    $body = $this->put($uri, $data)->json('data');
     expect($body)->not->toBeEmpty();
 
-    $body = $this->get('/api/user/bids', [], $user);
+    $body = $this->get('/api/user/bids');
     $body = $body->json('data')[0];
 
     // Make sure Simbrief is there

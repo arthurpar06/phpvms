@@ -76,6 +76,10 @@ function getModels(): array
 {
     $models = glob(__DIR__.'/../../app/Models/*.php');
 
+    if ($models === false) {
+        return [];
+    }
+
     return collect($models)
         ->map(fn ($file): string => 'App\Models\\'.basename($file, '.php'))->toArray();
 }

@@ -58,7 +58,7 @@ function insertFlightsScaffoldData(): array
     return [$airline, $subfleet];
 }
 
-test('convert stringto objects', function () {
+test('convert string to objects', function () {
     $tests = [
         [
             'input'    => '',

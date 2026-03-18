@@ -23,7 +23,10 @@ use App\Services\BidService;
 use App\Services\PirepService;
 use App\Support\Units\Fuel;
 use Carbon\Carbon;
+use Database\Seeders\ShieldSeeder;
 use Illuminate\Support\Facades\Notification;
+
+use function Pest\Laravel\seed;
 
 beforeEach(function () {
     loadYamlIntoDb('fleet');
@@ -229,6 +232,8 @@ test('get user pireps', function () {
 });
 
 test('pirep notifications', function () {
+    seed(ShieldSeeder::class);
+
     $pirepSvc = app(PirepService::class);
 
     Notification::fake();
@@ -259,22 +264,38 @@ test('pilot stats incr', function () {
     $pirepSvc = app(PirepService::class);
     updateSetting('pilots.count_transfer_hours', false);
 
+    // Let's create two ranks
+    $rank = Rank::factory()->create([
+        'name'         => 'New Pilot',
+        'hours'        => 0,
+        'auto_promote' => true,
+    ]);
+
+    $rank2 = Rank::factory()->create([
+        'name'                => 'Junior First Officer',
+        'hours'               => 10,
+        'auto_promote'        => true,
+        'auto_approve_acars'  => true,
+        'auto_approve_manual' => true,
+    ]);
+
+    $aircraft = Aircraft::factory()->create();
+
     $user = User::factory()->create([
         'flights'     => 0,
         'flight_time' => 0,
-        'rank_id'     => 1,
+        'rank_id'     => $rank->id,
     ]);
 
     // Submit two PIREPs
     $pireps = Pirep::factory()->count(2)->create([
         'airline_id'  => $user->airline_id,
-        'aircraft_id' => 1,
+        'aircraft_id' => $aircraft->id,
         'user_id'     => $user->id,
         // 360min == 6 hours, rank should bump up
         'flight_time' => 360,
     ]);
 
-    $aircraft = Aircraft::find(1);
     $flight_time_initial = $aircraft->flight_time;
 
     foreach ($pireps as $pirep) {
@@ -290,7 +311,7 @@ test('pilot stats incr', function () {
         ->and($pilot->curr_airport_id)->toEqual($last_pirep->arr_airport_id)
         ->and($pilot->flights)->toEqual(2);
 
-    $aircraft = Aircraft::find(1);
+    $aircraft->refresh();
     $after_time = $flight_time_initial + 720;
     expect($aircraft->flight_time)->toEqual($after_time);
 
@@ -299,7 +320,7 @@ test('pilot stats incr', function () {
     // it should automatically be accepted
     //
     $pirep = Pirep::factory()->create([
-        'airline_id' => 1,
+        'airline_id' => $user->airline_id,
         'user_id'    => $user->id,
         // 120min == 2 hours, currently at 9 hours
         // Rank bumps up at 10 hours
@@ -359,18 +380,34 @@ test('pilot stats incr with transfer hours', function () {
     $pirepSvc = app(PirepService::class);
     updateSetting('pilots.count_transfer_hours', true);
 
+    // Let's create two ranks
+    $rank = Rank::factory()->create([
+        'name'         => 'New Pilot',
+        'hours'        => 0,
+        'auto_promote' => true,
+    ]);
+
+    $rank2 = Rank::factory()->create([
+        'name'               => 'Junior First Officer',
+        'hours'              => 10,
+        'auto_promote'       => true,
+        'auto_approve_acars' => true,
+    ]);
+
     $user = User::factory()->create([
         'flights'       => 0,
         'flight_time'   => 0,
         'transfer_time' => 720,
-        'rank_id'       => 1,
+        'rank_id'       => $rank->id,
     ]);
+
+    $aircraft = Aircraft::factory()->create();
 
     // Submit two PIREPs
     // 1 hour flight times, but the rank should bump up because of the transfer hours
     $pireps = Pirep::factory()->count(2)->create([
         'airline_id'  => $user->airline_id,
-        'aircraft_id' => 1,
+        'aircraft_id' => $aircraft->id,
         'user_id'     => $user->id,
         'flight_time' => 60,
     ]);
@@ -388,19 +425,20 @@ test('pilot stats incr with transfer hours', function () {
     expect($pilot->rank_id)->toBeGreaterThan($user->rank_id);
 
     // Check the aircraft
-    $aircraft = Aircraft::where('id', 1)->first();
+    $aircraft->refresh();
     expect($aircraft->flight_time)->toEqual(120);
 
     // Reset the aircraft flight time
-    $aircraft->flight_time = 10;
-    $aircraft->save();
+    $aircraft->update([
+        'flight_time' => 10,
+    ]);
 
     // Recalculate the status
     /** @var AircraftService $aircraftSvc */
     $aircraftSvc = app(AircraftService::class);
     $aircraftSvc->recalculateStats();
 
-    $aircraft = Aircraft::where('id', 1)->first();
+    $aircraft->refresh();
     expect($aircraft->flight_time)->toEqual(120);
 });
 
