@@ -96,6 +96,8 @@ test('access without invite', function () {
 });
 
 test('access with valid invite', function () {
+    Notification::fake();
+
     updateSetting('general.disable_registrations', false);
     updateSetting('general.invite_only_registrations', true);
 
