@@ -30,7 +30,7 @@ beforeEach(function () {
  */
 function getMockedProvider(): LegacyMockInterface|MockInterface
 {
-    $abstractUser = \Mockery::mock('Laravel\Socialite\Two\User')
+    $abstractUser = Mockery::mock('Laravel\Socialite\Two\User')
         ->allows([
             'getId'     => 123456789,
             'getName'   => 'OAuth user',
@@ -42,7 +42,7 @@ function getMockedProvider(): LegacyMockInterface|MockInterface
     $abstractUser->refreshToken = 'refresh_token';
     $abstractUser->expiresIn = 3600 * 24 * 7;
 
-    return \Mockery::mock('Laravel\Socialite\Contracts\Provider')
+    return Mockery::mock('Laravel\Socialite\Contracts\Provider')
         ->allows([
             'refreshToken' => $abstractUser,
             'user'         => $abstractUser,

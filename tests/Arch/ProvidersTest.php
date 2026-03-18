@@ -1,8 +1,9 @@
 <?php
 
 declare(strict_types=1);
+use Illuminate\Support\ServiceProvider;
 
 arch('providers')
     ->expect('App\Providers')
-    ->toExtend(Illuminate\Support\ServiceProvider::class)
+    ->toExtend(ServiceProvider::class)
     ->not->toBeUsed();

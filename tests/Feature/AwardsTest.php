@@ -51,12 +51,12 @@ test('awards given', function () {
 });
 
 test('flight route award', function () {
-    /** @var \App\Models\User $user */
+    /** @var User $user */
     $user = User::factory()->create([
         'flights' => 0,
     ]);
 
-    /** @var \App\Models\Award $award */
+    /** @var Award $award */
     $award = Award::factory()->create([
         'ref_model_type'   => FlightRouteAwards::class,
         'ref_model_params' => 1,

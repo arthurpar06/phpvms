@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\Navdata;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-uses(\Illuminate\Foundation\Testing\WithoutMiddleware::class);
+uses(WithoutMiddleware::class);
 
 test('closest point', function () {
     $geoSvc = app('\App\Services\GeoService');

@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\FlightFieldValue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FlightFieldValue>
+ * @extends Factory<FlightFieldValue>
  */
 class FlightFieldValueFactory extends Factory
 {

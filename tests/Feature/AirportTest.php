@@ -2,6 +2,7 @@
 
 use App\Exceptions\AirportNotFound;
 use App\Models\Airport;
+use App\Repositories\AirportRepository;
 use App\Services\AirportService;
 
 it('can create an airport from api response', function () {
@@ -81,7 +82,7 @@ it('creates a generic airport if auto_lookup is disabled', function () {
     Config::set('general.auto_airport_lookup', false);
 
     // Partial mock the repository so the service uses our mock instead of the real DB
-    $this->mock(App\Repositories\AirportRepository::class, function ($mock) {
+    $this->mock(AirportRepository::class, function ($mock) {
         $mock->shouldReceive('findWithoutFail')->andReturn(null);
     });
 
@@ -92,7 +93,7 @@ it('creates a generic airport if auto_lookup is disabled', function () {
 });
 
 it('calculates distance between two known points', function () {
-    $this->mock(App\Repositories\AirportRepository::class, function ($mock) {
+    $this->mock(AirportRepository::class, function ($mock) {
         $mock->shouldReceive('find')->with('KJFK', ['lat', 'lon'])
             ->andReturn((object) ['lat' => 40.6413, 'lon' => -73.7781]);
         $mock->shouldReceive('find')->with('KLAX', ['lat', 'lon'])
@@ -105,7 +106,7 @@ it('calculates distance between two known points', function () {
 });
 
 it('throws exception when origin airport is missing', function () {
-    $this->mock(App\Repositories\AirportRepository::class, function ($mock) {
+    $this->mock(AirportRepository::class, function ($mock) {
         $mock->shouldReceive('find')->andReturn(null);
     });
 

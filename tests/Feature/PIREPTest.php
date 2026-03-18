@@ -72,7 +72,7 @@ test('add pirep', function () {
 
     try {
         $pirepSvc->saveRoute($pirep);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         throw $e;
     }
 
@@ -570,7 +570,7 @@ test('notification formatting', function () {
     expect($fields['Flight Time'])->toEqual('1h 0m')
         ->and($fields['Distance'])->toEqual('185.2/370.4 km');
 
-    $discordNotif = new \App\Notifications\Messages\Broadcast\PirepFiled($pirep);
+    $discordNotif = new App\Notifications\Messages\Broadcast\PirepFiled($pirep);
     $fields = $discordNotif->createFields($pirep);
     expect($fields['Flight Time'])->toEqual('1h 0m')
         ->and($fields['Distance'])->toEqual('185.2 km');
