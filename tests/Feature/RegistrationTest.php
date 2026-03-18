@@ -53,6 +53,8 @@ function getUserData(): array
 }
 
 test('access to registration when registration enabled', function () {
+    Notification::fake();
+
     updateSetting('general.disable_registrations', false);
     updateSetting('general.invite_only_registrations', false);
 
