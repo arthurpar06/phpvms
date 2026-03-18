@@ -80,6 +80,7 @@ jobs:
         composer global require laravel/pint
         composer dump-autoload -o
         cp .github/scripts/env.test .env
+        cp .github/scripts/phpunit.xml phpunit.xml
         .github/scripts/version.sh
 
     - name: Setup Node.js

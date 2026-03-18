@@ -107,14 +107,14 @@ test('add pirep', function () {
 
     // Try cancelling it
     $uri = '/api/pireps/'.$pirep->id.'/cancel';
-    $response = $this->put($uri, [], [], $user);
+    $response = $this->put($uri);
     $response->assertStatus(400);
 
     // Try updating some data on it
     $uri = '/api/pireps/'.$pirep->id.'/update';
     $response = $this->put($uri, [
         'state' => 'FIL',
-    ], [], $user);
+    ]);
 
     $response->assertStatus(400);
 
