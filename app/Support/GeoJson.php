@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Support;
 
 use GeoJson\Feature\Feature;
 use GeoJson\Feature\FeatureCollection;
