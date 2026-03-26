@@ -78,7 +78,7 @@ class AdminPanelProvider extends PanelProvider
                     ->url('/'),
 
                 NavigationItem::make()
-                    ->visible(fn (): bool => auth()->user()->can('view_logs'))
+                    ->visible(fn (): bool => auth()->user()->can('view-logs'))
                     ->group(EnumsNavigationGroup::Developers)
                     ->sort(3)
                     ->icon(Heroicon::OutlinedDocumentText)

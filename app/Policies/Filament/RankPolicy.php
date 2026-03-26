@@ -14,56 +14,56 @@ class RankPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Rank');
+        return $authUser->can('view-any:rank');
     }
 
     public function view(AuthUser $authUser, Rank $rank): bool
     {
-        return $authUser->can('View:Rank');
+        return $authUser->can('view:rank');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Rank');
+        return $authUser->can('create:rank');
     }
 
     public function update(AuthUser $authUser, Rank $rank): bool
     {
-        return $authUser->can('Update:Rank');
+        return $authUser->can('update:rank');
     }
 
     public function delete(AuthUser $authUser, Rank $rank): bool
     {
-        return $authUser->can('Delete:Rank');
+        return $authUser->can('delete:rank');
     }
 
     public function restore(AuthUser $authUser, Rank $rank): bool
     {
-        return $authUser->can('Restore:Rank');
+        return $authUser->can('restore:rank');
     }
 
     public function forceDelete(AuthUser $authUser, Rank $rank): bool
     {
-        return $authUser->can('ForceDelete:Rank');
+        return $authUser->can('force-delete:rank');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Rank');
+        return $authUser->can('force-delete-any:rank');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Rank');
+        return $authUser->can('restore-any:rank');
     }
 
     public function replicate(AuthUser $authUser, Rank $rank): bool
     {
-        return $authUser->can('Replicate:Rank');
+        return $authUser->can('replicate:rank');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Rank');
+        return $authUser->can('reorder:rank');
     }
 }

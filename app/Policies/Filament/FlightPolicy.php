@@ -14,56 +14,56 @@ class FlightPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Flight');
+        return $authUser->can('view-any:flight');
     }
 
     public function view(AuthUser $authUser, Flight $flight): bool
     {
-        return $authUser->can('View:Flight');
+        return $authUser->can('view:flight');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Flight');
+        return $authUser->can('create:flight');
     }
 
     public function update(AuthUser $authUser, Flight $flight): bool
     {
-        return $authUser->can('Update:Flight');
+        return $authUser->can('update:flight');
     }
 
     public function delete(AuthUser $authUser, Flight $flight): bool
     {
-        return $authUser->can('Delete:Flight');
+        return $authUser->can('delete:flight');
     }
 
     public function restore(AuthUser $authUser, Flight $flight): bool
     {
-        return $authUser->can('Restore:Flight');
+        return $authUser->can('restore:flight');
     }
 
     public function forceDelete(AuthUser $authUser, Flight $flight): bool
     {
-        return $authUser->can('ForceDelete:Flight');
+        return $authUser->can('force-delete:flight');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Flight');
+        return $authUser->can('force-delete-any:flight');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Flight');
+        return $authUser->can('restore-any:flight');
     }
 
     public function replicate(AuthUser $authUser, Flight $flight): bool
     {
-        return $authUser->can('Replicate:Flight');
+        return $authUser->can('replicate:flight');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Flight');
+        return $authUser->can('reorder:flight');
     }
 }

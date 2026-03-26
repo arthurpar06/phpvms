@@ -14,56 +14,56 @@ class SimBriefAirframePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:SimBriefAirframe');
+        return $authUser->can('view-any:sim-brief-airframe');
     }
 
     public function view(AuthUser $authUser, SimBriefAirframe $simBriefAirframe): bool
     {
-        return $authUser->can('View:SimBriefAirframe');
+        return $authUser->can('view:sim-brief-airframe');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:SimBriefAirframe');
+        return $authUser->can('create:sim-brief-airframe');
     }
 
     public function update(AuthUser $authUser, SimBriefAirframe $simBriefAirframe): bool
     {
-        return $authUser->can('Update:SimBriefAirframe');
+        return $authUser->can('update:sim-brief-airframe');
     }
 
     public function delete(AuthUser $authUser, SimBriefAirframe $simBriefAirframe): bool
     {
-        return $authUser->can('Delete:SimBriefAirframe');
+        return $authUser->can('delete:sim-brief-airframe');
     }
 
     public function restore(AuthUser $authUser, SimBriefAirframe $simBriefAirframe): bool
     {
-        return $authUser->can('Restore:SimBriefAirframe');
+        return $authUser->can('restore:sim-brief-airframe');
     }
 
     public function forceDelete(AuthUser $authUser, SimBriefAirframe $simBriefAirframe): bool
     {
-        return $authUser->can('ForceDelete:SimBriefAirframe');
+        return $authUser->can('force-delete:sim-brief-airframe');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:SimBriefAirframe');
+        return $authUser->can('force-delete-any:sim-brief-airframe');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:SimBriefAirframe');
+        return $authUser->can('restore-any:sim-brief-airframe');
     }
 
     public function replicate(AuthUser $authUser, SimBriefAirframe $simBriefAirframe): bool
     {
-        return $authUser->can('Replicate:SimBriefAirframe');
+        return $authUser->can('replicate:sim-brief-airframe');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:SimBriefAirframe');
+        return $authUser->can('reorder:sim-brief-airframe');
     }
 }

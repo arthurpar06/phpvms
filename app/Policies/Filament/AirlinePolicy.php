@@ -14,56 +14,56 @@ class AirlinePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Airline');
+        return $authUser->can('view-any:airline');
     }
 
     public function view(AuthUser $authUser, Airline $airline): bool
     {
-        return $authUser->can('View:Airline');
+        return $authUser->can('view:airline');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Airline');
+        return $authUser->can('create:airline');
     }
 
     public function update(AuthUser $authUser, Airline $airline): bool
     {
-        return $authUser->can('Update:Airline');
+        return $authUser->can('update:airline');
     }
 
     public function delete(AuthUser $authUser, Airline $airline): bool
     {
-        return $authUser->can('Delete:Airline');
+        return $authUser->can('delete:airline');
     }
 
     public function restore(AuthUser $authUser, Airline $airline): bool
     {
-        return $authUser->can('Restore:Airline');
+        return $authUser->can('restore:airline');
     }
 
     public function forceDelete(AuthUser $authUser, Airline $airline): bool
     {
-        return $authUser->can('ForceDelete:Airline');
+        return $authUser->can('force-delete:airline');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Airline');
+        return $authUser->can('force-delete-any:airline');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Airline');
+        return $authUser->can('restore-any:airline');
     }
 
     public function replicate(AuthUser $authUser, Airline $airline): bool
     {
-        return $authUser->can('Replicate:Airline');
+        return $authUser->can('replicate:airline');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Airline');
+        return $authUser->can('reorder:airline');
     }
 }

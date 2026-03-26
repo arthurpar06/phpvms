@@ -14,56 +14,56 @@ class InvitePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Invite');
+        return $authUser->can('view-any:invite');
     }
 
     public function view(AuthUser $authUser, Invite $invite): bool
     {
-        return $authUser->can('View:Invite');
+        return $authUser->can('view:invite');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Invite');
+        return $authUser->can('create:invite');
     }
 
     public function update(AuthUser $authUser, Invite $invite): bool
     {
-        return $authUser->can('Update:Invite');
+        return $authUser->can('update:invite');
     }
 
     public function delete(AuthUser $authUser, Invite $invite): bool
     {
-        return $authUser->can('Delete:Invite');
+        return $authUser->can('delete:invite');
     }
 
     public function restore(AuthUser $authUser, Invite $invite): bool
     {
-        return $authUser->can('Restore:Invite');
+        return $authUser->can('restore:invite');
     }
 
     public function forceDelete(AuthUser $authUser, Invite $invite): bool
     {
-        return $authUser->can('ForceDelete:Invite');
+        return $authUser->can('force-delete:invite');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Invite');
+        return $authUser->can('force-delete-any:invite');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Invite');
+        return $authUser->can('restore-any:invite');
     }
 
     public function replicate(AuthUser $authUser, Invite $invite): bool
     {
-        return $authUser->can('Replicate:Invite');
+        return $authUser->can('replicate:invite');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Invite');
+        return $authUser->can('reorder:invite');
     }
 }

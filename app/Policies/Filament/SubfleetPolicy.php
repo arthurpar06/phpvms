@@ -14,56 +14,56 @@ class SubfleetPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Subfleet');
+        return $authUser->can('view-any:subfleet');
     }
 
     public function view(AuthUser $authUser, Subfleet $subfleet): bool
     {
-        return $authUser->can('View:Subfleet');
+        return $authUser->can('view:subfleet');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Subfleet');
+        return $authUser->can('create:subfleet');
     }
 
     public function update(AuthUser $authUser, Subfleet $subfleet): bool
     {
-        return $authUser->can('Update:Subfleet');
+        return $authUser->can('update:subfleet');
     }
 
     public function delete(AuthUser $authUser, Subfleet $subfleet): bool
     {
-        return $authUser->can('Delete:Subfleet');
+        return $authUser->can('delete:subfleet');
     }
 
     public function restore(AuthUser $authUser, Subfleet $subfleet): bool
     {
-        return $authUser->can('Restore:Subfleet');
+        return $authUser->can('restore:subfleet');
     }
 
     public function forceDelete(AuthUser $authUser, Subfleet $subfleet): bool
     {
-        return $authUser->can('ForceDelete:Subfleet');
+        return $authUser->can('force-delete:subfleet');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Subfleet');
+        return $authUser->can('force-delete-any:subfleet');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Subfleet');
+        return $authUser->can('restore-any:subfleet');
     }
 
     public function replicate(AuthUser $authUser, Subfleet $subfleet): bool
     {
-        return $authUser->can('Replicate:Subfleet');
+        return $authUser->can('replicate:subfleet');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Subfleet');
+        return $authUser->can('reorder:subfleet');
     }
 }

@@ -14,56 +14,56 @@ class FarePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Fare');
+        return $authUser->can('view-any:fare');
     }
 
     public function view(AuthUser $authUser, Fare $fare): bool
     {
-        return $authUser->can('View:Fare');
+        return $authUser->can('view:fare');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Fare');
+        return $authUser->can('create:fare');
     }
 
     public function update(AuthUser $authUser, Fare $fare): bool
     {
-        return $authUser->can('Update:Fare');
+        return $authUser->can('update:fare');
     }
 
     public function delete(AuthUser $authUser, Fare $fare): bool
     {
-        return $authUser->can('Delete:Fare');
+        return $authUser->can('delete:fare');
     }
 
     public function restore(AuthUser $authUser, Fare $fare): bool
     {
-        return $authUser->can('Restore:Fare');
+        return $authUser->can('restore:fare');
     }
 
     public function forceDelete(AuthUser $authUser, Fare $fare): bool
     {
-        return $authUser->can('ForceDelete:Fare');
+        return $authUser->can('force-delete:fare');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Fare');
+        return $authUser->can('force-delete-any:fare');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Fare');
+        return $authUser->can('restore-any:fare');
     }
 
     public function replicate(AuthUser $authUser, Fare $fare): bool
     {
-        return $authUser->can('Replicate:Fare');
+        return $authUser->can('replicate:fare');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Fare');
+        return $authUser->can('reorder:fare');
     }
 }

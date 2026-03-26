@@ -14,56 +14,56 @@ class ExpensePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Expense');
+        return $authUser->can('view-any:expense');
     }
 
     public function view(AuthUser $authUser, Expense $expense): bool
     {
-        return $authUser->can('View:Expense');
+        return $authUser->can('view:expense');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Expense');
+        return $authUser->can('create:expense');
     }
 
     public function update(AuthUser $authUser, Expense $expense): bool
     {
-        return $authUser->can('Update:Expense');
+        return $authUser->can('update:expense');
     }
 
     public function delete(AuthUser $authUser, Expense $expense): bool
     {
-        return $authUser->can('Delete:Expense');
+        return $authUser->can('delete:expense');
     }
 
     public function restore(AuthUser $authUser, Expense $expense): bool
     {
-        return $authUser->can('Restore:Expense');
+        return $authUser->can('restore:expense');
     }
 
     public function forceDelete(AuthUser $authUser, Expense $expense): bool
     {
-        return $authUser->can('ForceDelete:Expense');
+        return $authUser->can('force-delete:expense');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Expense');
+        return $authUser->can('force-delete-any:expense');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Expense');
+        return $authUser->can('restore-any:expense');
     }
 
     public function replicate(AuthUser $authUser, Expense $expense): bool
     {
-        return $authUser->can('Replicate:Expense');
+        return $authUser->can('replicate:expense');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Expense');
+        return $authUser->can('reorder:expense');
     }
 }
