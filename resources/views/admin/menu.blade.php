@@ -9,32 +9,32 @@
 
   <div class="collapse" id="operations_menu" aria-expanded="true">
     <ul class="nav">
-      @can('ViewAny:Pirep')
+      @can('view-any:pirep')
         <li><a href="{{ \App\Filament\Resources\Pireps\PirepResource::getUrl() }}"><i class="pe-7s-cloud-upload"></i>pireps
             <span data-toggle="tooltip" title="3 New" class="badge bg-light-blue pull-right">3</span>
           </a>
         </li>
       @endcan
 
-      @can('ViewAny:Flight')
+      @can('view-any:flight')
         <li><a href="{{ \App\Filament\Resources\Flights\FlightResource::getUrl() }}"><i class="pe-7s-vector"></i>flights</a>
         </li>
       @endcan
 
-      @can('ViewAny:Subfleet')
+      @can('view-any:subfleet')
         <li><a href="{{ \App\Filament\Resources\Subfleets\SubfleetResource::getUrl() }}"><i class="pe-7s-plane"></i>fleet</a>
         </li>
       @endcan
 
-      @can('ViewAny:Fare')
+      @can('view-any:fare')
         <li><a href="{{ \App\Filament\Resources\Fares\FareResource::getUrl() }}"><i class="pe-7s-graph2"></i>fares</a></li>
       @endcan
 
-      @can('View:Finances')
+      @can('view:finances')
         <li><a href="{{ \App\Filament\Pages\Finances::getUrl() }}"><i class="pe-7s-display1"></i>finances</a></li>
       @endcan
 
-      @can('ViewAny:User')
+      @can('view-any:user')
         <li><a href="{{ \App\Filament\Resources\Users\UserResource::getUrl() }}"><i class="pe-7s-users"></i>users</a>
         </li>
       @endcan
@@ -49,65 +49,65 @@
 
   <div class="collapse" id="config_menu" aria-expanded="true">
     <ul class="nav">
-      @can('ViewAny:Airline')
+      @can('view-any:airline')
         <li><a href="{{ \App\Filament\Resources\Airlines\AirlineResource::getUrl() }}"><i class="pe-7s-paper-plane"></i>airlines</a>
         </li>
       @endcan
 
-      @can('ViewAny:SimBriefAirframe')
+      @can('view-any:sim-brief-airframe')
         <li><a href="{{ \App\Filament\Resources\SimBriefAirframes\SimBriefAirframeResource::getUrl() }}"><i class="pe-7s-plane"></i>sb airframes</a></li>
       @endcan
 
-      @can('ViewAny:Airport')
+      @can('view-any:airport')
         <li><a href="{{ \App\Filament\Resources\Airports\AirportResource::getUrl() }}"><i
               class="pe-7s-map-marker"></i>airports</a></li>
       @endcan
 
-      @can('ViewAny:Expense')
+      @can('view-any:expense')
         <li><a href="{{ \App\Filament\Resources\Expenses\ExpenseResource::getUrl() }}"><i class="pe-7s-cash"></i>expenses</a>
         </li>
       @endcan
 
-      @can('ViewAny:Rank')
+      @can('view-any:rank')
         <li><a href="{{ \App\Filament\Resources\Ranks\RankResource::getUrl() }}"><i class="pe-7s-graph1"></i>ranks</a>
         </li>
       @endcan
 
-      @can('ViewAny:Typerating')
+      @can('view-any:typerating')
         <li><a href="{{ \App\Filament\Resources\Typeratings\TyperatingResource::getUrl() }}"><i class="pe-7s-plane"></i>type
             ratings</a>
         </li>
       @endcan
 
-      @can('ViewAny:Award')
+      @can('view-any:award')
         <li><a href="{!! \App\Filament\Resources\Awards\AwardResource::getUrl() !!}"><i class="pe-7s-diamond"></i>awards</a>
         </li>
       @endcan
 
-      @can('ViewAny:Role')
+      @can('view-any:role')
         <li><a href="{{ \BezhanSalleh\FilamentShield\Resources\Roles\RoleResource::getUrl() }}"><i
               class="pe-7s-network"></i>roles</a></li>
       @endcan
 
-      @can('ViewAny:Page')
+      @can('view-any:page')
         <li><a href="{{ \App\Filament\Resources\Pages\PageResource::getUrl() }}"><i class="pe-7s-note"></i>pages/links</a>
         </li>
       @endcan
 
-      @can('ViewAny:Module')
+      @can('view-any:module')
         <li><a href="{!! \App\Filament\Resources\Modules\ModuleResource::getUrl() !!}"><i class="pe-7s-box2"></i>addons/modules</a>
         </li>
       @endcan
 
-      @can('View:Maintenance')
+      @can('view:maintenance')
         <li><a href="{{ \App\Filament\Pages\Maintenance::getUrl() }}"><i class="pe-7s-tools"></i>maintenance</a></li>
       @endcan
 
-      @can('ViewAny:Activity')
-        <li><a href="{{ \App\Filament\Resources\ActivityLogs\ActivityLogResource::getUrl() }}"><i class="pe-7s-news-paper"></i>activities</a></li>   
+      @can('view-any:activity')
+        <li><a href="{{ \App\Filament\Resources\ActivityLogs\ActivityLogResource::getUrl() }}"><i class="pe-7s-news-paper"></i>activities</a></li>
       @endcan
 
-      @can('View:Settings')
+      @can('view:settings')
         <li><a href="{{ \App\Filament\Pages\Settings::getUrl() }}"><i class="pe-7s-config"></i>settings</a></li>
       @endcan
     </ul>
@@ -121,7 +121,7 @@
 
   <div class="collapse" id="addons_menu" aria-expanded="true">
     <ul class="nav">
-      @can('view_any_module')
+      @can('view:module')
         @foreach($moduleSvc->getAdminLinks() as &$link)
           <li><a href="{{ url($link['url']) }}"><i class="{{ $link['icon'] }}"></i>{{ $link['title'] }}</a></li>
         @endforeach
