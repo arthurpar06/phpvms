@@ -209,7 +209,7 @@ class UserController extends Controller
             'json'     => 'v2',
         ]);
 
-        if ($response->failed() || $response->json('fetch.status') === 'Error: Unknown UserID') {
+        if ($response->serverError() || $response->json('fetch.status') === 'Error: Unknown UserID') {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid SimBrief username provided.',
