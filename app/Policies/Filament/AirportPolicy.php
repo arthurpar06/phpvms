@@ -14,56 +14,56 @@ class AirportPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Airport');
+        return $authUser->can('view-any:airport');
     }
 
     public function view(AuthUser $authUser, Airport $airport): bool
     {
-        return $authUser->can('View:Airport');
+        return $authUser->can('view:airport');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Airport');
+        return $authUser->can('create:airport');
     }
 
     public function update(AuthUser $authUser, Airport $airport): bool
     {
-        return $authUser->can('Update:Airport');
+        return $authUser->can('update:airport');
     }
 
     public function delete(AuthUser $authUser, Airport $airport): bool
     {
-        return $authUser->can('Delete:Airport');
+        return $authUser->can('delete:airport');
     }
 
     public function restore(AuthUser $authUser, Airport $airport): bool
     {
-        return $authUser->can('Restore:Airport');
+        return $authUser->can('restore:airport');
     }
 
     public function forceDelete(AuthUser $authUser, Airport $airport): bool
     {
-        return $authUser->can('ForceDelete:Airport');
+        return $authUser->can('force-delete:airport');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Airport');
+        return $authUser->can('force-delete-any:airport');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Airport');
+        return $authUser->can('restore-any:airport');
     }
 
     public function replicate(AuthUser $authUser, Airport $airport): bool
     {
-        return $authUser->can('Replicate:Airport');
+        return $authUser->can('replicate:airport');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Airport');
+        return $authUser->can('reorder:airport');
     }
 }

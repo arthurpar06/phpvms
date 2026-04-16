@@ -14,56 +14,56 @@ class PirepPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Pirep');
+        return $authUser->can('view-any:pirep');
     }
 
     public function view(AuthUser $authUser, Pirep $pirep): bool
     {
-        return $authUser->can('View:Pirep');
+        return $authUser->can('view:pirep');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Pirep');
+        return $authUser->can('create:pirep');
     }
 
     public function update(AuthUser $authUser, Pirep $pirep): bool
     {
-        return $authUser->can('Update:Pirep');
+        return $authUser->can('update:pirep');
     }
 
     public function delete(AuthUser $authUser, Pirep $pirep): bool
     {
-        return $authUser->can('Delete:Pirep');
+        return $authUser->can('delete:pirep');
     }
 
     public function restore(AuthUser $authUser, Pirep $pirep): bool
     {
-        return $authUser->can('Restore:Pirep');
+        return $authUser->can('restore:pirep');
     }
 
     public function forceDelete(AuthUser $authUser, Pirep $pirep): bool
     {
-        return $authUser->can('ForceDelete:Pirep');
+        return $authUser->can('force-delete:pirep');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Pirep');
+        return $authUser->can('force-delete-any:pirep');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Pirep');
+        return $authUser->can('restore-any:pirep');
     }
 
     public function replicate(AuthUser $authUser, Pirep $pirep): bool
     {
-        return $authUser->can('Replicate:Pirep');
+        return $authUser->can('replicate:pirep');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Pirep');
+        return $authUser->can('reorder:pirep');
     }
 }

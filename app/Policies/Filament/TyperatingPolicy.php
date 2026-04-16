@@ -14,56 +14,56 @@ class TyperatingPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Typerating');
+        return $authUser->can('view-any:typerating');
     }
 
     public function view(AuthUser $authUser, Typerating $typerating): bool
     {
-        return $authUser->can('View:Typerating');
+        return $authUser->can('view:typerating');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Typerating');
+        return $authUser->can('create:typerating');
     }
 
     public function update(AuthUser $authUser, Typerating $typerating): bool
     {
-        return $authUser->can('Update:Typerating');
+        return $authUser->can('update:typerating');
     }
 
     public function delete(AuthUser $authUser, Typerating $typerating): bool
     {
-        return $authUser->can('Delete:Typerating');
+        return $authUser->can('delete:typerating');
     }
 
     public function restore(AuthUser $authUser, Typerating $typerating): bool
     {
-        return $authUser->can('Restore:Typerating');
+        return $authUser->can('restore:typerating');
     }
 
     public function forceDelete(AuthUser $authUser, Typerating $typerating): bool
     {
-        return $authUser->can('ForceDelete:Typerating');
+        return $authUser->can('force-delete:typerating');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Typerating');
+        return $authUser->can('force-delete-any:typerating');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Typerating');
+        return $authUser->can('restore-any:typerating');
     }
 
     public function replicate(AuthUser $authUser, Typerating $typerating): bool
     {
-        return $authUser->can('Replicate:Typerating');
+        return $authUser->can('replicate:typerating');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Typerating');
+        return $authUser->can('reorder:typerating');
     }
 }

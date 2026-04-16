@@ -14,56 +14,56 @@ class ModulePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Module');
+        return $authUser->can('view-any:module');
     }
 
     public function view(AuthUser $authUser, Module $module): bool
     {
-        return $authUser->can('View:Module');
+        return $authUser->can('view:module');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Module');
+        return $authUser->can('create:module');
     }
 
     public function update(AuthUser $authUser, Module $module): bool
     {
-        return $authUser->can('Update:Module');
+        return $authUser->can('update:module');
     }
 
     public function delete(AuthUser $authUser, Module $module): bool
     {
-        return $authUser->can('Delete:Module');
+        return $authUser->can('delete:module');
     }
 
     public function restore(AuthUser $authUser, Module $module): bool
     {
-        return $authUser->can('Restore:Module');
+        return $authUser->can('restore:module');
     }
 
     public function forceDelete(AuthUser $authUser, Module $module): bool
     {
-        return $authUser->can('ForceDelete:Module');
+        return $authUser->can('force-delete:module');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Module');
+        return $authUser->can('force-delete-any:module');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Module');
+        return $authUser->can('restore-any:module');
     }
 
     public function replicate(AuthUser $authUser, Module $module): bool
     {
-        return $authUser->can('Replicate:Module');
+        return $authUser->can('replicate:module');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Module');
+        return $authUser->can('reorder:module');
     }
 }

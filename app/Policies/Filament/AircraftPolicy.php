@@ -14,56 +14,56 @@ class AircraftPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Aircraft');
+        return $authUser->can('view-any:aircraft');
     }
 
     public function view(AuthUser $authUser, Aircraft $aircraft): bool
     {
-        return $authUser->can('View:Aircraft');
+        return $authUser->can('view:aircraft');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Aircraft');
+        return $authUser->can('create:aircraft');
     }
 
     public function update(AuthUser $authUser, Aircraft $aircraft): bool
     {
-        return $authUser->can('Update:Aircraft');
+        return $authUser->can('update:aircraft');
     }
 
     public function delete(AuthUser $authUser, Aircraft $aircraft): bool
     {
-        return $authUser->can('Delete:Aircraft');
+        return $authUser->can('delete:aircraft');
     }
 
     public function restore(AuthUser $authUser, Aircraft $aircraft): bool
     {
-        return $authUser->can('Restore:Aircraft');
+        return $authUser->can('restore:aircraft');
     }
 
     public function forceDelete(AuthUser $authUser, Aircraft $aircraft): bool
     {
-        return $authUser->can('ForceDelete:Aircraft');
+        return $authUser->can('force-delete:aircraft');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Aircraft');
+        return $authUser->can('force-delete-any:aircraft');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Aircraft');
+        return $authUser->can('restore-any:aircraft');
     }
 
     public function replicate(AuthUser $authUser, Aircraft $aircraft): bool
     {
-        return $authUser->can('Replicate:Aircraft');
+        return $authUser->can('replicate:aircraft');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Aircraft');
+        return $authUser->can('reorder:aircraft');
     }
 }

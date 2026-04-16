@@ -14,56 +14,56 @@ class UserFieldPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:UserField');
+        return $authUser->can('view-any:user-field');
     }
 
     public function view(AuthUser $authUser, UserField $userField): bool
     {
-        return $authUser->can('View:UserField');
+        return $authUser->can('view:user-field');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:UserField');
+        return $authUser->can('create:user-field');
     }
 
     public function update(AuthUser $authUser, UserField $userField): bool
     {
-        return $authUser->can('Update:UserField');
+        return $authUser->can('update:user-field');
     }
 
     public function delete(AuthUser $authUser, UserField $userField): bool
     {
-        return $authUser->can('Delete:UserField');
+        return $authUser->can('delete:user-field');
     }
 
     public function restore(AuthUser $authUser, UserField $userField): bool
     {
-        return $authUser->can('Restore:UserField');
+        return $authUser->can('restore:user-field');
     }
 
     public function forceDelete(AuthUser $authUser, UserField $userField): bool
     {
-        return $authUser->can('ForceDelete:UserField');
+        return $authUser->can('force-delete:user-field');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:UserField');
+        return $authUser->can('force-delete-any:user-field');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:UserField');
+        return $authUser->can('restore-any:user-field');
     }
 
     public function replicate(AuthUser $authUser, UserField $userField): bool
     {
-        return $authUser->can('Replicate:UserField');
+        return $authUser->can('replicate:user-field');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:UserField');
+        return $authUser->can('reorder:user-field');
     }
 }

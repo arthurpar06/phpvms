@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('viewLogViewer', function (?User $user): Response {
-            return $user?->can('view_logs')
+            return $user?->can('view-logs')
                 ? Response::allow()
                 : Response::deny('You do not have permission to access this page.');
         });

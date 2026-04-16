@@ -1,4 +1,4 @@
-@can('View:Module')
+@can('view:module')
   <ul class="fi-sidebar-nav-groups lg:hidden">
     <x-filament-panels::sidebar.group
       :active="$group->isActive()"
