@@ -105,7 +105,7 @@ return [
 
     'permissions' => [
         'separator' => ':',
-        'case'      => 'pascal',
+        'case'      => 'kebab',
         'generate'  => true,
     ],
 
@@ -232,9 +232,10 @@ return [
     */
 
     'custom_permissions' => [
-        'view_logs'       => 'View Logs',
+        'view-logs'       => 'View Logs',
         'download-backup' => 'Download Backup',
         'delete-backup'   => 'Delete Backup',
+        'create-backup'   => 'Create Backup',
     ],
 
     /*

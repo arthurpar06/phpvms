@@ -14,56 +14,56 @@ class PagePolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:Page');
+        return $authUser->can('view-any:page');
     }
 
     public function view(AuthUser $authUser, Page $page): bool
     {
-        return $authUser->can('View:Page');
+        return $authUser->can('view:page');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:Page');
+        return $authUser->can('create:page');
     }
 
     public function update(AuthUser $authUser, Page $page): bool
     {
-        return $authUser->can('Update:Page');
+        return $authUser->can('update:page');
     }
 
     public function delete(AuthUser $authUser, Page $page): bool
     {
-        return $authUser->can('Delete:Page');
+        return $authUser->can('delete:page');
     }
 
     public function restore(AuthUser $authUser, Page $page): bool
     {
-        return $authUser->can('Restore:Page');
+        return $authUser->can('restore:page');
     }
 
     public function forceDelete(AuthUser $authUser, Page $page): bool
     {
-        return $authUser->can('ForceDelete:Page');
+        return $authUser->can('force-delete:page');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:Page');
+        return $authUser->can('force-delete-any:page');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:Page');
+        return $authUser->can('restore-any:page');
     }
 
     public function replicate(AuthUser $authUser, Page $page): bool
     {
-        return $authUser->can('Replicate:Page');
+        return $authUser->can('replicate:page');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:Page');
+        return $authUser->can('reorder:page');
     }
 }

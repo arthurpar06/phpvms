@@ -14,56 +14,56 @@ class PirepFieldPolicy
 
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:PirepField');
+        return $authUser->can('view-any:pirep-field');
     }
 
     public function view(AuthUser $authUser, PirepField $pirepField): bool
     {
-        return $authUser->can('View:PirepField');
+        return $authUser->can('view:pirep-field');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:PirepField');
+        return $authUser->can('create:pirep-field');
     }
 
     public function update(AuthUser $authUser, PirepField $pirepField): bool
     {
-        return $authUser->can('Update:PirepField');
+        return $authUser->can('update:pirep-field');
     }
 
     public function delete(AuthUser $authUser, PirepField $pirepField): bool
     {
-        return $authUser->can('Delete:PirepField');
+        return $authUser->can('delete:pirep-field');
     }
 
     public function restore(AuthUser $authUser, PirepField $pirepField): bool
     {
-        return $authUser->can('Restore:PirepField');
+        return $authUser->can('restore:pirep-field');
     }
 
     public function forceDelete(AuthUser $authUser, PirepField $pirepField): bool
     {
-        return $authUser->can('ForceDelete:PirepField');
+        return $authUser->can('force-delete:pirep-field');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:PirepField');
+        return $authUser->can('force-delete-any:pirep-field');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:PirepField');
+        return $authUser->can('restore-any:pirep-field');
     }
 
     public function replicate(AuthUser $authUser, PirepField $pirepField): bool
     {
-        return $authUser->can('Replicate:PirepField');
+        return $authUser->can('replicate:pirep-field');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:PirepField');
+        return $authUser->can('reorder:pirep-field');
     }
 }
