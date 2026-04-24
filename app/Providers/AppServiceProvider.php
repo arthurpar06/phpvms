@@ -8,6 +8,7 @@ use App\Support\ThemeViewFinder;
 use App\Support\Utils;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use BezhanSalleh\FilamentShield\Facades\FilamentShield;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
+
+        Model::preventLazyLoading(!$this->app->isProduction());
 
         Paginator::useBootstrap();
         View::share('moduleSvc', app(ModuleService::class));

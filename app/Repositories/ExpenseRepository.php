@@ -42,7 +42,7 @@ class ExpenseRepository extends Repository implements CacheableInterface
             }
         }
 
-        $expenses = $this->findWhere($where);
+        $expenses = $this->with('ref_model')->findWhere($where);
 
         if ($airline_id) {
             $where = [
@@ -55,7 +55,7 @@ class ExpenseRepository extends Repository implements CacheableInterface
                 $where['ref_model_type'] = $ref_model_type;
             }
 
-            $airline_expenses = $this->findWhere($where);
+            $airline_expenses = $this->with('ref_model')->findWhere($where);
             $expenses = $expenses->concat($airline_expenses);
         }
 

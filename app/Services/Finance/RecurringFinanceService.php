@@ -85,7 +85,7 @@ class RecurringFinanceService extends Service
      */
     public function processExpenses(string $type = ExpenseType::DAILY): void
     {
-        $expenses = Expense::where(['type' => $type])->get();
+        $expenses = Expense::with('ref_model')->where(['type' => $type])->get();
 
         $tag = 'expense_recurring';
         if ($type === ExpenseType::DAILY) {
