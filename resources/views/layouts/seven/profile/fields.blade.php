@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-6">
                 <label for="home_airport_id" class="form-label">{{ __('airports.home') }}</label>
-                <select id="home_airport_id" name="home_airport_id" placeholder="{{ __('airports.home') }}"
+                <select id="home_airport_id" class="form-select airport_search @if ($hubs_only) hubs_only @endif @error('home_airport_id') is-invalid @enderror" name="home_airport_id" placeholder="{{ __('airports.home') }}"
                     autocomplete="off">
                     @foreach ($airports as $airport_id => $airport_label)
                         <option value="{{ $airport_id }}">{{ $airport_label }}</option>

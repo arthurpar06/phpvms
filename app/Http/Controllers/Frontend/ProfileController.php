@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 use Intervention\Image\Facades\Image;
 use Laracasts\Flash\Flash;
@@ -134,11 +134,15 @@ class ProfileController extends Controller
         $user = $this->userRepo->findWithoutFail($id);
 
         $rules = [
-            'name'       => 'required',
-            'email'      => 'required|unique:users,email,'.$id,
-            'airline_id' => 'required',
-            'password'   => 'confirmed',
-            'avatar'     => 'nullable|mimes:jpeg,png,jpg',
+            'name'              => 'required',
+            'email'             => 'required|unique:users,email,'.$id,
+            'airline_id'        => 'required|exists:airlines,id',
+            'password'          => ['string', 'nullable', 'confirmed', Password::default()],
+            'avatar'            => 'nullable|mimes:jpeg,png,jpg',
+            'simbrief_username' => 'nullable|string',
+            'country'           => 'nullable|string',
+            'timezone'          => 'nullable|string',
+            'home_airport_id'   => 'nullable|exists:airports,id',
         ];
 
         $userFields = UserField::where(
@@ -148,23 +152,15 @@ class ProfileController extends Controller
             $rules['field_'.$field->slug] = 'required';
         }
 
-        $validator = Validator::make($request->toArray(), $rules);
+        $validated = $request->validate($rules);
 
-        if ($validator->fails()) {
-            Log::info('validator failed for user '.$user->ident);
-            Log::info($validator->errors()->toArray());
-
-            return redirect(route('frontend.profile.edit', $id))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $req_data = $request->all();
-        if (!$request->filled('password')) {
-            unset($req_data['password']);
+        if (array_key_exists('password', $validated) && $validated['password'] !== null) {
+            $validated['password'] = Hash::make($validated['password']);
         } else {
-            $req_data['password'] = Hash::make($req_data['password']);
+            unset($validated['password']);
         }
+
+        $user->fill($validated);
 
         if ($request->hasFile('avatar')) {
             if ($user->avatar !== null) {
@@ -189,20 +185,19 @@ class ProfileController extends Controller
             Log::info('Uploading avatar into folder '.public_path('uploads/avatars'));
             $canvas->save(public_path('uploads/avatars/'.$file_name));
 
-            $req_data['avatar'] = $path;
+            $user->avatar = $path;
         }
 
         // User needs to verify their new email address
-        if ($user->email != $request->input('email')) {
-            $req_data['email_verified_at'] = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $this->userRepo->update($req_data, $id);
+        $user->save();
+        $user->refresh();
 
-        // We need to get a new instance of the user in order to send the verification email to the new email address
-        if ($user->email != $request->input('email')) {
-            $newUser = $this->userRepo->findWithoutFail($user->id);
-            $newUser->sendEmailVerificationNotification();
+        if ($user->email !== $request->input('email')) {
+            $user->sendEmailVerificationNotification();
         }
 
         // Save all of the user fields

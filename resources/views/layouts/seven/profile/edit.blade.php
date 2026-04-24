@@ -103,10 +103,6 @@
             create: false,
         });
 
-        new TomSelect("#home_airport_id", {
-            create: false,
-        });
-
         new TomSelect("#country", {
             create: false,
         });
