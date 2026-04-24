@@ -142,7 +142,7 @@ class ProfileController extends Controller
             'simbrief_username' => 'required|string',
             'country'           => 'nullable|string',
             'timezone'          => 'nullable|string',
-            'home_airport_id'   => 'required|exists:airports,id',
+            'home_airport_id'   => 'nullable|exists:airports,id',
         ];
 
         $userFields = UserField::where(
