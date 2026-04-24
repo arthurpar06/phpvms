@@ -85,7 +85,17 @@ class RecurringFinanceService extends Service
      */
     public function processExpenses(string $type = ExpenseType::DAILY): void
     {
-        $expenses = Expense::with('ref_model')->where(['type' => $type])->get();
+        // Eager-load ref_model and the airline relation on its possible morph
+        // targets (Subfleet, Aircraft) in one go, so the per-expense lookup
+        // at line ~135 doesn't re-query for $ref_model->airline.
+        $expenses = Expense::with([
+            'ref_model' => function ($morphTo) {
+                $morphTo->morphWith([
+                    Subfleet::class => ['airline'],
+                    Aircraft::class => ['airline'],
+                ]);
+            },
+        ])->where(['type' => $type])->get();
 
         $tag = 'expense_recurring';
         if ($type === ExpenseType::DAILY) {
@@ -129,10 +139,11 @@ class RecurringFinanceService extends Service
                     continue;
                 }
 
-                // Determine if this object actually belongs to this airline or not
+                // Determine if this object actually belongs to this airline or not.
+                // ref_model and its airline are already eager-loaded above via morphWith.
                 if ($type === 'Subfleet' || $type === 'Aircraft') {
                     /** @var Aircraft|Subfleet|null $ref_model */
-                    $ref_model = $expense->ref_model()->with('airline')->first();
+                    $ref_model = $expense->ref_model;
                     if ($ref_model?->airline?->id !== $journal->morphed_id) {
                         Log::info(
                             $type.' id '.$expense->ref_model_id.' does not belong to airline id '.$expense->airline_id.', skipping expense "'.$expense->name.'"'
