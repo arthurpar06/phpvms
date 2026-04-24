@@ -22,7 +22,10 @@ final class NewsListShapeTest extends TestCase
 {
     public function test_news_list_returns_expected_json_structure(): void
     {
-        News::factory()->count(1)->create();
+        // 3 items so the eager load (->with('user') in NewsController) is
+        // genuinely exercised. Single-item tests previously masked an N+1
+        // because preventLazyLoading didn't trip on count == 1.
+        News::factory()->count(3)->create();
 
         $response = $this->get('/api/news');
 
