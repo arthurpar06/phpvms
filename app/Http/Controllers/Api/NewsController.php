@@ -25,6 +25,7 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         $news = $this->newsRepo
+            ->with('user')
             ->orderBy('created_at', 'desc')
             ->paginate();
 

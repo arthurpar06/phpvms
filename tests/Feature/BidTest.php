@@ -231,6 +231,7 @@ test('bid with aircraft', function () {
 
     $bid = $bidSvc->addBid($flight, $user, $aircraft);
     $bid_flight = $bid->flight;
+    $aircraft->loadMissing('bid');
     expect($bid_flight->subfleets[0]->aircraft->count())->toEqual(1)
         ->and($bid->user_id)->toEqual($user->id)
         ->and($bid->flight_id)->toEqual($flight->id)

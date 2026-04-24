@@ -187,7 +187,7 @@ class UserController extends Controller
         $this->pirepRepo->pushCriteria(new WhereCriteria($request, $where));
 
         $pireps = $this->pirepRepo
-            ->with(['airline', 'dpt_airport', 'arr_airport'])
+            ->with(['aircraft', 'airline', 'dpt_airport', 'arr_airport'])
             ->orderBy('created_at', 'desc')
             ->paginate();
 

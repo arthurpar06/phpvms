@@ -31,7 +31,7 @@ class SetActiveFlights extends Listener
     public function checkFlights(): void
     {
         $today = Carbon::now('UTC');
-        $flights = Flight::where('active', 1)->whereNull('owner_type')->get();
+        $flights = Flight::with('airline')->where('active', 1)->whereNull('owner_type')->get();
 
         /**
          * @var Flight $flight

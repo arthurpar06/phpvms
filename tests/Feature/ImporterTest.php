@@ -388,7 +388,7 @@ test('expense importer', function () {
     expect($status['success'])->toHaveCount(8)
         ->and($status['errors'])->toHaveCount(0);
 
-    $expenses = Expense::all();
+    $expenses = Expense::with('ref_model')->get();
 
     $on_airline = $expenses->firstWhere('name', 'Per-Flight (multiplier, on airline)');
     expect($on_airline->amount)->toEqual(200)
