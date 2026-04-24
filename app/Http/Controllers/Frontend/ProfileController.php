@@ -139,7 +139,7 @@ class ProfileController extends Controller
             'airline_id'        => 'required|exists:airlines,id',
             'password'          => ['string', 'nullable', 'confirmed', Password::default()],
             'avatar'            => 'nullable|mimes:jpeg,png,jpg',
-            'simbrief_username' => 'required|string',
+            'simbrief_username' => 'nullable|string',
             'country'           => 'nullable|string',
             'timezone'          => 'nullable|string',
             'home_airport_id'   => 'nullable|exists:airports,id',
@@ -154,7 +154,7 @@ class ProfileController extends Controller
 
         $validated = $request->validate($rules);
 
-        if ($validated['password'] !== null) {
+        if (array_key_exists('password', $validated) && $validated['password'] !== null) {
             $validated['password'] = Hash::make($validated['password']);
         } else {
             unset($validated['password']);
