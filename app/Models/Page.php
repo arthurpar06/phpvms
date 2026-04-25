@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Contracts\Model;
 use App\Exceptions\UnknownPageType;
 use App\Models\Enums\PageType;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Carbon;
 
@@ -93,5 +95,11 @@ class Page extends Model
             'enabled'    => 'boolean',
             'new_window' => 'boolean',
         ];
+    }
+
+    #[Scope]
+    protected function bySlug(Builder $q, string $slug): Builder
+    {
+        return $q->where('slug', $slug);
     }
 }
