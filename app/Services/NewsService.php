@@ -6,29 +6,15 @@ use App\Contracts\Service;
 use App\Events\NewsAdded;
 use App\Events\NewsUpdated;
 use App\Models\News;
-use App\Repositories\NewsRepository;
-use Prettus\Validator\Exceptions\ValidatorException;
 
 class NewsService extends Service
 {
-    private NewsRepository $newsRepo;
-
-    public function __construct(NewsRepository $newsRepo)
-    {
-        $this->newsRepo = $newsRepo;
-    }
-
     /**
      * Add a news item
-     *
-     *
-     * @return mixed
-     *
-     * @throws ValidatorException
      */
-    public function addNews(array $attrs)
+    public function addNews(array $attrs): News
     {
-        $news = $this->newsRepo->create($attrs);
+        $news = News::create($attrs);
 
         if (array_key_exists('send_notifications', $attrs) && get_truth_state($attrs['send_notifications'])) {
             event(new NewsAdded($news));
@@ -39,19 +25,16 @@ class NewsService extends Service
 
     /**
      * Update a news
-     *
-     *
-     * @throws ValidatorException
      */
     public function updateNews(array $attrs): ?News
     {
-        $news = $this->newsRepo->find($attrs['id']);
+        $news = News::find($attrs['id']);
 
         if (!$news) {
             return null;
         }
 
-        $news = $this->newsRepo->update($attrs, $attrs['id']);
+        $news->fill($attrs)->save();
 
         if (array_key_exists('send_notifications', $attrs) && get_truth_state($attrs['send_notifications'])) {
             event(new NewsUpdated($news));
@@ -65,8 +48,8 @@ class NewsService extends Service
      *
      * @param int $id ID of the news row to delete
      */
-    public function deleteNews($id)
+    public function deleteNews(int $id): void
     {
-        $this->newsRepo->delete($id);
+        News::findOrFail($id)->delete();
     }
 }

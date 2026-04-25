@@ -4,29 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Controller;
 use App\Http\Resources\News as NewsResource;
-use App\Repositories\NewsRepository;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     /**
-     * AirlineController constructor.
-     */
-    public function __construct(
-        private readonly NewsRepository $newsRepo
-    ) {}
-
-    /**
-     * Return all the airlines, paginated
+     * Return all the news items, paginated
      *
      *
      * @return mixed
      */
     public function index(Request $request)
     {
-        $news = $this->newsRepo
-            ->with('user')
-            ->orderBy('created_at', 'desc')
+        $news = News::with('user')
+            ->latest()
             ->paginate();
 
         return NewsResource::collection($news);
