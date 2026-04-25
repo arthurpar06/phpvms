@@ -25,10 +25,7 @@ class LegacyImporterService extends Service
 {
     private string $CREDENTIALS_KEY = 'legacy.importer.db';
 
-    /**
-     * @var KvpService
-     */
-    private mixed $kvpRepo;
+    private KvpService $kvpRepo;
 
     /**
      * The list of importers, in proper order

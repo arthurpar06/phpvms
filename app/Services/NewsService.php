@@ -44,12 +44,12 @@ class NewsService extends Service
     }
 
     /**
-     * Delete something from the news items
+     * Delete a news item. Idempotent — no-op if the id does not exist.
      *
      * @param int $id ID of the news row to delete
      */
     public function deleteNews(int $id): void
     {
-        News::findOrFail($id)->delete();
+        News::whereKey($id)->delete();
     }
 }
