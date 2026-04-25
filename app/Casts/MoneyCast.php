@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Casts;
+namespace App\Casts;
 
 use App\Support\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;

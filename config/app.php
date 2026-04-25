@@ -21,7 +21,6 @@ use App\Providers\Filament\AdminPanelProvider;
 use App\Providers\Filament\SystemPanelProvider;
 use App\Providers\MeasurementsProvider;
 use App\Providers\ModulesServiceProvider;
-use App\Providers\ObserverServiceProviders;
 use App\Providers\RouteServiceProvider;
 use App\Providers\ViewComposerServiceProvider;
 use Carbon\Carbon;
@@ -79,7 +78,6 @@ return [
         DirectiveServiceProvider::class,
         EventServiceProvider::class,
         MeasurementsProvider::class,
-        ObserverServiceProviders::class,
         ModulesServiceProvider::class,
         AdminPanelProvider::class,
         SystemPanelProvider::class,

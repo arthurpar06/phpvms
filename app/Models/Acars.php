@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Casts\DistanceCast;
+use App\Casts\FuelCast;
 use App\Contracts\Model;
-use App\Models\Casts\DistanceCast;
-use App\Models\Casts\FuelCast;
-use App\Models\Traits\HashIdTrait;
+use App\Traits\HashIdTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

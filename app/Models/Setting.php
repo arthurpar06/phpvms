@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Contracts\Model;
+use App\Observers\SettingObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
@@ -46,6 +48,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy(SettingObserver::class)]
 class Setting extends Model
 {
     use LogsActivity;

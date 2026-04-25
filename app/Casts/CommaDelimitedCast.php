@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Models\Casts;
+namespace App\Casts;
 
-use App\Support\Units\Mass;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
-use PhpUnitsOfMeasure\Exception\NonNumericValue;
-use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 
-class MassCast implements CastsAttributes
+class CommaDelimitedCast implements CastsAttributes
 {
     /**
      * Transform the attribute from the underlying model values.
@@ -19,18 +16,11 @@ class MassCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        if ($value instanceof Mass) {
-            return $value;
+        if (empty($value) || in_array(trim($value), ['', '0'], true)) {
+            return [];
         }
 
-        try {
-            return Mass::make($value, config('phpvms.internal_units.mass'));
-        } catch (NonNumericValue $e) {
-        } catch (NonStringUnitName $e) {
-            return $value;
-        }
-
-        return $value;
+        return explode(',', $value);
     }
 
     /**
@@ -42,10 +32,10 @@ class MassCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        if ($value instanceof Mass) {
-            return $value->toUnit(config('phpvms.internal_units.mass'));
+        if (is_array($value)) {
+            return implode(',', $value);
         }
 
-        return $value;
+        return trim($value);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Traits;
+namespace App\Traits;
 
 use App\Support\Utils;
 use Hashids\HashidsException;

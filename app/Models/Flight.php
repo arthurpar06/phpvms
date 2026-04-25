@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Casts\DistanceCast;
 use App\Contracts\Model;
-use App\Models\Casts\DistanceCast;
 use App\Models\Enums\Days;
-use App\Models\Traits\HashIdTrait;
+use App\Observers\FlightObserver;
+use App\Traits\HashIdTrait;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -120,6 +122,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy(FlightObserver::class)]
 class Flight extends Model
 {
     use HasFactory;

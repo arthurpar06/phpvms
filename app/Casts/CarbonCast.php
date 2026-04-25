@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models\Casts;
+namespace App\Casts;
 
-use App\Support\Units\Distance;
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
-use PhpUnitsOfMeasure\Exception\NonNumericValue;
-use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 
-class DistanceCast implements CastsAttributes
+/**
+ * Cast into a Carbon DateTime instance
+ */
+class CarbonCast implements CastsAttributes
 {
     /**
      * Transform the attribute from the underlying model values.
@@ -19,18 +20,11 @@ class DistanceCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        if ($value instanceof Distance) {
+        if ($value instanceof Carbon) {
             return $value;
         }
 
-        try {
-            return new Distance($value, config('phpvms.internal_units.distance'));
-        } catch (NonNumericValue $e) {
-        } catch (NonStringUnitName $e) {
-            return $value;
-        }
-
-        return $value;
+        return new Carbon($value);
     }
 
     /**
@@ -42,8 +36,8 @@ class DistanceCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        if ($value instanceof Distance) {
-            return $value->toUnit(config('phpvms.internal_units.distance'));
+        if ($value instanceof Carbon) {
+            return $value->toIso8601ZuluString();
         }
 
         return $value;

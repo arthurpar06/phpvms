@@ -7,10 +7,12 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use App\Contracts\Model;
-use App\Models\Casts\MoneyCast;
+use App\Observers\JournalObserver;
 use App\Support\Money;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -52,6 +54,7 @@ use UnexpectedValueException;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy(JournalObserver::class)]
 class Journal extends Model
 {
     use HasFactory;

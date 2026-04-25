@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Models\Casts;
+namespace App\Casts;
 
+use App\Support\Units\Fuel;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use PhpUnitsOfMeasure\Exception\NonNumericValue;
+use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 
-class CommaDelimitedCast implements CastsAttributes
+class FuelCast implements CastsAttributes
 {
     /**
      * Transform the attribute from the underlying model values.
@@ -16,11 +19,18 @@ class CommaDelimitedCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        if (empty($value) || in_array(trim($value), ['', '0'], true)) {
-            return [];
+        if ($value instanceof Fuel) {
+            return $value;
         }
 
-        return explode(',', $value);
+        try {
+            return Fuel::make($value, config('phpvms.internal_units.fuel'));
+        } catch (NonNumericValue $e) {
+        } catch (NonStringUnitName $e) {
+            return $value;
+        }
+
+        return $value;
     }
 
     /**
@@ -32,10 +42,10 @@ class CommaDelimitedCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        if (is_array($value)) {
-            return implode(',', $value);
+        if ($value instanceof Fuel) {
+            return $value->toUnit(config('phpvms.internal_units.fuel'));
         }
 
-        return trim($value);
+        return $value;
     }
 }

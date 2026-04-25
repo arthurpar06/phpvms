@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Contracts\Model;
-use App\Models\Traits\ExpensableTrait;
-use App\Models\Traits\FilesTrait;
+use App\Observers\AirportObserver;
+use App\Traits\ExpensableTrait;
+use App\Traits\FilesTrait;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,6 +88,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy(AirportObserver::class)]
 class Airport extends Model
 {
     use ExpensableTrait;

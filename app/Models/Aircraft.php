@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Casts\FuelCast;
+use App\Casts\MassCast;
 use App\Contracts\Model;
-use App\Models\Casts\FuelCast;
-use App\Models\Casts\MassCast;
 use App\Models\Enums\AircraftStatus;
-use App\Models\Traits\ExpensableTrait;
-use App\Models\Traits\FilesTrait;
+use App\Observers\AircraftObserver;
+use App\Traits\ExpensableTrait;
+use App\Traits\FilesTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -105,6 +107,7 @@ use Znck\Eloquent\Traits\BelongsToThrough;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy(AircraftObserver::class)]
 class Aircraft extends Model
 {
     use BelongsToThrough;

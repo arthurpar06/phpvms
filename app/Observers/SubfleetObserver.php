@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Observers;
+namespace App\Observers;
 
 use App\Models\Subfleet;
 
