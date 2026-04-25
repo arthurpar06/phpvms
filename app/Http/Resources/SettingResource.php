@@ -3,11 +3,12 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Setting;
 
 /**
- * @mixin \App\Models\Setting
+ * @mixin Setting
  */
-class Setting extends Resource
+class SettingResource extends Resource
 {
     public function toArray($request)
     {

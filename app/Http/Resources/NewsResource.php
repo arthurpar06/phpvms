@@ -3,12 +3,13 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 /**
- * @mixin \App\Models\News
+ * @mixin News
  */
-class News extends Resource
+class NewsResource extends Resource
 {
     /**
      * Transform the resource into an array.

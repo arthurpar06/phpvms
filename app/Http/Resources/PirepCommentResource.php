@@ -3,12 +3,13 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\PirepComment;
 use Illuminate\Http\Request;
 
 /**
- * @mixin \App\Models\PirepComment
+ * @mixin PirepComment
  */
-class PirepComment extends Resource
+class PirepCommentResource extends Resource
 {
     /**
      * Transform the resource into an array.

@@ -3,13 +3,17 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Bid;
 
-class AirportDistance extends Resource
+/**
+ * @mixin Bid
+ */
+class BidResource extends Resource
 {
     public function toArray($request)
     {
         $res = parent::toArray($request);
-        $res['distance'] = $res['distance']->getResponseUnits();
+        $res['flight'] = new BidFlightResource($this->flight);
 
         return $res;
     }

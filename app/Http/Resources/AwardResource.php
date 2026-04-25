@@ -3,11 +3,12 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Award;
 
 /**
- * @mixin \App\Models\Award
+ * @mixin Award
  */
-class Award extends Resource
+class AwardResource extends Resource
 {
     public function toArray($request)
     {

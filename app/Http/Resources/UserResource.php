@@ -3,11 +3,12 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\User;
 
 /**
- * @mixin \App\Models\User
+ * @mixin User
  */
-class User extends Resource
+class UserResource extends Resource
 {
     public function toArray($request)
     {
@@ -34,10 +35,10 @@ class User extends Resource
             'state'             => $this->state,
         ];
 
-        $res['airline'] = Airline::make($this->whenLoaded('airline'));
-        $res['bids'] = UserBid::collection($this->whenLoaded('bids'));
-        $res['rank'] = Rank::make($this->whenLoaded('rank'));
-        $res['subfleets'] = Subfleet::make($this->whenLoaded('subfleets'));
+        $res['airline'] = AirlineResource::make($this->whenLoaded('airline'));
+        $res['bids'] = UserBidResource::collection($this->whenLoaded('bids'));
+        $res['rank'] = RankResource::make($this->whenLoaded('rank'));
+        $res['subfleets'] = SubfleetResource::make($this->whenLoaded('subfleets'));
 
         // If the transfer hours count, then set the total time to reflect that
         if (setting('pilots.count_transfer_hours', false) === true) {

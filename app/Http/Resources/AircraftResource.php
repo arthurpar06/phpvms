@@ -3,13 +3,14 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Aircraft;
 use App\Support\Units\Fuel;
 use App\Support\Units\Mass;
 
 /**
- * @mixin \App\Models\Aircraft
+ * @mixin Aircraft
  */
-class Aircraft extends Resource
+class AircraftResource extends Resource
 {
     public function toArray($request)
     {

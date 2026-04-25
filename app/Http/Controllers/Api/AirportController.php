@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Contracts\Controller;
-use App\Http\Resources\Airport as AirportResource;
-use App\Http\Resources\AirportDistance as AirportDistanceResource;
+use App\Http\Resources\AirportDistanceResource;
+use App\Http\Resources\AirportResource;
 use App\Repositories\AirportRepository;
 use App\Repositories\Criteria\WhereCriteria;
 use App\Services\AirportService;

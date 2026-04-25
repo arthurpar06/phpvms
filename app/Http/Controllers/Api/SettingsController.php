@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Contracts\Controller;
-use App\Http\Resources\Setting as SettingResource;
+use App\Http\Resources\SettingResource;
 use App\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;

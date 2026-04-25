@@ -2,15 +2,16 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\SimBrief as SimbriefResource;
+use App\Http\Resources\SimBriefResource as SimbriefResource;
+use App\Models\Flight;
 use Illuminate\Http\Request;
 use PhpUnitsOfMeasure\Exception\NonNumericValue;
 use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 
 /**
- * @mixin \App\Models\Flight
+ * @mixin Flight
  */
-class BidFlight extends Flight
+class BidFlightResource extends FlightResource
 {
     /**
      * @param  Request $request
@@ -28,7 +29,7 @@ class BidFlight extends Flight
             $res['simbrief'] = new SimbriefResource($this->simbrief);
         } else {
             unset($res['simbrief']);
-            $res['subfleets'] = Subfleet::collection($this->whenLoaded('subfleets'));
+            $res['subfleets'] = SubfleetResource::collection($this->whenLoaded('subfleets'));
         }
 
         $res['fields'] = $this->setFields();

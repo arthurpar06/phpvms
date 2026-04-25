@@ -3,16 +3,17 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
-use App\Http\Resources\SimBrief as SimbriefResource;
+use App\Http\Resources\SimBriefResource as SimbriefResource;
 use App\Models\Enums\PirepStatus;
+use App\Models\Pirep;
 use App\Support\Units\Distance;
 use App\Support\Units\Fuel;
 use Illuminate\Http\Request;
 
 /**
- * @mixin \App\Models\Pirep
+ * @mixin Pirep
  */
-class Pirep extends Resource
+class PirepResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -68,19 +69,19 @@ class Pirep extends Resource
             $res['block_off_time'] = $this->block_off_time->toIso8601ZuluString();
         }
 
-        $res['aircraft'] = new Aircraft($this->aircraft);
-        $res['airline'] = new Airline($this->airline);
-        $res['dpt_airport'] = new Airport($this->dpt_airport);
-        $res['arr_airport'] = new Airport($this->arr_airport);
+        $res['aircraft'] = new AircraftResource($this->aircraft);
+        $res['airline'] = new AirlineResource($this->airline);
+        $res['dpt_airport'] = new AirportResource($this->dpt_airport);
+        $res['arr_airport'] = new AirportResource($this->arr_airport);
 
-        $res['position'] = Acars::make($this->whenLoaded('position'));
-        $res['comments'] = PirepComment::collection($this->whenLoaded('comments'));
-        $res['user'] = User::make($this->whenLoaded('user'));
+        $res['position'] = AcarsResource::make($this->whenLoaded('position'));
+        $res['comments'] = PirepCommentResource::collection($this->whenLoaded('comments'));
+        $res['user'] = UserResource::make($this->whenLoaded('user'));
 
-        $res['flight'] = Flight::make($this->whenLoaded('flight'));
+        $res['flight'] = FlightResource::make($this->whenLoaded('flight'));
 
         // format to kvp
-        $res['fields'] = new PirepFieldCollection($this->fields);
+        $res['fields'] = new PirepFieldCollectionResource($this->fields);
 
         // Simbrief info
         $res['simbrief'] = new SimbriefResource($this->whenLoaded('simbrief'));

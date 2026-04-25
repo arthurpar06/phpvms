@@ -2,13 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Aircraft;
+use App\Models\Fare;
+use App\Models\Subfleet;
+
 /**
- * @mixin \App\Models\Subfleet
+ * @mixin Subfleet
  *
- * @property \App\Models\Aircraft $aircraft
- * @property \App\Models\Fare[]   $fares
+ * @property Aircraft $aircraft
+ * @property Fare[]   $fares
  */
-class BidSubfleet extends Subfleet
+class BidSubfleetResource extends SubfleetResource
 {
     public function toArray($request)
     {
@@ -25,9 +29,9 @@ class BidSubfleet extends Subfleet
             'cargo_capacity'             => $this->cargo_capacity,
             'fuel_capacity'              => $this->fuel_capacity,
             'gross_weight'               => $this->gross_weight,
-            'fares'                      => Fare::collection($this->fares),
+            'fares'                      => FareResource::collection($this->fares),
             // There should only be one aircraft tied to a bid subfleet, wrap in a collection
-            'aircraft' => Aircraft::collection([$this->aircraft]),
+            'aircraft' => AircraftResource::collection([$this->aircraft]),
         ];
     }
 }

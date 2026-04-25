@@ -8,4 +8,4 @@ use App\Contracts\Resource;
  * ACARS table but only include the fields for the routes
  * Class AcarsRoute
  */
-class AcarsRoute extends Resource {}
+class AcarsRouteResource extends Resource {}

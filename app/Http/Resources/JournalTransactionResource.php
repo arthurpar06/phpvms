@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Contracts\Resource;
 
-class JournalTransaction extends Resource
+class JournalTransactionResource extends Resource
 {
     public function toArray($request)
     {

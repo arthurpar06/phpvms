@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PirepFieldCollection extends ResourceCollection
+class PirepFieldCollectionResource extends ResourceCollection
 {
     public function toArray($request)
     {

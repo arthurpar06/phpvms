@@ -3,14 +3,15 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Acars;
 use App\Support\Units\Distance;
 use App\Support\Units\Fuel;
 use Illuminate\Http\Request;
 
 /**
- * @mixin \App\Models\Acars
+ * @mixin Acars
  */
-class Acars extends Resource
+class AcarsResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -31,7 +32,7 @@ class Acars extends Resource
         $fuel = Fuel::make($fuel, config('phpvms.internal_units.fuel'));
         $res['fuel'] = $fuel->getResponseUnits();
 
-        $res['pirep'] = Pirep::make($this->whenLoaded('pirep'));
+        $res['pirep'] = PirepResource::make($this->whenLoaded('pirep'));
 
         return $res;
     }

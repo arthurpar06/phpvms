@@ -3,13 +3,14 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Fare;
 
 /**
- * @mixin \App\Models\Fare
+ * @mixin Fare
  *
  * @property int|null $count
  */
-class Fare extends Resource
+class FareResource extends Resource
 {
     public function toArray($request)
     {

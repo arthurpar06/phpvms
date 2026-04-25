@@ -3,11 +3,12 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Airline;
 
 /**
- * @mixin \App\Models\Airline
+ * @mixin Airline
  */
-class Airline extends Resource
+class AirlineResource extends Resource
 {
     public function toArray($request)
     {

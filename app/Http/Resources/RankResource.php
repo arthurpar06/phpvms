@@ -3,12 +3,13 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Rank;
 use Illuminate\Http\Request;
 
 /**
- * @mixin \App\Models\Rank
+ * @mixin Rank
  */
-class Rank extends Resource
+class RankResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +21,7 @@ class Rank extends Resource
     {
         return [
             'name'      => $this->name,
-            'subfleets' => Subfleet::collection($this->whenLoaded('subfleets')),
+            'subfleets' => SubfleetResource::collection($this->whenLoaded('subfleets')),
         ];
     }
 }

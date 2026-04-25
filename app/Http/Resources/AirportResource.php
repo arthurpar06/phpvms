@@ -3,16 +3,20 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Airport;
 
 /**
- * @mixin \App\Models\Bid
+ * @mixin Airport
  */
-class Bid extends Resource
+class AirportResource extends Resource
 {
     public function toArray($request)
     {
         $res = parent::toArray($request);
-        $res['flight'] = new BidFlight($this->flight);
+
+        if (!empty($this->description)) {
+            $res['description'] = $this->description;
+        }
 
         return $res;
     }

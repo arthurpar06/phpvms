@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Contracts\Resource;
 use App\Models\Enums\NavaidType;
 
-class Navdata extends Resource
+class NavdataResource extends Resource
 {
     public function toArray($request)
     {

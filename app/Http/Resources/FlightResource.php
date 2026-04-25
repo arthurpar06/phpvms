@@ -3,7 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
-use App\Http\Resources\SimBrief as SimbriefResource;
+use App\Http\Resources\SimBriefResource as SimbriefResource;
+use App\Models\Flight;
 use App\Support\Units\Distance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -12,9 +13,9 @@ use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 use stdClass;
 
 /**
- * @mixin \App\Models\Flight
+ * @mixin Flight
  */
-class Flight extends Resource
+class FlightResource extends Resource
 {
     /**
      * Set the fields on the flight object
@@ -65,8 +66,8 @@ class Flight extends Resource
         $distance = Distance::make($res['distance'], config('phpvms.internal_units.distance'));
         $res['distance'] = $distance->getResponseUnits();
 
-        $res['airline'] = new Airline($this->airline);
-        $res['subfleets'] = Subfleet::collection($this->whenLoaded('subfleets'));
+        $res['airline'] = new AirlineResource($this->airline);
+        $res['subfleets'] = SubfleetResource::collection($this->whenLoaded('subfleets'));
         $res['fields'] = $this->setFields();
 
         // Simbrief info

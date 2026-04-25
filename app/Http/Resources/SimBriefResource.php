@@ -4,13 +4,14 @@ namespace App\Http\Resources;
 
 use App\Contracts\Resource;
 use App\Models\Fare;
+use App\Models\SimBrief;
 use Exception;
 use Illuminate\Http\Resources\MissingValue;
 
 /**
- * @mixin \App\Models\SimBrief
+ * @mixin SimBrief
  */
-class SimBrief extends Resource
+class SimBriefResource extends Resource
 {
     public function toArray($request)
     {
@@ -40,7 +41,7 @@ class SimBrief extends Resource
             $resource = (object) $this->aircraft->subfleet;
             $resource->aircraft = $this->aircraft->withoutRelations();
             $resource->fares = $fares;
-            $data['subfleet'] = new BidSubfleet($resource);
+            $data['subfleet'] = new BidSubfleetResource($resource);
         }
 
         return $data;
