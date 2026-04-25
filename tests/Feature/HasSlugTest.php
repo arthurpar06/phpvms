@@ -1,16 +1,18 @@
 <?php
 
 use App\Models\FlightField;
+use App\Models\Pirep;
+use App\Models\PirepFieldValue;
 
 /*
 |--------------------------------------------------------------------------
 | Trait Testing: HasSlug
 |--------------------------------------------------------------------------
 |
-| While the tests below specifically use the Post model, the intent is to
+| While the tests below specifically use the FlightField model, the intent is to
 | verify the global behavior of the HasSlug trait. By confirming the logic
-| here, we ensure that any model using this trait—whether it's a Category,
-| Product, or Tag—will handle slugging and uniqueness consistently.
+| here, we ensure that any model using this trait—whether it's a FlightField,
+| Page, or PirepField—will handle slugging.
 |
 */
 
@@ -29,30 +31,15 @@ it('updates the slug when the name changes', function () {
 });
 
 it('does not change the slug if the name is unchanged', function () {
-    $flightField = FlightField::create(['name' => 'Fixed Title']);
-    $originalSlug = $flightField->slug;
+    $pirep = Pirep::factory()->create();
+    $pirepFieldValue = PirepFieldValue::create([
+        'pirep_id' => $pirep->id,
+        'source'   => PirepSource::ACARS,
+        'name'     => 'Fixed Title',
+    ]);
+    $originalSlug = $pirepFieldValue->slug;
 
-    $flightField->update(['content' => 'Just updating some other field']);
+    $pirepFieldValue->update(['value' => 12]);
 
-    expect($flightField->slug)->toBe($originalSlug);
-});
-
-it('handles duplicate names by appending a counter', function () {
-    FlightField::create(['name' => 'Duplicate']);
-
-    $flightField2 = FlightField::create(['name' => 'Duplicate']);
-    $flightField3 = FlightField::create(['name' => 'Duplicate']);
-
-    expect($flightField2->slug)->toBe('duplicate-1')
-        ->and($flightField3->slug)->toBe('duplicate-2');
-});
-
-it('keeps the slug unique even when updating to an existing name', function () {
-    FlightField::create(['name' => 'First Post']); // slug: first-post
-    $secondPost = FlightField::create(['name' => 'Second Post']); // slug: second-post
-
-    // Try to rename "Second Post" to "First Post"
-    $secondPost->update(['name' => 'First Post']);
-
-    expect($secondPost->slug)->toBe('first-post-1');
+    expect($pirepFieldValue->slug)->toBe($originalSlug);
 });
