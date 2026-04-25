@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Users\RelationManagers;
 
 use App\Filament\Resources\Typeratings\Tables\TyperatingsTable;
-use App\Repositories\TypeRatingRepository;
+use App\Models\Typerating;
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -16,14 +16,12 @@ class TypeRatingsRelationManager extends RelationManager
 
     public function form(Schema $schema): Schema
     {
-        $typeRatingRepo = app(TypeRatingRepository::class);
-
         return $schema
             ->components([
                 Select::make('typerating_id')
                     ->label(__('common.typerating'))
                     ->searchable()
-                    ->options($typeRatingRepo->all()->pluck('name', 'id')->toArray()),
+                    ->options(Typerating::pluck('name', 'id')->toArray()),
             ]);
     }
 
