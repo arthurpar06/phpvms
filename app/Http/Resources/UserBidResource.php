@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use App\Contracts\Resource;
+use App\Models\Bid;
 
 /**
- * @mixin BidResource
+ * @mixin Bid
  */
 class UserBidResource extends Resource
 {
