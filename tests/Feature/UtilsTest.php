@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\KvpRepository;
+use App\Services\KvpService;
 use App\Support\ICAO;
 use App\Support\Units\Distance;
 use App\Support\Units\Time;
@@ -52,8 +52,8 @@ test('unit rounding', function () {
 });
 
 test('kvp', function () {
-    /** @var KvpRepository $kvpRepo */
-    $kvpRepo = app(KvpRepository::class);
+    /** @var KvpService $kvpRepo */
+    $kvpRepo = app(KvpService::class);
     $kvpRepo->save('testkey', 'some value');
     expect($kvpRepo->get('testkey'))->toEqual('some value')
         ->and($kvpRepo->get('unknownkey', 'default value'))->toEqual('default value');

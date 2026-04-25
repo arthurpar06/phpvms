@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\KvpRepository;
+use App\Services\KvpService;
 use App\Services\VersionService;
 
 test('greater than version strings', function () {
@@ -32,7 +32,7 @@ test('get latest version', function () {
     $str = $versionSvc->getLatestVersion();
 
     expect($str)->toEqual('7.0.0-alpha2')
-        ->and(app(KvpRepository::class)->get('latest_version_tag'))->toEqual('7.0.0-alpha2');
+        ->and(app(KvpService::class)->get('latest_version_tag'))->toEqual('7.0.0-alpha2');
 });
 
 test('get latest prerelease version', function () {
@@ -44,7 +44,7 @@ test('get latest prerelease version', function () {
     $str = $versionSvc->getLatestVersion();
 
     expect($str)->toEqual('7.0.0-beta')
-        ->and(app(KvpRepository::class)->get('latest_version_tag'))->toEqual('7.0.0-beta');
+        ->and(app(KvpService::class)->get('latest_version_tag'))->toEqual('7.0.0-beta');
 });
 
 test('new version not available', function () {

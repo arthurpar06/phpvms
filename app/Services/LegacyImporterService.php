@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Contracts\Service;
-use App\Repositories\KvpRepository;
 use App\Services\LegacyImporter\AircraftImporter;
 use App\Services\LegacyImporter\AirlineImporter;
 use App\Services\LegacyImporter\AirportImporter;
@@ -27,7 +26,7 @@ class LegacyImporterService extends Service
     private string $CREDENTIALS_KEY = 'legacy.importer.db';
 
     /**
-     * @var KvpRepository
+     * @var KvpService
      */
     private mixed $kvpRepo;
 
@@ -52,7 +51,7 @@ class LegacyImporterService extends Service
 
     public function __construct()
     {
-        $this->kvpRepo = app(KvpRepository::class);
+        $this->kvpRepo = app(KvpService::class);
     }
 
     /**

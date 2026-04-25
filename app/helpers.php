@@ -1,8 +1,8 @@
 <?php
 
 use App\Exceptions\SettingNotFound;
-use App\Repositories\KvpRepository;
 use App\Repositories\SettingRepository;
+use App\Services\KvpService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
@@ -208,8 +208,8 @@ if (!function_exists('kvp')) {
      */
     function kvp(string $key, $default = null)
     {
-        /** @var KvpRepository $kvpRepo */
-        $kvpRepo = app(KvpRepository::class);
+        /** @var KvpService $kvpRepo */
+        $kvpRepo = app(KvpService::class);
 
         try {
             $value = $kvpRepo->get($key, $default);
@@ -233,8 +233,8 @@ if (!function_exists('kvp_save')) {
      */
     function kvp_save(string $key, string $value)
     {
-        /** @var KvpRepository $kvpRepo */
-        $kvpRepo = app(KvpRepository::class);
+        /** @var KvpService $kvpRepo */
+        $kvpRepo = app(KvpService::class);
         $kvpRepo->save($key, $value);
     }
 }

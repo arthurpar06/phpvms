@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Contracts\Service;
-use App\Repositories\KvpRepository;
 use App\Support\HttpClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +13,7 @@ class VersionService extends Service
 {
     public function __construct(
         private readonly HttpClient $httpClient,
-        private readonly KvpRepository $kvpRepo
+        private readonly KvpService $kvpRepo
     ) {}
 
     /**
