@@ -50,11 +50,6 @@ class News extends Model
         'body',
     ];
 
-    public static array $rules = [
-        'subject' => 'required',
-        'body'    => 'required',
-    ];
-
     public $sortable = [
         'id',
         'subject',

@@ -3,7 +3,7 @@
 namespace App\Http\Composers;
 
 use App\Contracts\Composer;
-use App\Repositories\PageRepository;
+use App\Models\Page;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -11,13 +11,6 @@ use Illuminate\View\View;
 class PageLinksComposer extends Composer
 {
     public static array $fields = ['id', 'name', 'slug', 'icon', 'type', 'link', 'new_window'];
-
-    /**
-     * PageLinksComposer constructor.
-     */
-    public function __construct(
-        private readonly PageRepository $pageRepo
-    ) {}
 
     public function compose(View $view)
     {
@@ -31,7 +24,7 @@ class PageLinksComposer extends Composer
                 $w['public'] = true;
             }
 
-            $pages = $this->pageRepo->findWhere($w, static::$fields);
+            $pages = Page::where($w)->get(static::$fields);
         } catch (Exception $e) {
             $pages = [];
         }

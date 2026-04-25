@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services;
 
 use Spatie\Valuestore\Valuestore;
 
-class KvpRepository
+class KvpService
 {
     private $valueStore;
 

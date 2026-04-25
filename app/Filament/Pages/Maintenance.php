@@ -3,10 +3,10 @@
 namespace App\Filament\Pages;
 
 use App\Models\Enums\NavigationGroup;
-use App\Repositories\KvpRepository;
 use App\Services\CronService;
 use App\Services\Installer\InstallerService;
 use App\Services\Installer\SeederService;
+use App\Services\KvpService;
 use App\Services\VersionService;
 use App\Support\Utils;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
@@ -104,7 +104,7 @@ class Maintenance extends Page
             ->action(function () {
                 app(VersionService::class)->isNewVersionAvailable();
 
-                $kvpRepo = app(KvpRepository::class);
+                $kvpRepo = app(KvpService::class);
 
                 $new_version_avail = $kvpRepo->get('new_version_available', false);
                 $new_version_tag = $kvpRepo->get('latest_version_tag');

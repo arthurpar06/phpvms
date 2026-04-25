@@ -3,7 +3,7 @@
 namespace App\Widgets;
 
 use App\Contracts\Widget;
-use App\Repositories\NewsRepository;
+use App\Models\News;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -21,11 +21,9 @@ class LatestNews extends Widget
      */
     public function run()
     {
-        $newsRepo = app(NewsRepository::class);
-
         return view('widgets.latest_news', [
             'config' => $this->config,
-            'news'   => $newsRepo->with('user')->recent($this->config['count']),
+            'news'   => News::with('user')->latest()->paginate($this->config['count']),
         ]);
     }
 }

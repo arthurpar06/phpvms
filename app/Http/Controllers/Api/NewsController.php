@@ -4,29 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Controller;
 use App\Http\Resources\News as NewsResource;
-use App\Repositories\NewsRepository;
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class NewsController extends Controller
 {
     /**
-     * AirlineController constructor.
+     * Return all the news items, paginated
      */
-    public function __construct(
-        private readonly NewsRepository $newsRepo
-    ) {}
-
-    /**
-     * Return all the airlines, paginated
-     *
-     *
-     * @return mixed
-     */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $news = $this->newsRepo
-            ->with('user')
-            ->orderBy('created_at', 'desc')
+        $news = News::with('user')
+            ->latest()
             ->paginate();
 
         return NewsResource::collection($news);

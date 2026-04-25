@@ -1,8 +1,8 @@
 <?php
 
 use App\Exceptions\SettingNotFound;
-use App\Repositories\KvpRepository;
 use App\Repositories\SettingRepository;
+use App\Services\KvpService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
@@ -201,18 +201,18 @@ if (!function_exists('setting_save')) {
  */
 if (!function_exists('kvp')) {
     /**
-     * Read a setting from the KVP repository
+     * Read a value from the KVP service
      *
      * @param  string|null $default
      * @return mixed|null
      */
     function kvp(string $key, $default = null)
     {
-        /** @var KvpRepository $kvpRepo */
-        $kvpRepo = app(KvpRepository::class);
+        /** @var KvpService $kvpService */
+        $kvpService = app(KvpService::class);
 
         try {
-            $value = $kvpRepo->get($key, $default);
+            $value = $kvpService->get($key, $default);
         } catch (Exception $e) {
             return $default;
         }
@@ -222,20 +222,17 @@ if (!function_exists('kvp')) {
 }
 
 /*
- * Shortcut for retrieving a KVP
+ * Shortcut for persisting a KVP
  */
 if (!function_exists('kvp_save')) {
     /**
-     * Read a setting from the KVP repository
-     *
-     *
-     * @return mixed|null
+     * Persist a value to the KVP service
      */
-    function kvp_save(string $key, string $value)
+    function kvp_save(string $key, string $value): void
     {
-        /** @var KvpRepository $kvpRepo */
-        $kvpRepo = app(KvpRepository::class);
-        $kvpRepo->save($key, $value);
+        /** @var KvpService $kvpService */
+        $kvpService = app(KvpService::class);
+        $kvpService->save($key, $value);
     }
 }
 
