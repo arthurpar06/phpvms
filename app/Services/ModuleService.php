@@ -6,19 +6,15 @@ namespace App\Services;
 
 use App\Contracts\Service;
 use App\Exceptions\ModuleExistsException;
-use App\Exceptions\ModuleInstallationError;
-use App\Exceptions\ModuleInvalidFileType;
-use Exception;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Laracasts\Flash\FlashNotifier;
 // use Madnest\Madzipper\Madzipper;
+use Illuminate\Support\Str;
 use Nwidart\Modules\Facades\Module;
-use Nwidart\Modules\Json;
-use PharData;
+use ZipArchive;
 
 class ModuleService extends Service
 {
@@ -100,98 +96,78 @@ class ModuleService extends Service
     }
 
     /**
-     * User's uploaded file is passed into this method
-     * to install module in the Storage.
-     *
-     * Will be re added in the future (new zip library + marketplace implementation)
+     * @throws ConnectionException
      */
-    /*public function installModule(UploadedFile $file): FlashNotifier
+    public function installFromRegistry(string $registryName, bool $update = false): void
     {
-        $file_ext = strtolower($file->getClientOriginalExtension());
-        $allowed_extensions = ['zip', 'tar', 'gz'];
+        $packageDetails = app(AddonRegistryService::class)->getPackageDetails($registryName);
 
-        if (!in_array($file_ext, $allowed_extensions, true)) {
-            throw new ModuleInvalidFileType();
+        if (!$packageDetails) {
+            throw new \RuntimeException('Package not found in registry.');
         }
 
-        $new_dir = random_int(PHP_INT_MIN, PHP_INT_MAX);
-        File::makeDirectory(
-            storage_path('app/tmp/modules/'.$new_dir),
-            0777,
-            true
-        );
+        $zipUrl = $packageDetails->zip_url;
 
-        $temp_ext_folder = storage_path('app/tmp/modules/'.$new_dir);
-        $temp = storage_path('app/tmp/modules/'.$new_dir);
+        $tempPath = storage_path('app/tmp/modules/'.Str::uuid().'.zip');
+        File::ensureDirectoryExists(dirname($tempPath));
 
-        $zipper = null;
+        Http::sink($tempPath)->get($zipUrl);
 
-        if ($file_ext === 'tar' || $file_ext === 'gz') {
-            $zipper = new PharData($file->getRealPath());
-            $zipper->decompress();
+        if (hash_file('sha256', $tempPath) !== $packageDetails->sha256) {
+            unlink($tempPath);
+            throw new \RuntimeException('Downloaded module failed integrity check.');
         }
 
-        /*if ($file_ext === 'zip') {
-            $madZipper = new Madzipper();
+        $zip = new ZipArchive();
+        if ($zip->open($tempPath) === true) {
+            $extractPath = storage_path('app/tmp/modules/extract_'.Str::uuid());
+            $zip->extractTo($extractPath);
+            $zip->close();
 
-            try {
-                $zipper = $madZipper->make($file->getRealPath());
-            } catch (Exception $e) {
-                throw new ModuleInstallationError();
+            $directories = File::directories($extractPath);
+            $sourceDir = count($directories) === 1 ? $directories[0] : $extractPath;
+
+            $jsonFile = $sourceDir.'/module.json';
+            if (!File::exists($jsonFile)) {
+                File::deleteDirectory($extractPath);
+                unlink($tempPath);
+                throw new \RuntimeException('Invalid module format. No module.json found.');
             }
-        }
 
-        try {
-            $zipper->extractTo($temp);
-        } catch (Exception $e) {
-            throw new ModuleInstallationError();
-        }
+            $json = json_decode(file_get_contents($jsonFile), true);
+            $moduleName = $json['name'];
 
-        if (!File::exists($temp.'/module.json')) {
-            $directories = Storage::directories('tmp/modules/'.$new_dir);
-            $temp = storage_path('app/'.$directories[0]);
-        }
+            $destDir = base_path('modules/'.$moduleName);
+            if (File::exists($destDir)) {
+                if ($update) {
+                    File::deleteDirectory($destDir);
+                } else {
+                    File::deleteDirectory($extractPath);
+                    unlink($tempPath);
+                    throw new ModuleExistsException($moduleName);
+                }
+            }
 
-        $json_file = $temp.'/module.json';
+            File::moveDirectory($sourceDir, $destDir);
 
-        if (File::exists($json_file)) {
-            $json = json_decode(file_get_contents($json_file), true);
-            $name = $json['name'];
+            File::deleteDirectory($extractPath);
+            unlink($tempPath);
+
+            /** @var ?\Nwidart\Modules\Module $module */
+            $module = Module::find($moduleName);
+            $module?->enable();
+
+            if (file_exists(base_path('bootstrap/cache/modules.php'))) {
+                unlink(base_path('bootstrap/cache/modules.php'));
+            }
+
+            Artisan::call('module:migrate', ['module' => $moduleName, '--force' => true]);
+
         } else {
-            File::deleteDirectory($temp_ext_folder);
-
-            return flash()->error('Module Structure Not Correct!');
+            unlink($tempPath);
+            throw new \RuntimeException('Failed to extract zip file.');
         }
-
-        if (!$name) {
-            File::deleteDirectory($temp_ext_folder);
-
-            return flash()->error('Not a Valid Module File.');
-        }
-
-        $toCopy = base_path().'/modules/'.$name;
-
-        if (File::exists($toCopy)) {
-            File::deleteDirectory($temp_ext_folder);
-
-            throw new ModuleExistsException($name);
-        }
-
-        File::moveDirectory($temp, $toCopy);
-        File::deleteDirectory($temp_ext_folder);
-
-        try {
-            $module = Module::find($name);
-            $module->enable();
-        } catch (Exception $e) {
-            throw new ModuleExistsException($name);
-        }
-
-        Artisan::call('config:cache');
-        Artisan::call('module:migrate', ['module' => $name, '--force' => true]);
-
-        return flash()->success('Module Installed');
-    }*/
+    }
 
     /**
      * Update module with the status passed by user.

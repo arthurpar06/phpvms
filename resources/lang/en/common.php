@@ -112,6 +112,7 @@ return [
     'disabled'              => 'Disabled',
     'enabled'               => 'Enabled',
     'enable'                => 'Enable',
+    'version'               => 'Version',
     'module'                => 'Module',
     'page'                  => 'Page',
     'icon'                  => 'Icon',
